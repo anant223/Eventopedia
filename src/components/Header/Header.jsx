@@ -1,5 +1,5 @@
 import React from 'react'
-import {Container, Logo} from "../index"
+import {Container, Logo} from "../index.js"
 
 const Header = () => {
   return (
