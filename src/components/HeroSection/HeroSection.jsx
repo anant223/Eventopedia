@@ -5,7 +5,7 @@ const HeroSection = () => {
   return (
     <section className=" min-h-[85vh] py-12 bg-gradient-to-br bg-gray-950 text-white">
       <Container>
-        <div className="text-center mb-8 bg-blend-saturation backdrop:blur-md">
+        <div className="text-center mb-8 `bg-blend-saturation backdrop:blur-md">
           <h2 className="text-6xl font-bold mb-6 leading-tight">
             {" "}
             Connect, Collaborate, and Learn
