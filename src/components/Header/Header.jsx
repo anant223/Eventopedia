@@ -1,5 +1,6 @@
 import React from 'react'
 import {Container, Logo} from "../index.js"
+import {ArrowRight} from "lucide-react"
 
 const Header = () => {
   return (
