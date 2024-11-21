@@ -4,7 +4,6 @@ import {Container, Logo} from "../index.js"
 const Header = () => {
   return (
     <header className=" bg-yellow-950 py-4">
-      <Container>
         <nav className="flex justify-between w-full items-center">
           <div>
             <Logo />
@@ -26,7 +25,6 @@ const Header = () => {
             </ul>
           </div>
         </nav>
-      </Container>
     </header>
   );
 }
