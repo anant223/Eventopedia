@@ -3,7 +3,6 @@ import {
   MessageCircle,
   Users,
   Video,
-  ArrowRight,
 } from "lucide-react";
 
 const features = [

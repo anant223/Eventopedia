@@ -1,10 +1,9 @@
 import React from 'react'
 import {Container, Logo} from "../index.js"
-import {ArrowRight} from "lucide-react"
 
 const Header = () => {
   return (
-    <header className=" bg-yellow-950 py-4">
+    <header className=" bg-yellow-950 py-4 sticky top-0">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 ">
         <nav className="flex justify-between w-full items-center">
           <div>
