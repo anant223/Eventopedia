@@ -1,11 +1,13 @@
 import React from 'react'
-import { Features, HeroSection } from '../components/index.js'
+import { Features, Footer, HeroSection, HowItWork } from '../components/index.js'
 
 const Home = () => {
   return (
-    <div>
+    <div className='bg-gray-950'>
         <HeroSection/>
         <Features/>
+        <HowItWork/>
+        <Footer/>
     </div>
   )
 }
