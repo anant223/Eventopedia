@@ -6,7 +6,7 @@ import Button from '../Button/Button.jsx';
 
 const HeroSection = () => {
   return (
-    <section className=" sm:min-h-[85vh]  flex justify-center items-center bg-gradient-to-br bg-gray-950 text-white py-12">
+    <section className="min-h-[85vh]  flex justify-center items-center bg-gradient-to-br bg-gray-950 text-white">
       <Container>
         <div className="text-center mb-8 bg-blend-saturation backdrop:blur-md">
           <h2 className="sm:text-6xl font-bold mb-6 leading-tight text-[42px]">
