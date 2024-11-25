@@ -5,7 +5,6 @@ import {Container, Logo, BurgerMenu, Button} from "../index.js"
 const Header = () => {
   return (
     <header className="w-full sticky top-0 ">
-      <div className="mx-auto max-w-7xl">
         <nav className="flex justify-between items-center bg-indigo-800 py-4 sm:px-8 px-2 shadow-2xl  rounded-b-[5px] text-[#FFFFFF]">
           <div className="relative sm:hidden">
             <BurgerMenu />
@@ -40,7 +39,6 @@ const Header = () => {
             Join
           </button>
         </nav>
-      </div>
     </header>
   );
 };
