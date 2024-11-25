@@ -13,7 +13,7 @@ const Header = () => {
           <div className="text-2xl font-bold text-yellow-500 w-full sm:w-auto">
             <Logo />
           </div>
-          <ul className="hidden md:flex space-x-6 relative text-base right-16">
+          <ul className="hidden md:flex space-x-6 relative text-base mx-auto font-bold">
             <li>
               <a href="#how-it-works" className="hover:text-yellow-500">
                 Features
