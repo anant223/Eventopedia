@@ -4,16 +4,16 @@ import {Container, Logo, BurgerMenu, Button} from "../index.js"
 
 const Header = () => {
   return (
-    <header className="w-full sticky sm:px-8 top-0">
-      <div className= "container mx-auto">
-        <nav className="flex justify-between items-center bg-[#1A237E] py-4 sm:px-8 px-2 shadow-2xl  rounded-b-[5px] text-[#FFFFFF]">
+    <header className="w-full sticky top-0 ">
+      <Container>
+        <nav className="flex justify-between items-center bg-indigo-800 py-4 sm:px-8 px-2 shadow-2xl  rounded-b-[5px] text-[#FFFFFF]">
           <div className="relative sm:hidden">
             <BurgerMenu />
           </div>
           <div className="text-2xl font-bold text-yellow-500 w-full sm:w-auto">
             <Logo />
           </div>
-          <ul className="hidden md:flex space-x-6 relative text-[16px] right-12 font-bold ">
+          <ul className="hidden md:flex space-x-6 text-[16px] font-bold justify-center relative right-24">
             <li>
               <a href="#how-it-works" className="hover:text-yellow-500">
                 Features
@@ -40,11 +40,10 @@ const Header = () => {
             Join
           </button>
         </nav>
-      </div>
+      </Container>
     </header>
   );
 };
 
 export default Header;
-
 

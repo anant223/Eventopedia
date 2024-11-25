@@ -3,12 +3,11 @@ import {Container} from "../index.js"
 import { ArrowRight } from "lucide-react";
 import Button from '../Button/Button.jsx';
 
-
 const HeroSection = () => {
   return (
     <section className="min-h-[85vh]  flex justify-center items-center bg-gradient-to-br bg-gray-950 text-white">
       <Container>
-        <div className="text-center mb-8 bg-blend-saturation backdrop:blur-md">
+        <div className=" py-12 text-center mb-8 bg-blend-saturation backdrop:blur-md px-[134px]">
           <h2 className="sm:text-6xl font-bold mb-6 leading-tight text-[42px]">
             {" "}
             Connect, Collaborate, and Learn
