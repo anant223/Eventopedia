@@ -5,7 +5,7 @@ const BurgerMenu = () => {
   return (
     <div>
       <div
-        className={`w-16 h-8 cursor-pointer flex flex-col justify-between items-center relative z-10`}
+        className={`w-[38px] h-8 cursor-pointer flex flex-col justify-between items-center relative z-10`}
         onClick={() => setIsClick(!isClick)}
       >
         <div
@@ -25,7 +25,7 @@ const BurgerMenu = () => {
         ></div>
       </div>
 
-    {isClick? <div className="absolute"> <nav className=" bg-black fixed text-white text-justify h-full top-0 right-0 overflow-hidden transition-[0.5] py-12 font-bold text-2xl px-14 flex flex-col justify-center w-[450px]">
+    <div className={`absolute`}> <nav className=" bg-black fixed text-white text-justify h-full top-0 right-0 overflow-hidden transition-[0.5] py-12 font-bold text-2xl px-14 flex flex-col justify-center w-[450px]" style={isClick? {right:0}: { right: "-490px"}}>
         <ul className=" space-y-8">
           <li>
             <a>Features</a>
@@ -41,11 +41,7 @@ const BurgerMenu = () => {
           </li>
         </ul>
       </nav>
-       <div>
-        <button className="w-full flex items-center justify-center">
-          Join
-        </button>
-      </div> </div> : ""} 
+      </div> 
     </div>
   );
 }

@@ -1,34 +1,40 @@
 import React, { useEffect, useRef, useState } from 'react'
 import {Container, Logo, BurgerMenu, Button} from "../index.js"
+import { CloudSnow } from 'lucide-react';
 
 
 const Header = () => {
   const [scrollDirPos, setScrollDirPos] = useState("0");
+  const [countScroll, setCountScroll] = useState(0)
   const lastScroll = useRef()
-  // useEffect((()=>{
+  useEffect((()=>{
   
-  //  const handleScroll = ()=>{
-  //   const currentScroll = window.pageXOffset;
-  //   if (currentScroll > lastScroll.current.style.top) {
-  //     lastScroll.current.style.top = "-50px"
-      
-  //   } else {
-  //     lastScroll.current.style.top = "0";
+   const handleScroll = ()=>{
+    console.log( window);
+    const currentScroll = window.scrollY;
+    setCountScroll(currentScroll)
+    console.log(countScroll);
+    if (currentScroll > lastScroll.current) {
+      setScrollDirPos("-160px");
+    } else if (currentScroll < lastScroll.current) {
+      setScrollDirPos("0");
+    }
+     lastScroll.current = currentScroll;
+   }
 
-  //   }
-  //    lastScroll.current = currentScroll;
-  //  }
+   window.addEventListener("scroll", handleScroll)
 
-  //  window.addEventListener("scroll", handleScroll)
+   return () =>{
+    window.removeEventListener("scroll", handleScroll)
+   }
 
-  //  return () =>{
-  //   window.removeEventListener("scroll", handleScroll)
-  //  }
-
-  // }),[])
+  }),[])
   return (
     <header
-      className={`w-full font-roboto text-[#FFFFFF] fixed z-20 transition-all duration-300`}
+      style={{ top: scrollDirPos }}
+      className={`w-full font-roboto text-[#FFFFFF] fixed z-20 transition-all duration-300 ease-in-out ${
+        countScroll >= 10 ? "bg-black" : " bg-transparent"
+      } `}
     >
       <div className="container mx-auto px-2 sm:px-4 md:px-6 lg:px-8">
         <div className="flex items-center justify-between  py-8">
@@ -67,39 +73,3 @@ const Header = () => {
 export default Header;
 
 
-{/* <header className="w-full sticky top-0 min-h-[50px] ">
-        <nav className="flex justify-between items-center bg-indigo-800 py-4 sm:px-8 px-2 shadow-2xl  rounded-b-[5px] text-[#FFFFFF]">
-          <div className="relative sm:hidden">
-            <BurgerMenu />
-          </div>
-          <div className="text-2xl font-bold text-yellow-500 w-full sm:w-auto">
-            <Logo />
-          </div>
-          <ul className="hidden md:flex space-x-6 text-[16px] font-bold justify-center relative pr-32">
-            <li>
-              <a href="#how-it-works" className="hover:text-yellow-500">
-                Features
-              </a>
-            </li>
-            <li>
-              <a href="#pricing" className="hover:text-yellow-500">
-                How it work
-              </a>
-            </li>
-            <li>
-              <a href="#projects" className="hover:text-yellow-500">
-                Pricing
-              </a>
-            </li>
-            <li>
-              <a href="#templates" className="hover:text-yellow-500">
-                Contact
-              </a>
-            </li>
-          </ul>
-
-          <button className="bg-[#FF5722] text-white py-2 px-4 rounded-lg hover:bg-red-400 shadow-sm">
-            Join
-          </button>
-        </nav>
-    </header> */}

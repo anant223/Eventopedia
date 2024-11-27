@@ -7,12 +7,10 @@ const Footer = () => {
   return (
     <footer className="bg-gray-900 text-white py-12 font-roboto">
       <Container>
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 px-6">
-          <div>
+        <div className="px-6 sm:flex sm:justify-between grid grid-cols-1">
+          <div >
             <Logo />
-            <p className="text-gray-400 text-base sm:text-justify text-center sm:ml-[8px]">
-              Connect From Anywhere
-            </p>
+            <p className="text-gray-400 text-base">Connect From Anywhere</p>
           </div>
 
           <div>
