@@ -6,7 +6,7 @@ import { ArrowRight } from 'lucide-react';
 
 const Features = () => {
   return (
-    <section className=" py-12 bg-black text-white ">
+    <section className=" py-12 bg-feature-bg text-white font-roboto ">
       <Container>
         <div className=" flex flex-col items-center w-full">
           <div className="">

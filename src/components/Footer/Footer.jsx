@@ -1,107 +1,93 @@
 import React from 'react'
-import {Container, Logo} from '../index.js'
-import { Instagram, TwitterIcon, X, XIcon, Youtube } from 'lucide-react';
+import {Container, Logo} from "../index.js"
+
+import { Facebook, Twitter, Instagram, Linkedin } from "lucide-react";
 
 const Footer = () => {
   return (
-    <footer className=" py-12 text-white bg-gray-950">
+    <footer className="bg-gray-900 text-white py-12 font-roboto">
       <Container>
-        <div className="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
-          {/* Brand Section */}
-          <div className="flex flex-col items-center md:items-start">
-            <Logo/>
-            <p className="text-gray-400 text-sm">
-              Empowering virtual events, anywhere, anytime.
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 px-6">
+          <div>
+            <Logo />
+            <p className="text-gray-400 text-base sm:text-justify text-center sm:ml-[8px]">
+              Connect From Anywhere
             </p>
           </div>
 
-          {/* Navigation Links */}
-          <div className="flex justify-center md:justify-start">
-            <ul className="space-y-2 text-center md:text-left">
+          <div>
+            <h4 className="text-xl font-bold mb-4">Quick Links</h4>
+            <ul className="space-y-2">
               <li>
-                <a
-                  href="/"
-                  className="text-gray-400 hover:text-white transition duration-300"
-                >
-                  Home
+                <a href="#" className="hover:text-blue-400 transition-colors">
+                  Collaboration
                 </a>
               </li>
               <li>
-                <a
-                  href="/about"
-                  className="text-gray-400 hover:text-white transition duration-300"
-                >
-                  About
+                <a href="#" className="hover:text-blue-400 transition-colors">
+                  FAQ
                 </a>
               </li>
               <li>
-                <a
-                  href="/events"
-                  className="text-gray-400 hover:text-white transition duration-300"
-                >
-                  Events
+                <a href="#" className="hover:text-blue-400 transition-colors">
+                  About Me
                 </a>
               </li>
               <li>
-                <a
-                  href="/contact"
-                  className="text-gray-400 hover:text-white transition duration-300"
-                >
+                <a href="#" className="hover:text-blue-400 transition-colors">
                   Contact
                 </a>
               </li>
             </ul>
           </div>
 
-          {/* Social Media Icons */}
-          <div className="flex flex-col items-center md:items-end">
-            <p className="text-gray-400 mb-4">Follow Us</p>
+          <div>
+            <h4 className="text-xl font-bold mb-4">Contact</h4>
+            <ul className="space-y-2">
+              <li>Virtual City, Stateless</li>
+              <li>Phone: (+91) 8810650327</li>
+              <li>Email: anantbiz55@gmail.com</li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 className="text-xl font-bold mb-4">Follow</h4>
             <div className="flex space-x-4">
               <a
-                href="https://facebook.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gray-400 hover:text-white transition duration-300"
+                href="#"
+                className="text-white hover:text-blue-500 transition-colors"
               >
-                <i className="fab fa-facebook-f"></i>
+                <Facebook size={24} />
               </a>
               <a
-                href="https://twitter.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gray-400 hover:text-white transition duration-300"
+                href="#"
+                className="text-white hover:text-blue-400 transition-colors"
               >
-                <i className="fab fa-twitter"></i>
+                <Twitter size={24} />
               </a>
               <a
-                href="https://instagram.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gray-400 hover:text-white transition duration-300"
+                href="#"
+                className="text-white hover:text-pink-500 transition-colors"
               >
-                <i className="fab fa-instagram"></i>
+                <Instagram size={24} />
               </a>
               <a
-                href="https://linkedin.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gray-400 hover:text-white transition duration-300"
+                href="#"
+                className="text-white hover:text-blue-600 transition-colors"
               >
-                <i className="fab fa-linkedin"></i>
+                <Linkedin size={24} />
               </a>
             </div>
           </div>
         </div>
-
-        {/* Copyright */}
-        <div className="text-center text-gray-500 text-sm mt-8">
-          © {new Date().getFullYear()} Eventopedia. All rights reserved.
-        </div>
       </Container>
+      <div className="border-t border-gray-700 mt-8 pt-6 text-center">
+        <p className="text-gray-400">
+          © {new Date().getFullYear()} Eventopedia. All Rights Reserved.
+        </p>
+      </div>
     </footer>
   );
-}
+};
 
-export default Footer
-
-
+export default Footer;

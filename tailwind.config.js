@@ -10,7 +10,16 @@ module.exports = {
       fontFamily: {
         roboto: ["Roboto", "sans-serif"], // Add the Google Font here
       },
+      backgroundImage: {
+        "radial-blue":
+          "radial-gradient(circle, rgb(57 74 143 / 85%) 30%, rgb(17 9 40 / 83%) 80%)",
+        "feature-bg":
+          "radial-gradient(circle, rgba(30,36,64,1) 40%, rgba(40,36,64,1) 80%)",
+        "howitWork-bg":
+          "radial-gradient(circle, rgba(30,36,64,1) 40%, rgba(40,36,64,1) 80%)",
+      },
     },
   },
+
   plugins: [],
 };

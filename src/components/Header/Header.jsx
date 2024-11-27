@@ -1,104 +1,71 @@
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import {Container, Logo, BurgerMenu, Button} from "../index.js"
 
 
 const Header = () => {
-  const [isOpen, setIsOpen] = useState()
-  return (
-    <header>
-      <nav className="bg-white shadow-md fixed w-full z-10 font-roboto">
-        <div className="container mx-auto px-4 flex justify-between items-center py-4">
-          <div className="text-xl font-bold">
-            <Logo/>
-          </div>
-          <div className="hidden md:flex space-x-8 items-center">
-            <a href="#features" className="text-gray-600 hover:text-blue-500">
-              Features
-            </a>
-            <a
-              href="#how-it-works"
-              className="text-gray-600 hover:text-blue-500"
-            >
-              How It Works
-            </a>
-            <a href="#pricing" className="text-gray-600 hover:text-blue-500">
-              Pricing
-            </a>
-            <a href="#contact" className="text-gray-600 hover:text-blue-500">
-              Contact
-            </a>
-            <button className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">
-              Join
-            </button>
-          </div>
+  const [scrollDirPos, setScrollDirPos] = useState("0");
+  const lastScroll = useRef()
+  // useEffect((()=>{
+  
+  //  const handleScroll = ()=>{
+  //   const currentScroll = window.pageXOffset;
+  //   if (currentScroll > lastScroll.current.style.top) {
+  //     lastScroll.current.style.top = "-50px"
+      
+  //   } else {
+  //     lastScroll.current.style.top = "0";
 
-          <div
-            className="md:hidden text-gray-600 cursor-pointer"
-            onClick={() => setIsOpen(!isOpen)}
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth="1.5"
-              stroke="currentColor"
-              className="w-6 h-6"
-            >
-              {isOpen ? (
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              ) : (
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M3.75 6h16.5M3.75 12h16.5M3.75 18h16.5"
-                />
-              )}
-            </svg>
+  //   }
+  //    lastScroll.current = currentScroll;
+  //  }
+
+  //  window.addEventListener("scroll", handleScroll)
+
+  //  return () =>{
+  //   window.removeEventListener("scroll", handleScroll)
+  //  }
+
+  // }),[])
+  return (
+    <header
+      className={`w-full font-roboto text-[#FFFFFF] fixed z-20 transition-all duration-300`}
+    >
+      <div className="container mx-auto px-2 sm:px-4 md:px-6 lg:px-8">
+        <div className="flex items-center justify-between  py-8">
+          <div className="font-bold">
+            <Logo />
+          </div>
+          <div className="hidden md:flex lg:flex sm:flex space-x-6 relative top-1 items-center text-base ">
+            <nav>
+              <ul className="flex items-center space-x-4">
+                <li>
+                  <a>Features</a>
+                </li>
+                <li>
+                  <a>How it work</a>
+                </li>
+                <li>
+                  <a>Pricing</a>
+                </li>
+              </ul>
+            </nav>
+            <div>
+              <button className=" font-semibold bg-gradient-to-r from-yellow-400 to-pink-500 px-4 py-2 rounded-2xl ">
+                Join
+              </button>
+            </div>
+          </div>
+          <div className=" relative top-1 lg:hidden md:hidden sm:hidden flex">
+            <BurgerMenu />
           </div>
         </div>
-
-        {/* Mobile Menu */}
-        {isOpen && (
-          <div className="md:hidden bg-white shadow-lg">
-            <a
-              href="#features"
-              className="block px-4 py-2 text-gray-600 hover:bg-gray-100 hover:text-blue-500"
-            >
-              Features
-            </a>
-            <a
-              href="#how-it-works"
-              className="block px-4 py-2 text-gray-600 hover:bg-gray-100 hover:text-blue-500"
-            >
-              How It Works
-            </a>
-            <a
-              href="#pricing"
-              className="block px-4 py-2 text-gray-600 hover:bg-gray-100 hover:text-blue-500"
-            >
-              Pricing
-            </a>
-            <a
-              href="#contact"
-              className="block px-4 py-2 text-gray-600 hover:bg-gray-100 hover:text-blue-500"
-            >
-              Contact
-            </a>
-            <button className="w-full bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">
-              Join
-            </button>
-          </div>
-        )}
-      </nav>
+      </div>
     </header>
   );
 };
 
 export default Header;
+
 
 {/* <header className="w-full sticky top-0 min-h-[50px] ">
         <nav className="flex justify-between items-center bg-indigo-800 py-4 sm:px-8 px-2 shadow-2xl  rounded-b-[5px] text-[#FFFFFF]">

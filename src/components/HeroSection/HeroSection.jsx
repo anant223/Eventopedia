@@ -2,23 +2,32 @@ import React from 'react'
 import {Container} from "../index.js"
 import { ArrowRight } from "lucide-react";
 import Button from '../Button/Button.jsx';
-import img1 from "../../assets/chat1.jpg"
 
 const HeroSection = () => {
   return (
-    <section className="min-h-[85vh]  flex justify-center items-center bg-gradient-to-br bg-gray-950 text-white font-roboto">
+    <section
+      className="min-h-[100vh] flex justify-center items-center h-screen text-[#FFFFFF] font-roboto py-12  bg-radial-blue "
+      
+    >
       <Container>
-        <div className=" py-12 text-center mb-8 bg-blend-saturation backdrop:blur-md">
-          <h2 className="sm:text-6xl font-bold mb-6 leading-tight text-[42px]">
+        <div className="text-center">
+          <h2 className="lg:text-6xl font-bold mb-6 leading-tight text-[42px]">
             {" "}
             Connect, Collaborate, and Learn
           </h2>
-          <p className="sm:text-2xl mb-8 max-w-2xl mx-auto text-[18px]">
+          <p className="sm:text-2xl mb-8 max-w-2xl mx-auto text-[18px] text-2xl">
             {" "}
             Organize group meetings or get one-on-one help, all in one dynamic
             platform.
           </p>
-          <Button name="Get Started" icon={<ArrowRight className="ml-2" />} />
+          <div className=" text-white">
+            <Button
+              name="Get Started"
+              icon={
+                <ArrowRight className=" ml-1 text-white relative bottom-0.5" />
+              }
+            />
+          </div>
         </div>
       </Container>
     </section>
