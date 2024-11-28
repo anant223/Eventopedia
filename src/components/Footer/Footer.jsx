@@ -5,7 +5,7 @@ import { Facebook, Twitter, Instagram, Linkedin } from "lucide-react";
 
 const Footer = () => {
   return (
-    <footer className="bg-gray-900 text-white py-12 font-roboto">
+    <footer className="bg-gray-900 text-white py-12 font-roboto relative">
       <Container>
         <div className="px-6 sm:flex sm:justify-between grid grid-cols-1">
           <div >

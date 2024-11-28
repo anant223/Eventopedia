@@ -8,6 +8,7 @@ import Button from "./Button/Button";
 import HowItWork from "./HowItWork/HowItWork";
 import BurgerMenu from "./Header/BurgerMenu";
 import Footer from "./Footer/Footer"
+import AuthFunction from "./AuthFunction/AuthFunction";
 
 export {
     Logo,
@@ -19,5 +20,6 @@ export {
     Button,
     HowItWork,
     BurgerMenu,
-    Footer
+    Footer,
+    AuthFunction
 }

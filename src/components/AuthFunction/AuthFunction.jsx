@@ -1,11 +1,8 @@
-import React from 'react'
+import React from "react";
+import {Container} from "../index.js";
 
 const AuthFunction = () => {
-  return (
-    <div>
-      
-    </div>
-  )
-}
+  return <section className="">AuthFunction</section>;
+};
 
-export default AuthFunction
+export default AuthFunction;
