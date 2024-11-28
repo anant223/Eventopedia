@@ -7,8 +7,8 @@ const HeroSection = () => {
   return (
     <section className="min-h-[100vh] flex items-center h-screen text-[#FFFFFF] font-roboto py-12  bg-radial-blue ">
       <Container>
-        <div className=' w-full flex justify-center'>
-          <div className="text-center max-w-2xl">
+        <div className=" w-full flex justify-center ">
+          <div className="text-center max-w-2xl ">
             <h2 className="lg:text-6xl font-bold mb-6 leading-tight text-[42px]">
               {" "}
               Connect, Collaborate, and Learn
