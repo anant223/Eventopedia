@@ -1,14 +1,14 @@
 import React from 'react'
-import { AuthFunction, Footer, Container } from '../components/index.js'
+import { Signup, Footer, Container } from '../components/index.js'
 
 const Auth = () => {
   return (
-    <div className=" bg-gray-800 w-full h-screen">
-      <Container>
-        <AuthFunction/>
-      </Container>
+    <div className=" bg-gray-800 w-full h-screen font-roboto  ">
+      <div className="w-full flex h-full flex-col items-center justify-center py-6">
+        <Signup/>
+      </div>
     </div>
-  )
+  );
 }
 
 export default Auth

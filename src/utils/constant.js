@@ -50,4 +50,5 @@ const howitwork = [
   },
 ];
 
-export { features, howitwork };
+
+export { features, howitwork, };

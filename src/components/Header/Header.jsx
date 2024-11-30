@@ -32,8 +32,8 @@ const Header = () => {
   return (
     <header
       style={{ top: scrollDirPos }}
-      className={`w-full font-roboto text-[#FFFFFF] fixed z-20 transition-all duration-300 ease-in-out ${
-        countScroll >= 10 ? "bg-black" : " bg-transparent"
+      className={`w-full font-roboto bg-radial-blue text-[#FFFFFF] relative z-20 transition-all duration-300 ease-in-out ${
+        countScroll >= 10 ? "bg-black" : " bg-radial-blue"
       } `}
     >
       <div className="container mx-auto px-2 sm:px-4 md:px-6 lg:px-8">
@@ -41,28 +41,30 @@ const Header = () => {
           <div className="font-bold">
             <Logo />
           </div>
-          <div className="hidden md:flex lg:flex sm:flex space-x-6 relative top-1 items-center text-base ">
-            <nav>
-              <ul className="flex items-center space-x-4">
-                <li>
-                  <a>Features</a>
-                </li>
-                <li>
-                  <a>How it work</a>
-                </li>
-                <li>
-                  <a>Pricing</a>
-                </li>
-              </ul>
-            </nav>
-            <div>
-              <button className=" font-semibold bg-gradient-to-r from-yellow-400 to-pink-500 px-4 py-2 rounded-2xl ">
-                Join
-              </button>
+          <div>
+            <div className="hidden md:flex lg:flex sm:flex space-x-6 relative top-1 items-center text-base ">
+              <nav>
+                <ul className="flex items-center space-x-4">
+                  <li>
+                    <a>Features</a>
+                  </li>
+                  <li>
+                    <a>How it work</a>
+                  </li>
+                  <li>
+                    <a>Pricing</a>
+                  </li>
+                </ul>
+              </nav>
+              <div>
+                <button className=" font-semibold bg-gradient-to-r from-yellow-400 to-pink-500 px-4 py-2 rounded-2xl ">
+                  Join
+                </button>
+              </div>
             </div>
-          </div>
-          <div className=" relative top-1 lg:hidden md:hidden sm:hidden flex">
-            <BurgerMenu />
+            <div className=" relative top-1 lg:hidden md:hidden sm:hidden flex">
+              <BurgerMenu />
+            </div>
           </div>
         </div>
       </div>
