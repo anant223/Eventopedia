@@ -3,7 +3,7 @@ import {Container, Logo} from "../index.js"
 
 const Navbar = () => {
   return (
-    <nav className="w-full py-2 font-roboto fixed border text-white">
+    <nav className="w-full py-2 font-roboto fixed text-white">
       <Container>
         <div className=" flex justify-between items-center">
           <Logo />
