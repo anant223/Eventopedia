@@ -10,8 +10,11 @@ import BurgerMenu from "./Header/BurgerMenu";
 import Footer from "./Footer/Footer"
 import Signup from "./AuthFunction/Signup";
 import Login from "./AuthFunction/Login";
-import Sidebarnav from "./Sidebarnav/Sidebarnav";
+import EventSidebar from "./EventSidebar/EventSidebar";
 import Navbar from "./Header/Navbar";
+import DashboardCard from "./Dashboard/DashboardCard";
+import RecentEvent from "./Dashboard/RecentEvent";
+import Card from "./Card/Card";
 
 export {
     Logo,
@@ -26,6 +29,9 @@ export {
     Footer,
     Signup,
     Login,
-    Sidebarnav,
-    Navbar
+    EventSidebar,
+    Navbar,
+    DashboardCard,
+    RecentEvent,
+    Card
 }
