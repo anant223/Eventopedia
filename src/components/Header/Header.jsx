@@ -43,7 +43,7 @@ const Header = () => {
                         <nav>
                             <ul className="flex items-center space-x-4">
                                 <li>
-                                    <Link to="#features">Features</Link>
+                                    <Link to="/main/all-events">Features</Link>
                                 </li>
                                 <li>
                                     <Link to="#howitwork">How it work</Link>
