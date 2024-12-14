@@ -15,7 +15,6 @@ import RecentEvent from "./Dashboard/RecentEvent";
 import Card from "./Card/Card";
 import EventCard from "./Card/EventCard";
 import Form from "./Form/Form";
-import UserProfile from "./Profile/userProfile";
 import Tag from "./Tags/Tag";
 import UserProfileFrom from "./Profile/UserProfileFrom";
 export {
