@@ -1,19 +1,19 @@
 import React, { useState } from "react";
-import {Container} from "../index.js";
+import {Container} from "../../components/index.js";
 import { RiArrowUpWideLine, RiArrowDownWideFill } from "react-icons/ri";
+import { Link } from "react-router-dom";
 
 
 const Signup = () => {
-  const [authSate, setAuthState] = useState(true)
   const [isHidden, setIsHidden] = useState(false)
   return (
-    <div className="bg-white p-8 rounded-lg sm:shadow-lg max-w-md  sm:w-[30%] w-full">
+    <div className="lg:bg-gray-700 py-4 rounded-lg lg:shadow-lg w-full font-roboto text-white max-w-[420px]">
       <Container>
         <div>
-          <h2 className="text-2xl font-semibold text-center mb-6">Sign Up</h2>
+          <h2 className="text-2xl font-semibold text-center mb-6 ">Sign Up</h2>
           {!isHidden ? (
             <div className="flex flex-col gap-4">
-              <button className="flex items-center justify-center gap-2 px-4 py-2 border-2 border-gray-200 rounded-lg transition text-gray-800">
+              <button className="flex items-center justify-center gap-2 px-4 py-2 border-2 border-gray-200 rounded-lg transition text-gray-800 bg-white">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   x="0px"
@@ -41,7 +41,7 @@ const Signup = () => {
                 </svg>
                 Signup with Google
               </button>
-              <button className="flex items-center justify-center gap-2 px-4 py-2 bg-blue-700 text-white rounded-lg hover:bg-blue-800 transition w-full">
+              <button className="flex items-center justify-center gap-2 px-4 py-2 bg-indigo-500 text-white rounded-lg hover:bg-indigo-600 transition w-full">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   x="0px"
@@ -51,7 +51,7 @@ const Signup = () => {
                   viewBox="0 0 48 48"
                 >
                   <path
-                    fill="#8c9eff"
+                    fill="white"
                     d="M40,12c0,0-4.585-3.588-10-4l-0.488,0.976C34.408,10.174,36.654,11.891,39,14c-4.045-2.065-8.039-4-15-4s-10.955,1.935-15,4c2.346-2.109,5.018-4.015,9.488-5.024L18,8c-5.681,0.537-10,4-10,4s-5.121,7.425-6,22c5.162,5.953,13,6,13,6l1.639-2.185C13.857,36.848,10.715,35.121,8,32c3.238,2.45,8.125,5,16,5s12.762-2.55,16-5c-2.715,3.121-5.857,4.848-8.639,5.815L33,40c0,0,7.838-0.047,13-6C45.121,19.425,40,12,40,12z M17.5,30c-1.933,0-3.5-1.791-3.5-4c0-2.209,1.567-4,3.5-4s3.5,1.791,3.5,4C21,28.209,19.433,30,17.5,30z M30.5,30c-1.933,0-3.5-1.791-3.5-4c0-2.209,1.567-4,3.5-4s3.5,1.791,3.5,4C34,28.209,32.433,30,30.5,30z"
                   ></path>
                 </svg>
@@ -81,16 +81,16 @@ const Signup = () => {
                   type="submit"
                   className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition"
                 >
-                  Login
+                  Signup
                 </button>
               </form>
             </>
           )}
-          <div className=" mt-3 text-gray-800 text-justify">
-            <span>Already join Eventopedia? </span>
-            <a href="#" className="text-orange-500 hover:underline">
+          <div className=" px-1 mt-2 text-gray-200 font-roboto">
+            <span>Already joined Grupio? </span>
+            <Link to="#" className="text-gray-400 hover:underline">
               Login now
-            </a>
+            </Link>
           </div>
           <div className="my-6 flex items-center">
             <hr className="flex-grow border-t border-gray-300" />

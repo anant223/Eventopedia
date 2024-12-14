@@ -9,11 +9,10 @@ import { Container } from "../components/index.js";
 
 const Home = () => {
   return (
-    <div className="bg-gray-950">
-      <HeroSection />
-      <Features />
-      <HowItWork />
-      <Footer />
+    <div className=" min-h-screen flex flex-col w-full">
+        <HeroSection />
+        <Features />
+        <HowItWork />
     </div>
   );
 };

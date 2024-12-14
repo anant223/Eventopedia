@@ -7,10 +7,10 @@ const Footer = () => {
   return (
     <footer className="bg-gray-900 text-white py-12 font-roboto relative">
       <Container>
-        <div className="px-6 sm:flex sm:justify-between grid grid-cols-1">
+        <div className="sm:flex sm:justify-between grid grid-cols-1 space-y-6">
           <div >
             <Logo />
-            <p className="text-gray-400 text-base">Connect From Anywhere</p>
+            <p className="text-gray-400 text-base">Connect From Anywhere to Anyone</p>
           </div>
 
           <div>

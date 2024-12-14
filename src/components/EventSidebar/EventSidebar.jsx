@@ -1,44 +1,46 @@
-import React from "react";
-import {
-  HomeIcon,
-  Users,
-  CalendarIcon,
-  UserIcon,
-  PlusCircleIcon,
-} from "lucide-react";
-
-const menuItems = [
-  { icon: HomeIcon, label: "Dashboard", href: "/dashboard" },
-  { icon: Users, label: "Hosters", href: "/hosters" },
-  { icon: CalendarIcon, label: "Events", href: "/events" },
-  { icon: UserIcon, label: "Profile", href: "/profile" },
-];
-
+import React, { useState } from "react";
+import {PlusCircleIcon} from "lucide-react";
+import { useNavigate, useLocation } from "react-router-dom";
+import {sidebarMenuItems} from "../../utils/constant.js"
 
 const EventSidebar = () => {
+  const location = useLocation();
+  const [activeRoute, setActiveRoute] = useState(location.pathname);
+  const navigate = useNavigate();
+
+  const handelmenuItemsClick = (path) => {
+    setActiveRoute(path);
+    navigate(path);
+  };
+
+  const handelCreateEventBtn = () => {
+    navigate("/main/create-event");
+  };
   return (
-    <aside className="w-64 h-screen bg-gray-800 border-r border-gray-200 text-white top-[56px] z-30 fixed">
-      <div className=" h-[90%] flex flex-col">
-        <div className="p-6"></div>
-        <nav className="flex-1">
-          <ul className="space-y-2 px-4">
-            {menuItems.map((item) => (
+    <aside className="min-h-screen bg-gray-800 border-r-[0.1px] border-gray-700 text-white top-20 z-30 fixed font-roboto">
+      <div className="flex flex-col">
+        <nav className="max-w-[260px] flex flex-col flex-none basis-[440px] w-[20vw] pl-12">
+          <ul className="space-y-2 py-4">
+            {sidebarMenuItems.map((item) => (
               <li key={item.label}>
-                <a
-                  href={item.href}
-                  className="flex items-center gap-3 px-3 py-2 text-gray-100 rounded-lg hover:bg-gray-400 transition-colors"
+                <button
+                  onClick={() => handelmenuItemsClick(item.href)}
+                  className={`flex items-center gap-3 px-4 py-2 text-gray-100 hover:bg-gray-500 transition-colors w-full rounded-e ${activeRoute === item.href ? "bg-gray-500" : " bg-transparent"}`}
                 >
-                  <item.icon className="h-5 w-5" />
+                  <item.icon size={18} />
                   <span>{item.label}</span>
-                </a>
+                </button>
               </li>
             ))}
           </ul>
         </nav>
-        <div className="p-4">
-          <button className="w-full flex items-center justify-center gap-2 px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors">
+        <div className="p-2 border-t border-gray-700">
+          <button
+            onClick={handelCreateEventBtn}
+            className="w-full text-sm flex items-center justify-center gap-2 bg-indigo-600 text-white hover:bg-indigo-700 transition-colors rounded p-2 mt-1" 
+          >
             <PlusCircleIcon className="h-5 w-5" />
-            <span>Create New Event</span>
+            <span>New Event</span>
           </button>
         </div>
       </div>

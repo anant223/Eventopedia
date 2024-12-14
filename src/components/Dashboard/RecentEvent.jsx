@@ -1,71 +1,50 @@
 import React from 'react'
 
-const RecentEvent = () => {
+const RecentEvent = ({heading1, heading2, heading3, heading4,eventAttendees, eventDate, title, eventStatus, otherInfo}) => {
   return (
     <div className="overflow-x-auto text-gray-400 rounded">
-    <table className="min-w-full divide-y divide-gray-700">
+      <table className="min-w-full divide-y divide-gray-700">
         <thead className="bg-gray-700">
-        <tr>
+          <tr>
             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-            Event Name
+              {heading1}
             </th>
             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-            Date
+              {heading2}
             </th>
             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-            Attendees
+              {heading3}
             </th>
             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-            Status
+              {heading4}
             </th>
-        </tr>
+          </tr>
         </thead>
         <tbody className="bg-gray-900 divide-y divide-gray-200">
-        {[
-            {
-            name: "Tech Conference 2023",
-            date: "2023-10-15",
-            attendees: 75,
-            status: "Upcoming",
-            },
-            {
-            name: "Product Launch",
-            date: "2023-09-30",
-            attendees: 120,
-            status: "Completed",
-            },
-            {
-            name: "Team Building Workshop",
-            date: "2023-11-05",
-            attendees: 30,
-            status: "Upcoming",
-            },
-        ].map((event, index) => (
-            <tr key={index}>
+          <tr>
             <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-500">
-                {event.name}
+              {title}
             </td>
             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                {event.date}
+              {eventDate}
             </td>
             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                {event.attendees}
+              {eventAttendees}
             </td>
             <td className="px-6 py-4 whitespace-nowrap">
-                <span
+              <span
                 className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
-                    event.status === "Upcoming"
+                  eventStatus === "Upcoming"
                     ? "bg-green-100 text-green-800"
                     : "bg-gray-100 text-gray-800"
                 }`}
-                >
-                {event.status}
-                </span>
+              >
+                {eventStatus || otherInfo}
+              </span>
             </td>
-            </tr>
-        ))}
+          </tr>
         </tbody>
-    </table>
+      </table>
     </div>
   );
 }

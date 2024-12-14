@@ -3,7 +3,13 @@ import {
   MessageCircle,
   Users,
   Video,
+  HomeIcon,
+  CalendarIcon,
+  UserIcon,
+  PlusCircleIcon,
+  CloudCog,
 } from "lucide-react";
+
 
 const features = [
   {
@@ -40,7 +46,7 @@ const howitwork = [
   },
   {
     step: 2,
-    title: "Choose Your Event",
+    title: "Choose Event",
     description: "Select a group meeting or request individual help.",
   },
   {
@@ -50,5 +56,31 @@ const howitwork = [
   },
 ];
 
+const allEvents = [
+  {
+    name: "Tech Conference 2023",
+    date: "2023-10-15",
+    attendees: 75,
+    status: "Upcoming",
+  },
+  {
+    name: "Product Launch",
+    date: "2023-09-30",
+    attendees: 120,
+    status: "Completed",
+  },
+  {
+    name: "Team Building Workshop",
+    date: "2023-11-05",
+    attendees: 30,
+    status: "Upcoming",
+  },
+];
 
-export { features, howitwork, };
+const sidebarMenuItems = [
+  { icon: CalendarIcon, label: "Events", href: "/main/all-events" },
+  { icon: UserIcon, label: "One-O-One", href: "/main/user-profile" },
+  { icon: Users, label: "Hosters", href: "/main/all-orgnizers" },
+];
+
+export { features, howitwork, sidebarMenuItems};

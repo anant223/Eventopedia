@@ -1,10 +1,10 @@
 import React from 'react'
-import { Signup, Footer, Container } from '../components/index.js'
+import { Signup } from '../features';
 
 const Auth = () => {
   return (
-    <div className=" bg-gray-800 w-full h-screen font-roboto  ">
-      <div className="w-full flex h-full flex-col items-center justify-center py-6">
+    <div className=" bg-gray-900 w-full h-screen font-roboto py-24 ">
+      <div className="flex flex-col h-full justify-center items-center lg:mt-12">
         <Signup/>
       </div>
     </div>

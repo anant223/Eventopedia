@@ -1,41 +1,38 @@
-import React from 'react'
-import { DashboardCard, RecentEvent, EventSidebar } from '../components/index.js';
-import { CalendarIcon, Home, User} from "lucide-react"
+import React, { useState } from 'react'
+import {UserProfile, Container, UserProfileFrom } from '../components/index.js';
+import { useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const Dashboard = () => {
-  return (
-    <div className="w-full  relative flex justify-center bg-gray-800  min-h-screen">
-      <div className="w-full grid grid-cols-[20%_70%]">
-        <div className=" relative ">
-          <EventSidebar />
-        </div>
-        <div className="flex flex-col space-y-12 px-14">
-          <div className=" relative flex w-full pt-20 gap-8 ">
-            <DashboardCard
-              title="Upcoming Events"
-              value="5"
-              Icon={CalendarIcon}
-              color="bg-blue-500"
-            />
-            <DashboardCard
-              title="Total Attendees"
-              value="128"
-              Icon={User}
-              color="bg-green-500"
-            />
-            <DashboardCard
-              title="New Messages"
-              value="12"
-              Icon={Home}
-              color="bg-pink-500"
-            />
-          </div>
-          <div className="">
+  const navigate = useNavigate()
+  const [isClose, setIsclosed] = useState(false)
 
-            <RecentEvent />
+  const handleOpenModel = (status) =>{
+    setIsclosed(status)
+    console.log(isClose);
+  }
+  React.useEffect(() => {
+    console.log("isClose state updated:", isClose);
+  }, [isClose]);
+
+  return (
+    <div className="relative bg-gray-800  min-h-screen py-24">
+      <Container>
+        <div className={`flex-1 `}>
+          <div>
+            <div className={` ${isClose && "blur-2xl"}`}>
+              <UserProfile openIt={() => handleOpenModel(true)} />
+            </div>
           </div>
         </div>
-      </div>
+        {isClose && (
+          <div className="fixed bg-black sm:bg-opacity-50 sm:flex sm:justify-center items-center z-50 inset-0 top-[5rem]">
+            <div className="relative rounded-lg shadow-lg max-w-4xl p-6">
+              <UserProfileFrom closeIt={() => handleOpenModel(false)} />
+            </div>
+          </div>
+        )}
+      </Container>
     </div>
   );
 }

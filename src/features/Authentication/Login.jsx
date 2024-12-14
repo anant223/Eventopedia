@@ -4,7 +4,7 @@ const Login = () => {
   const [isHidden, setIsHidden] = useState(false);
 
   return (
-    <div className="bg-white p-8 rounded-lg sm:shadow-lg max-w-md  sm:w-[30%] w-full">
+    <div className="bg-white p-8 rounded-lg sm:shadow-lg max-w-[425px] w-full">
       <Container>
         <div>
           <h2 className="text-2xl font-semibold text-center mb-6">Sign In</h2>

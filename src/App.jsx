@@ -1,14 +1,11 @@
 import React from "react"
-import Header from "./components/Header/Header";
-import { HeroSection, Footer, Navbar } from "./components";
-import Dashboard from "./pages/Dashboard";
-import Hosters from "./pages/Hosters";
+import { RouterProvider } from "react-router-dom";
+import AppRouting from "./Routes/AppRouting";
 function App() {
 
   return (
-    <div className="">
-      <Navbar />
-      <Hosters/>
+    <div>
+      <RouterProvider router={AppRouting}/>
     </div>
   );
 }
