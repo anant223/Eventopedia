@@ -10,7 +10,7 @@ console.log(location.pathname);
   return (
     <>
       <Navbar />
-      <main className="flex">
+      <main className="flex text-lg">
         {
           String(location.pathname) !== "/main/create-event" && 
           <div className={`w-64 hidden sw:hidden md:hidden lg:block`}>

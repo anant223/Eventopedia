@@ -5,7 +5,7 @@ const Tag = ({title, icon}) => {
     <div>
       <a
         href="#"
-        className="bg-gray-100 rounded-full leading-5 px-2 flex gap-2 font-bold text-black items-center"
+        className="bg-gray-100 rounded-full leading-5 py-1 px-3 flex gap-2 font-bold text-black items-center text-base"
       >
         <span>{icon}</span>
         <span>{title}</span>

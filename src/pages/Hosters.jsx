@@ -5,7 +5,7 @@ import img from "../assets/chat1.jpg";
 
 const Hosters = () => {
   return (
-    <div className=" w-full min-h-screen  bg-gray-800 text-white py-24">
+    <div className=" w-full min-h-screen bg-gray-800 text-white py-24">
       <Container>
         <div className=" flex-1 overflow-hidden ">
           <div className=" w-full  grid grid-cols-3 gap-4">

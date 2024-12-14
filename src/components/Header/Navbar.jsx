@@ -15,7 +15,7 @@ const Navbar = () => {
           <Logo />
         </div>
         <div className="flex gap-4 items-center">
-          <button className="border px-3 py-2 rounded hover:bg-gray-700 transition">
+          <button className="border px-3 py-2 rounded hover:bg-gray-700 transition lg:text-lg">
             Upgrade
           </button>
           <div className="relative">
@@ -23,7 +23,7 @@ const Navbar = () => {
               onClick={toggleDropdown}
               aria-haspopup="true"
               aria-expanded={isDropdownOpen}
-              className=" px-3 py-2 hover:bg-gray-700 transition focus:outline-none focus:ring-2 focus:ring-gray-500"
+              className=" lg:text-lg px-3 py-2 hover:bg-gray-700 transition focus:outline-none focus:ring-2 focus:ring-gray-500"
             >
               My Account
             </button>

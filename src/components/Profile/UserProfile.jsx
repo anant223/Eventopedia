@@ -21,7 +21,7 @@ const UserProfile = ({openIt}) => {
     <div className="rounded-lg overflow-hidden font-roboto text-white ">
       <Container>
         <div>
-          <div className="flex gap-4  py-4 justify-between">
+          <div className="flex gap-4 py-4 justify-between">
             <div className="flex lg:items-center lg:flex-row flex-col gap-4">
               <div className="relative w-28 h-28 sm:w-32 sm:h-32 md:w-36 md:h-36 lg:w-40 lg:h-40 group">
                 <img
@@ -52,9 +52,9 @@ const UserProfile = ({openIt}) => {
             <div className="mt-1 flex flex-col justify-between">
               <button
                 onClick={openIt}
-                className="flex items-center text-xs gap-1 justify-end"
+                className="flex items-center text-sm gap-1 justify-end"
               >
-                <EditIcon size={12} /> Edit Profile
+                <EditIcon size={16} /> Edit Profile
               </button>
               <a href="#" className="flex items-center gap-1">
                 <Link size={18} /> https://anant-self.vercel.app
@@ -63,7 +63,7 @@ const UserProfile = ({openIt}) => {
           </div>
           <div className="flex flex-col gap-2 text-base space-y-4 py-4">
             <div>
-              <span className="bg-gray-100 rounded-full leading-5 px-2 text-sm text-black ">
+              <span className="bg-gray-100 rounded-full leading-5 px-3 text-black font-bold text-base ">
                 Joined {user.joined}
               </span>
             </div>
@@ -74,7 +74,7 @@ const UserProfile = ({openIt}) => {
               <Tag title="Discord" icon={<RiDiscordFill size={18} />} />
             </div>
             <div>
-              <p className=" text-justify">
+              <p className=" text-justify text-xl">
                 Lorem Ipsum is simply dummy text of the printing and typesetting
                 industry. Lorem Ipsum has been the industry's standard dummy
                 text ever since the 1500s, when an unknown printer took a galley

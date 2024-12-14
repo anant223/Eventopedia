@@ -16,7 +16,7 @@ const Dashboard = () => {
   }, [isClose]);
 
   return (
-    <div className="relative bg-gray-800  min-h-screen py-24">
+    <div className="relative bg-gray-800  min-h-screen pt-24 pb-8">
       <Container>
         <div className={`flex-1 `}>
           <div>
@@ -27,7 +27,7 @@ const Dashboard = () => {
         </div>
         {isClose && (
           <div className="fixed bg-black sm:bg-opacity-50 sm:flex sm:justify-center items-center z-50 inset-0 top-[5rem]">
-            <div className="relative rounded-lg shadow-lg max-w-4xl p-6">
+            <div className="relative rounded-lg shadow-lg max-w-4xl">
               <UserProfileFrom closeIt={() => handleOpenModel(false)} />
             </div>
           </div>

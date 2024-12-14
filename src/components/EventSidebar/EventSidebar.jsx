@@ -19,15 +19,15 @@ const EventSidebar = () => {
   return (
     <aside className="min-h-screen bg-gray-800 border-r-[0.1px] border-gray-700 text-white top-20 z-30 fixed font-roboto">
       <div className="flex flex-col">
-        <nav className="max-w-[260px] flex flex-col flex-none basis-[440px] w-[20vw] pl-12">
-          <ul className="space-y-2 py-4">
+        <nav className="max-w-[260px] flex flex-col flex-none lg:basis-[680px] w-[20vw] pl-12">
+          <ul className="space-y-2 py-16">
             {sidebarMenuItems.map((item) => (
               <li key={item.label}>
                 <button
                   onClick={() => handelmenuItemsClick(item.href)}
-                  className={`flex items-center gap-3 px-4 py-2 text-gray-100 hover:bg-gray-500 transition-colors w-full rounded-e ${activeRoute === item.href ? "bg-gray-500" : " bg-transparent"}`}
+                  className={`flex items-center gap-3 px-4 py-2 text-gray-100 hover:bg-gray-500transition-colors w-full rounded-e ${activeRoute === item.href ? "bg-gray-500" : " bg-transparent"}`}
                 >
-                  <item.icon size={18} />
+                  <item.icon size={20} />
                   <span>{item.label}</span>
                 </button>
               </li>
@@ -37,7 +37,7 @@ const EventSidebar = () => {
         <div className="p-2 border-t border-gray-700">
           <button
             onClick={handelCreateEventBtn}
-            className="w-full text-sm flex items-center justify-center gap-2 bg-indigo-600 text-white hover:bg-indigo-700 transition-colors rounded p-2 mt-1" 
+            className="w-full  flex items-center justify-center gap-2 bg-indigo-600 text-white hover:bg-indigo-700 transition-colors rounded p-2 mt-1 text-lg" 
           >
             <PlusCircleIcon className="h-5 w-5" />
             <span>New Event</span>

@@ -5,7 +5,7 @@ const UserProfileFrom = ({closeIt}) => {
   return (
     <div className="font-roboto ">
       <Container>
-        <div className=" sm:bg-white bg-gray-800 sm:bg-opacity-10 backdrop-filter backdrop-blur-lg rounded-lg p-6 md:p-8 shadow-xl lg:max-w-xl lg:mx-auto h-screen overflow-y-scroll  ">
+        <div className=" sm:bg-white bg-gray-800 sm:bg-opacity-10 backdrop-filter backdrop-blur-lg rounded-lg px-6 md:p-8 shadow-xl lg:max-w-xl lg:mx-auto h-screen overflow-y-scroll  ">
           <button
             onClick={closeIt}
             aria-label="Close"

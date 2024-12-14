@@ -6,12 +6,12 @@ import { motion } from "motion/react"
 
 const HeroSection = () => {
   return (
-      <section className="h-auto w-full bg-radial-blue text-white font-roboto py-24 bg-[#121212]">
-          <Container>
-              <div className="flex justify-center flex-col items-center px-[40px] py-14">
-                  <div>
+      <section className=" h-screen w-full bg-radial-blue text-white font-roboto bg-[#121212] py-12">
+          {/* <Container> */}
+              <div className="px-[40px] h-full flex flex-col items-center justify-center">
+                  <div className=" max-w-4xl">
                       <h2 className="lg:text-6xl sm:text-4xl text-3xl font-bold text-center mb-6 leading-tight">
-                          The Easest Way to Connect, Collaborate, and Learn
+                          Connect, Collaborate, and Learn
                       </h2>
                       <p className="text-xl sm:text-2xl mb-8 max-w-lg mx-auto text-center leading-tight">
                           Organize group meetings or get one-on-one help, all in
@@ -27,7 +27,7 @@ const HeroSection = () => {
                       />
                   </div>
               </div>
-          </Container>
+          {/* </Container> */}
       </section>
   );
 };
