@@ -16,7 +16,7 @@ const EventSidebar = () => {
 
   return (
     <aside className=" h-full bg-gray-800 border-r-[0.1px] border-gray-700 text-white top-20 z-30 fixed font-roboto w-[260px]">
-      <div className="h-[89.999%] flex flex-col justify-between">
+      <div className=" flex flex-col h-[calc(100%-80px)] justify-between">
         <nav className="flex flex-col flex-none pl-12">
           <ul className="space-y-2 py-4">
             {sidebarMenuItems.map((item) => (
@@ -32,9 +32,9 @@ const EventSidebar = () => {
             ))}
           </ul>
         </nav>
-        <div className="p-2 border-t border-gray-700 flex  justify-end">
+        <div className="p-2 border-t border-gray-700">
           <button
-            onClick={()=> navigate("/main/create-event")}
+            onClick={() => navigate("/main/create-event")}
             className="w-full text-sm flex items-center justify-center gap-2 bg-indigo-600 text-white hover:bg-indigo-700 transition-colors rounded p-2 mt-1"
           >
             <PlusCircleIcon className="h-5 w-5" />
