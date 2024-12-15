@@ -16,7 +16,7 @@ const EventSidebar = () => {
 
   return (
     <aside className=" h-full bg-gray-800 border-r-[0.1px] border-gray-700 text-white top-20 z-30 fixed font-roboto w-[260px]">
-      <div className="h-[90%] flex flex-col justify-between">
+      <div className="h-[89.999%] flex flex-col justify-between">
         <nav className="flex flex-col flex-none pl-12">
           <ul className="space-y-2 py-4">
             {sidebarMenuItems.map((item) => (
