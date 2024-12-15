@@ -11,13 +11,14 @@ console.log(location.pathname);
     <>
       <Navbar />
       <main className="flex text-lg">
-        {
-          String(location.pathname) !== "/main/create-event" && 
-          <div className={`w-64 hidden sw:hidden md:hidden lg:block`}>
+        {String(location.pathname) !== "/main/create-event" && (
+          <div className={`w-[260px] hidden sw:hidden md:hidden lg:block`}>
             <EventSidebar />
           </div>
-        }
-        <Outlet />
+        )}
+        <div className=' flex-grow'>
+          <Outlet />
+        </div>
       </main>
     </>
   );
