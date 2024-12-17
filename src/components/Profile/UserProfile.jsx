@@ -18,7 +18,7 @@ const UserProfile = ({openIt}) => {
   };
 
   return (
-    <div className="rounded-lg overflow-hidden font-roboto text-white ">
+    <div className="rounded-lg overflow-hidden font-roboto text-white">
       <Container>
         <div>
           <div className="flex gap-4 py-4 justify-between">

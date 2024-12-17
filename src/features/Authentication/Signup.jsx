@@ -2,10 +2,46 @@ import React, { useState } from "react";
 import {Container} from "../../components/index.js";
 import { RiArrowUpWideLine, RiArrowDownWideFill } from "react-icons/ri";
 import { Link } from "react-router-dom";
+import axios from "axios";
+import { useForm } from "react-hook-form";
 
 
 const Signup = () => {
   const [isHidden, setIsHidden] = useState(false)
+  const {
+    register,
+    handleSubmit,
+    formState : {errors}
+  } = useForm()
+
+  const newUser = async (data)=>{
+    try {
+      const response = await axios.post(
+        "http://localhost:4000/api/v1/users/register",
+        data,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      alert("You have registred successfull");
+      console.log("Response:", response.data);
+    } catch (error) {
+      console.log("Error:", error.message);
+
+       if (error.response) {
+         alert(error.response.data.message || "Something went wrong!");
+       } else {
+         alert("Failed to register. Please try again later.");
+       }
+    }
+
+  }
+
+  
+  
   return (
     <div className="lg:bg-gray-700 py-4 rounded-lg lg:shadow-lg w-full font-roboto text-white max-w-[420px]">
       <Container>
@@ -60,22 +96,42 @@ const Signup = () => {
             </div>
           ) : (
             <>
-              <form className="flex flex-col gap-4">
+              <form
+                onSubmit={handleSubmit(newUser)}
+                className="flex flex-col gap-4 text-black"
+              >
                 <input
                   type="text"
                   placeholder="Username"
                   className="px-4 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-500"
+                  {...register("username", {
+                    required: "username is required",
+                  })}
                 />
                 <input
                   type="email"
                   placeholder="Email"
                   className="px-4 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-500"
+                  {...register("email", {
+                    required: "email required",
+                    pattern: {
+                      value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                      message: "invaild email",
+                    },
+                  })}
                 />
 
                 <input
                   type="password"
                   placeholder="Password"
                   className="px-4 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-500"
+                  {...register("password", {
+                    required: "username is required",
+                    minLength: {
+                      value: 6,
+                      message: "Password must be at least 6 characters long",
+                    }
+                  })}
                 />
                 <button
                   type="submit"
