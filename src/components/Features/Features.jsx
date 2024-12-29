@@ -7,7 +7,7 @@ import { ArrowRight } from 'lucide-react';
 const Features = () => {
   return (
       <section className=" py-12 bg-feature-bg text-white font-roboto">
-          {/* <Container> */}
+          <Container>
               <div className=" flex flex-col items-center w-full">
                   <div className="">
                       <h3 className="text-4xl font-bold mb-12 text-center">
@@ -32,7 +32,7 @@ const Features = () => {
                       />
                   </div>
               </div>
-          {/* </Container> */}
+          </Container>
       </section>
   );
 }

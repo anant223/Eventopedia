@@ -1,12 +1,14 @@
 import { Camera, CameraIcon, EditIcon, Link } from "lucide-react";
 import React from "react";
 import { RiDeleteBin6Fill, RiDiscordFill, RiInstagramFill, RiLinkedinBoxFill,  RiTwitterXFill} from "react-icons/ri";
-import {Container, Tag} from "../index.js";
+import {Container, Tag, UploadAvatar} from "../index.js";
 import { useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
 
 
 const UserProfile = ({openIt}) => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const {register} = useForm();
   const user = {
     avatar: "https://via.placeholder.com/150",
     name: "John Doe",
@@ -17,31 +19,15 @@ const UserProfile = ({openIt}) => {
     eventsJoined: 25,
   };
 
+  
+
   return (
     <div className="rounded-lg overflow-hidden font-roboto text-white">
       <Container>
         <div>
           <div className="flex gap-4 py-4 justify-between">
             <div className="flex lg:items-center lg:flex-row flex-col gap-4">
-              <div className="relative w-28 h-28 sm:w-32 sm:h-32 md:w-36 md:h-36 lg:w-40 lg:h-40 group">
-                <img
-                  src={user.avatar}
-                  alt={user.name}
-                  className=" w-full h-full rounded-full ring-2 ring-white shadow-md object-cover"
-                />
-                  <input
-                    type="file"
-                    name="upload"
-                    id="file-upload"
-                    className="hidden"
-                  />
-                  <label
-                    htmlFor="file-upload"
-                    className="absolute inset-0 bg-gray-500/60 hover:bg-gray-600/70 rounded-full text-white flex items-center justify-center cursor-pointer group-hover:opacity-40 opacity-0"
-                  >
-                    <CameraIcon className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 lg:w-14 lg:h-14" />
-                  </label>
-              </div>
+              <UploadAvatar/>
               <div>
                 <h1 className=" text-3xl font-bold">Anant223</h1>
                 <p className="mt-1 max-w-2xl text-sm text-gray-400">

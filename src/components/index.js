@@ -18,6 +18,7 @@ import Form from "./Form/Form";
 import UserProfile from "./Profile/UserProfile";
 import Tag from "./Tags/Tag";
 import UserProfileFrom from "./Profile/UserProfileFrom";
+import UploadAvatar from "./Avatar/UploadAvatar";
 export {
     Logo,
     Container,
@@ -38,6 +39,7 @@ export {
     Form,
     UserProfile,
     Tag,
-    UserProfileFrom
+    UserProfileFrom,
+    UploadAvatar
     
 }

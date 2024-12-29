@@ -3,32 +3,44 @@ import { Container } from "../index.js";
 import { ArrowRight } from "lucide-react";
 import Button from "../Button/Button.jsx";
 import { motion } from "motion/react"
+import { Link } from "react-router-dom";
 
 const HeroSection = () => {
   return (
-      <section className=" h-screen w-full bg-radial-blue text-white font-roboto bg-[#121212] py-12">
-          {/* <Container> */}
-              <div className="px-[40px] h-full flex flex-col items-center justify-center">
-                  <div className=" max-w-4xl">
-                      <h2 className="lg:text-6xl sm:text-4xl text-3xl font-bold text-center mb-6 leading-tight">
-                          Connect, Collaborate, and Learn
-                      </h2>
-                      <p className="text-xl sm:text-2xl mb-8 max-w-lg mx-auto text-center leading-tight">
-                          Organize group meetings or get one-on-one help, all in
-                          one dynamic platform.
-                      </p>
-                  </div>
+    <section className=" isolate bg-radial-blue text-white font-roboto bg-[#121212] py-12 relative pt-14">
+      <Container>
+        <div className="py-32 sm:py-48 lg:py-52">
+          <div className=" hidden sm:flex sm:justify-center">
+            <div className="mb-8 rounded-2xl px-3  py-1 text-sm/6 text-gray-200 ring-1 hover:ring-gray-900/20">
+              Looking for seed funding.
+              <Link to="#" class="font-semibold text-white">
+                <span class="absolute inset-0" aria-hidden="true">
+                  {" "}
+                </span>{" "}
+                Explore more <span aria-hidden="true">&rarr;</span>
+              </Link>
+            </div>
+          </div>
+          <div className="text-center">
+            <h1 className="text-balance text-5xl font-semibold tracking-tight text-white sm:text-7xl">
+              Connect, Collaborate, Learn and Grow
+            </h1>
+            <p className="mt-8 text-pretty text-lg font-medium text-gray-200 sm:text-xl/8">
+              Organize group meetings workshop or get one-on-one help, all in
+              one dynamic platform.
+            </p>
+          </div>
 
-                  <div className="text-white text-center">
-                      <Button
-                          name="Get Started"
-                          icon={<ArrowRight className="ml-1 text-white" />}
-                          aria-label="Get Started Button"
-                      />
-                  </div>
-              </div>
-          {/* </Container> */}
-      </section>
+          <div className="mt-10 flex items-center justify-center gap-x-6">
+            <Button
+              name="Get Started"
+              icon={<ArrowRight className="ml-1 text-white w-8" />}
+              aria-label="Get Started Button"
+            />
+          </div>
+        </div>
+      </Container>
+    </section>
   );
 };
 

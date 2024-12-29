@@ -11,15 +11,12 @@ const Hosters = () => {
           <div className=" w-full  grid grid-cols-3 gap-4">
             <Card img={img} name="Ashik" number="4.8" numerOfEvents="258" />
             <Card img={img} name="Ashik" number="4.8" numerOfEvents="258" />
-            <Card img={img} name="Ashik" number="4.8" numerOfEvents="258" />
-            <Card img={img} name="Ashik" number="4.8" numerOfEvents="258" />
             <Card
               img={img}
               name="Ashik"
               number="4.8"
               numerOfEvents="258"
             />{" "}
-            <Card img={img} name="Ashik" number="4.8" numerOfEvents="258" />{" "}
             <Card img={img} name="Ashik" number="4.8" numerOfEvents="258" />{" "}
             <Card img={img} name="Ashik" number="4.8" numerOfEvents="258" />
           </div>

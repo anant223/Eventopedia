@@ -28,42 +28,29 @@ const Header = () => {
         };
     }, []);
     return (
-        <header
-            style={{ top: scrollDirPos }}
-            className={`w-full font-roboto text-[#FFFFFF] fixed z-20 transition-all duration-300 ease-in-out ${
-                countScroll >= 10 ? "bg-black" : " bg-transparent"
-            } `}
-        >
-            <Container>
-                <div className="flex items-center justify-between py-6">
-                    <div className="font-bold">
-                        <Logo />
-                    </div>
-                    <div className="hidden md:flex lg:flex sm:flex space-x-6 relative top-1 items-center text-base ">
-                        <nav>
-                            <ul className="flex items-center space-x-4">
-                                <li>
-                                    <Link to="/main/all-events">Features</Link>
-                                </li>
-                                <li>
-                                    <Link to="#howitwork">How it work</Link>
-                                </li>
-                                <li>
-                                    <Link to="#howitwork">Contact</Link>
-                                </li>
-                            </ul>
-                        </nav>
-                        <div>
-                            <Button handleClick={handleJoinBtn} name="Join" />
-                        </div>
-                    </div>
-                    <div className=" relative lg:hidden md:hidden sm:hidden flex">
-                        <BurgerMenu />
-                    </div>
-                </div>
-            </Container>
-        </header>
+      <header
+        style={{ top: scrollDirPos }}
+        className={`font-roboto text-[#FFFFFF] fixed inset-0 z-50 transition-all duration-300 ease-in-out `}
+      >
+        <Container>
+          <nav className="flex items-center justify-between p-6 lg:px-8">
+            <div class="flex lg:flex-1">
+              <Link href="#" class="-m-1.5 p-1.5">
+                <Logo />
+              </Link>
+            </div>
+            <div class="lg:flex lg:flex-1 lg:justify-end">
+              <Link href="#" class="text-sm/6 font-semibold text-white">
+                Join Now <span aria-hidden="true">&rarr;</span>
+              </Link>
+            </div>
+          </nav>
+        </Container>
+      </header>
     );
 };
 
 export default Header;
+//  ${
+        //   countScroll >= 10 ? "bg-black" : " bg-transparent"
+        // }

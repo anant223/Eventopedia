@@ -31,16 +31,13 @@ const BurgerMenu = () => {
               >
                   <ul className=" space-y-8">
                       <li>
-                          <a>Features</a>
+                          <a>Profile</a>
                       </li>
                       <li>
-                          <a>How it work</a>
+                          <a>Hosters</a>
                       </li>
                       <li>
-                          <a>Pricing</a>
-                      </li>
-                      <li>
-                          <a>Connect</a>
+                          <a>Events</a>
                       </li>
                       <li className="pt-4">
                           <a
@@ -54,7 +51,7 @@ const BurgerMenu = () => {
               font-semibold
             "
                           >
-                              Login
+                              Logout
                           </a>
                       </li>
                   </ul>

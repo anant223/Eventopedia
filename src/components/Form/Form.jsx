@@ -1,15 +1,13 @@
-import { Calendar1Icon, CalendarIcon, MessageCircle, Users, Video } from 'lucide-react';
+import {CalendarIcon, MessageCircle, Users, Video } from 'lucide-react';
 import React, { useState } from 'react'
-
 const Form = () => {
-  const [date, setDate] = useState("")
-  const [showCalendar, setShowCalendar] = useState(false);
+  const [value, setValue] = useState({
+    startDate: null,
+    endDate: null,
+  });
 
-  const handleDateSelect = (event) => {
-    setDate(event.target.value); 
-    setShowCalendar(false);
-  };
 
+  
   return (
     <div className="font-roboto">
       <div className="lg:grid lg:grid-cols-3 gap-8">
@@ -22,7 +20,7 @@ const Form = () => {
               Bring people together and share your knowledge
             </p>
           </div>
-          <form className="space-y-6" onSubmit={handleDateSelect}>
+          <form className="space-y-6" >
             <div className="lg:grid lg:grid-cols-2 flex flex-col gap-6">
               <div>
                 <label className="block text-sm font-medium text-gray-200 mb-2">
@@ -59,25 +57,16 @@ const Form = () => {
                 >
                   Event Date
                 </label>
-                <div className="relative">
-                  <button
-                    onClick={() => setShowCalendar((prev) => !prev)}
-                    className={`w-full text-left px-4 py-2 bg-white bg-opacity-20 text-white rounded border-none ${
-                      !date ? "text-gray-400" : "text-gray-500"
-                    }`}
-                  >
-                    {date || "Pick a date"}
-                  </button>
-                  {showCalendar && (
-                    <div className="absolute mt-2 bg-gray-800 p-2 rounded shadow-md">
-                      <input
-                        type="date"
-                        onChange={handleDateSelect}
-                        className="w-full p-2 bg-gray-700 text-white rounded"
-                      />
-                    </div>
-                  )}
-                </div>
+               
+<div class="relative max-w-sm">
+  <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+     <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+        <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"/>
+      </svg>
+  </div>
+  <input id="datepicker-autohide" datepicker datepicker-autohide type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Select date"/>
+</div>
+
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-200 mb-2">

@@ -5,7 +5,7 @@ const Button = ({name, handleClick, icon, ...props}) => {
     <div>
       <button
         onClick={handleClick}
-        className="bg-gradient-to-r from-yellow-400 to-pink-500 hover:from-yellow-500 hover:to-pink-600 inline-flex py-2 px-4 text-white items-center text-base rounded-2xl
+        className="bg-gradient-to-r from-yellow-400 to-pink-500 hover:from-yellow-500 hover:to-pink-600 inline-flex py-4 px-6 text-white items-center text-xl rounded-2xl
         "
         type="button"
         {...props}

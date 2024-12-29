@@ -15,18 +15,18 @@ const EventSidebar = () => {
 
 
   return (
-    <aside className=" h-full bg-gray-800 border-r-[0.1px] border-gray-700 text-white top-20 z-30 fixed font-roboto w-[260px]">
+    <aside className=" h-full bg-gray-800 border-r-[0.1px] border-gray-700 text-white top-20 z-30 fixed font-roboto w-64 left-0 transition-transform -translate-x-full sm:translate-x-0">
       <div className=" flex flex-col h-[calc(100%-80px)] justify-between py-2">
-        <nav className="flex flex-col flex-none pl-12">
+        <nav className="pl-12">
           <ul className="space-y-2 py-4">
             {sidebarMenuItems.map((item) => (
               <li key={item.label}>
                 <button
                   onClick={() => handelmenuItemsClick(item.href)}
-                  className={`flex items-center gap-3 px-4 py-2 text-gray-100 hover:bg-gray-500 transition-colors w-full rounded-e ${activeRoute === item.href ? "bg-gray-500 transition-all duration-300" : " bg-transparent"}`}
+                  className={`flex items-center p-2 text-gray-900 rounded-lg  w-full dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group ${activeRoute === item.href ? "bg-gray-500" : " bg-transparent"}`}
                 >
-                  <item.icon size={18} />
-                  <span>{item.label}</span>
+                  <item.icon className="w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" />
+                  <span className="ms-3">{item.label}</span>
                 </button>
               </li>
             ))}

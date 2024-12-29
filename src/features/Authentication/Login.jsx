@@ -1,7 +1,41 @@
 import React from 'react'
+import { useForm } from 'react-hook-form';
+import { Container } from '../../components/index.js';
+import { RiArrowDownWideFill, RiArrowUpWideFill } from 'react-icons/ri';
+import axios from 'axios';
 
 const Login = () => {
-  const [isHidden, setIsHidden] = useState(false);
+  const [isHidden, setIsHidden] = React.useState(false);
+  const {
+      register,
+      handleSubmit,
+      formState : {errors}
+    } = useForm()
+
+  axios.defaults.withCredentials = true
+  const loginSession = async (data) => {
+    try {
+      const response = await axios.post(
+        "http://localhost:4000/api/v1/users/login",
+        data,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      alert("You have logged in successfull");
+      console.log("Response:", response.data);
+    } catch (error) {
+      console.log("Error:", error.message);
+
+      if (error.response) {
+        alert(error.response.data.message || "Something went wrong!");
+      } else {
+        alert("Failed to register. Please try again later.");
+      }
+    }
+  };
 
   return (
     <div className="bg-white p-8 rounded-lg sm:shadow-lg max-w-[425px] w-full">
@@ -58,17 +92,22 @@ const Login = () => {
             </div>
           ) : (
             <>
-              <form className="flex flex-col gap-4">
+              <form
+                onSubmit={handleSubmit(loginSession)}
+                className="flex flex-col gap-4"
+              >
                 <input
                   type="email"
                   placeholder="Email"
                   className="px-4 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-500"
+                  {...register("email", { required: true })}
                 />
 
                 <input
                   type="password"
                   placeholder="Password"
                   className="px-4 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-500"
+                  {...register("password", { required: true })}
                 />
                 <button
                   type="submit"
@@ -88,7 +127,7 @@ const Login = () => {
               {!isHidden ? (
                 <RiArrowDownWideFill size={24} />
               ) : (
-                <RiArrowUpWideLine size={24} />
+                <RiArrowUpWideFill size={24} />
               )}
             </button>
           </div>
