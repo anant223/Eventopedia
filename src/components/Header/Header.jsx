@@ -32,7 +32,7 @@ const Header = () => {
         style={{ top: scrollDirPos }}
         className={` w-full font-roboto text-[#FFFFFF] fixed z-20 transition-all duration-300 ease-in-out `}
       >
-        {/* <Container> */}
+        <Container>
           <nav className="flex items-center justify-between p-6 lg:px-8">
             <div class="flex lg:flex-1">
               <Link href="#" class="-m-1.5 p-1.5">
@@ -45,7 +45,7 @@ const Header = () => {
               </Link>
             </div>
           </nav>
-        {/* </Container> */}
+        </Container>
       </header>
     );
 };

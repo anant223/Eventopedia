@@ -9,7 +9,7 @@ const HeroSection = () => {
   return (
     <section className="isolate bg-radial-blue text-white font-roboto bg-[#121212] py-12 relative pt-[100px]">
       <Container>
-        <div className="md:min-h-[37rem] min-h-[31rem] py-24 mt-[-2px] mb-24">
+        <div className="md:min-h-[37rem] min-h-[31rem] py-24 mt-[-2px] mb-24 mx-auto">
           <div className="hidden sm:flex sm:justify-center">
             <div className="mb-8 rounded-2xl px-3  py-1 text-sm/6 text-gray-200 ring-1 hover:ring-gray-900/20">
               Looking for seed funding.
