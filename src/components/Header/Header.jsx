@@ -30,9 +30,9 @@ const Header = () => {
     return (
       <header
         style={{ top: scrollDirPos }}
-        className={`font-roboto text-[#FFFFFF] fixed inset-0 z-50 transition-all duration-300 ease-in-out `}
+        className={` w-full font-roboto text-[#FFFFFF] fixed z-20 transition-all duration-300 ease-in-out `}
       >
-        <Container>
+        {/* <Container> */}
           <nav className="flex items-center justify-between p-6 lg:px-8">
             <div class="flex lg:flex-1">
               <Link href="#" class="-m-1.5 p-1.5">
@@ -40,12 +40,12 @@ const Header = () => {
               </Link>
             </div>
             <div class="lg:flex lg:flex-1 lg:justify-end">
-              <Link href="#" class="text-sm/6 font-semibold text-white">
+              <Link href="#" className="lg:inline-flex items-center justify-center px-5 py-2.5 text-base transition-all duration-200 hover:bg-yellow-300 hover:text-black focus:text-black focus:bg-yellow-300 font-semibold text-white bg-black rounded-full gap-x-1">
                 Join Now <span aria-hidden="true">&rarr;</span>
               </Link>
             </div>
           </nav>
-        </Container>
+        {/* </Container> */}
       </header>
     );
 };
