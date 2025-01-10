@@ -14,21 +14,14 @@ export default {
       },
       fontFamily: {
         roboto: ["Roboto", "sans-serif"],
+        aus: ["Playwrite AU SA", "serif"],
       },
-      backgroundImage: {
-        "radial-blue":
-          "radial-gradient(circle, rgb(57 74 143 / 85%) 30%, rgb(17 9 40 / 83%) 80%)",
-        "feature-bg":
-          "radial-gradient(circle, rgba(30,36,64,1) 40%, rgba(40,36,64,1) 80%)",
-        "howitWork-bg":
-          "radial-gradient(circle, rgba(30,36,64,1) 40%, rgba(40,36,64,1) 80%)",
-      },
+      
       height: {
         contentHeight: "calc(100vh - 80px)",
       },
     },
   },
-  plugins: [
-  ],
+  plugins: [],
 };
 

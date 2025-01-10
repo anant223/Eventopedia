@@ -1,41 +1,45 @@
 import React from 'react'
-import { Button, Container } from "../index.js";
+import { Button, Container, FeaturesCard } from "../index.js";
 import { howitwork } from '../../utils/constant.js';
 import { ArrowRight } from 'lucide-react';
 
 const HowItWork = () => {
+ 
+
   return (
-      <div className="py-12 text-white bg-howitWork-bg font-roboto">
-          <Container>
-              <div className="flex flex-col space-y-8 justify-center">
-                  <div className=" text-white">
-                      <h3 className="text-4xl font-bold mb-12 text-center">
-                          How It Work
-                      </h3>
-                  </div>
-                  <div className="grid grid-cols-2 sm:flex justify-between items-center mb-8 ">
-                      {howitwork.map((item, index) => (
-                          <div
-                              key={index}
-                              className={`py-4 ${index === 2 ? "col-span-2" : ""} ${index === 1 ? "col-span-1":"" }`}
-                          >
-                              <div className=" flex flex-col items-center">
-                                  <div className="sm:w-24 sm:h-24 w-[68px] h-[68px] rounded-full bg-gradient-to-br from-yellow-400 to-pink-500 items-center flex justify-center sm:text-2xl text-xl font-bold mb-6">
-                                      {item.step}
-                                  </div>
-                                  <h4 className="sm:text-2xl font-semibold mb-6 text-xl">
-                                      {item.title}
-                                  </h4>
-                                  <p className={`text-white sm:text-base text-center`} >
-                                    {item.description}
-                                  </p>
-                              </div>
-                          </div>
-                      ))}
-                  </div>
-              </div>
-          </Container>
+    <div className="bg-gray-800 text-white py-12 md:py-16 lg:py-24 font-roboto">
+      {/* Header Section */}
+      <div className=" ">
+        <h2 className="text-4xl sm:text-5xl lg:text-6xl font-semibold text-center mb-3 md:mb-4">
+          How it works
+        </h2>
+        <p className="text-lg sm:text-xl text-gray-400 text-center mb-12 md:mb-16 lg:mb-20">
+          Simple. Intuitive. Magical.
+        </p>
+
+        {/* Steps Section */}
+        <div className="overflow-x-auto scrollbar-hide snap-x snap-mandatory group-hover:block pl-4 sm:pl-44">
+          <div className="inline-flex py-8 space-x-4 text-gray-200 text-xl font-bold">
+            {howitwork.map((step, index) => (
+              <FeaturesCard
+                key={index}
+                icon={step.step}
+                title={step.title}
+                desc={step.description}
+              />
+            ))}
+          </div>
+        </div>
+        <div className="text-center mt-16 md:mt-24 lg:mt-32">
+          <p className="text-lg sm:text-xl text-gray-400 mb-4 md:mb-6">
+            Ready to experience the difference?
+          </p>
+          <button className="w-full sm:w-auto bg-white text-black px-6 sm:px-8 py-3 sm:py-4 rounded-full text-base sm:text-lg font-medium hover:bg-gray-100 transition-colors duration-300">
+            Get Started
+          </button>
+        </div>
       </div>
+    </div>
   );
 }
 

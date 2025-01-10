@@ -30,22 +30,23 @@ const Header = () => {
     return (
       <header
         style={{ top: scrollDirPos }}
-        className={` w-full font-roboto text-[#FFFFFF] fixed z-20 transition-all duration-300 ease-in-out `}
+        className={`w-full font-roboto text-[#FFFFFF] z-20 transition-all duration-300 ease-in-out fixed`}
       >
-        <Container>
-          <nav className="flex items-center justify-between p-6 lg:px-8">
-            <div class="flex lg:flex-1">
-              <Link href="#" class="-m-1.5 p-1.5">
-                <Logo />
-              </Link>
-            </div>
-            <div class="lg:flex lg:flex-1 lg:justify-end">
-              <Link href="#" className="lg:inline-flex items-center justify-center px-5 py-2.5 text-base transition-all duration-200 hover:bg-yellow-300 hover:text-black focus:text-black focus:bg-yellow-300 font-semibold text-white bg-black rounded-full gap-x-1">
-                Join Now <span aria-hidden="true">&rarr;</span>
-              </Link>
-            </div>
-          </nav>
-        </Container>
+        <nav className="flex items-center justify-between px-[22px] py-3 lg:px-8">
+          <div class="flex lg:flex-1">
+            <Link href="#" className="-m-1.5 p-1.5">
+              <Logo />
+            </Link>
+          </div>
+          <div class="lg:flex lg:flex-1 lg:justify-end">
+            <Link
+              to="/auth"
+              className="lg:inline-flex items-center justify-center px-5 py-2.5 text-base transition-all duration-200 font-semibold text-gray-800 hover:text-white gap-x-1"
+            >
+              Join Now <span aria-hidden="true">&rarr;</span>
+            </Link>
+          </div>
+        </nav>
       </header>
     );
 };

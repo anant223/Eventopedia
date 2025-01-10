@@ -13,10 +13,9 @@ const EventSidebar = () => {
     navigate(path);
   };
 
-
   return (
-    <aside className=" h-full bg-gray-800 border-r-[0.1px] border-gray-700 text-white top-20 z-30 fixed font-roboto w-64 left-0 transition-transform -translate-x-full sm:translate-x-0">
-      <div className=" flex flex-col h-[calc(100%-80px)] justify-between py-2">
+    <aside className=" h-full bg-gray-800 border-r-[0.1px] border-gray-700 text-white top-16 z-30 fixed inset-0 font-roboto max-w-64 left-0 transition-transform -translate-x-full sm:translate-x-0">
+      <div className=" flex flex-col h-[calc(100%-80px)] justify-between py-2 mt-6">
         <nav className="pl-12">
           <ul className="space-y-2 py-4">
             {sidebarMenuItems.map((item) => (

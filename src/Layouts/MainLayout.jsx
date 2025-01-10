@@ -2,21 +2,18 @@ import React from 'react'
 import { Outlet,useLocation } from 'react-router-dom';
 import {Navbar, EventSidebar } from '../components/index.js';
 
-
-
 const MainLayout = () => {
   const location = useLocation()
-console.log(location.pathname);
   return (
     <>
       <Navbar />
-      <main className="flex text-lg">
+      <main className="flex">
         {String(location.pathname) !== "/main/create-event" && (
-          <div className={`w-64 hidden sw:hidden md:hidden lg:block`}>
+          <div className="hidden sw:hidden md:hidden lg:block bg-gray-100 border-r border-gray-300 p-4 shadow-sm w-64">
             <EventSidebar />
           </div>
         )}
-        <div className=' flex-grow'>
+        <div className=" bg-white flex-grow mt-4">
           <Outlet />
         </div>
       </main>

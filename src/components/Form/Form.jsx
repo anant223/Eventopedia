@@ -1,18 +1,48 @@
+import axios from 'axios';
 import {CalendarIcon, MessageCircle, Users, Video } from 'lucide-react';
 import React, { useState } from 'react'
+import { useForm } from 'react-hook-form';
 const Form = () => {
-  const [value, setValue] = useState({
-    startDate: null,
-    endDate: null,
-  });
+  const { handleSubmit, register} = useForm()
+  const newEvent = async (data) => {
+    try {
+      const formData = new FormData();
+      formData.append("thumbnail", data.thumbnail[0]);
+      formData.append("title", data.title);
+      formData.append("desc", data.desc);
+      formData.append("duration", data.duration);
+      formData.append("startingDate", data.startingDate);
+      formData.append("url", data.url);
+      formData.append("eventType", data.eventType);
 
+      const response = await axios.post(
+        "http://localhost:4000/api/v1/event/create-event",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+          withCredentials: true
+        }
+      );
+    alert("You have create a event successfull");
+    console.log("Response:", response.data);
+  } catch (error) {
+    console.log("Error:", error.message);
 
-  
+    if (error.response) {
+      alert(error.response.data.message || "Something went wrong!");
+    } else {
+      alert("Failed to register. Please try again later.");
+    }
+  }
+};
+
   return (
     <div className="font-roboto">
       <div className="lg:grid lg:grid-cols-3 gap-8">
         <div className=" col-span-2 bg-white bg-opacity-10 backdrop-filter backdrop-blur-lg rounded-lg p-8 shadow-xl">
-          <div className=" text-center mb-4 font-roboto">
+          <div className="text-center mb-4 font-roboto">
             <h2 className="lg:text-3xl md:text-2xl text-xl font-semibold text-gray-200 mb-2 ">
               Create Your Event
             </h2>
@@ -20,18 +50,18 @@ const Form = () => {
               Bring people together and share your knowledge
             </p>
           </div>
-          <form className="space-y-6" >
+          <form onSubmit={handleSubmit(newEvent)} className="space-y-6">
             <div className="lg:grid lg:grid-cols-2 flex flex-col gap-6">
               <div>
                 <label className="block text-sm font-medium text-gray-200 mb-2">
-                  Event Name
+                  Title
                 </label>
                 <div>
                   <input
                     type="text"
                     name="title"
-                    className="w-full text-left px-4 py-2 bg-white bg-opacity-20 text-white rounded border-none"
-                    placeholder="Event Name"
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-4 py-3 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    {...register("title", { required: true })}
                   />
                 </div>
               </div>
@@ -40,44 +70,56 @@ const Form = () => {
                   Event Type
                 </label>
                 <div>
-                  <select className="w-full text-left px-4 py-2 bg-white bg-opacity-20 text-white rounded border-none">
-                    <option value="group" disabled>
-                      Meeting Type
+                  <select
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-4 py-3 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    {...register("eventType", { required: true })}
+                  >
+                    <option disabled value="">
+                      Select Type
                     </option>
-                    <option value="group">Group Meeting</option>
-                    <option value="oneOnOne">One-on-One Session</option>
-                    <option value="workshop">Workshop</option>
+                    <option value="Private">Private</option>
+                    <option value="Public">Public</option>
                   </select>
                 </div>
               </div>
               <div>
-                <label
-                  htmlFor="eventDate"
-                  className="block text-sm font-medium text-gray-200 mb-2"
-                >
+                <label className="block text-sm font-medium text-gray-200 mb-2">
                   Event Date
                 </label>
-               
-<div class="relative max-w-sm">
-  <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-     <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-        <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"/>
-      </svg>
-  </div>
-  <input id="datepicker-autohide" datepicker datepicker-autohide type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Select date"/>
-</div>
-
+                <div>
+                  <input
+                    type="datetime-local"
+                    name="eventDayTime"
+                    className="relative bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-4 py-3 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    {...register("startingDate", { required: true })}
+                  />
+                </div>
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-200 mb-2">
-                  Max Participants
+                  Duration
                 </label>
                 <div>
                   <input
                     type="number"
-                    name="title"
-                    className="w-full text-left px-4 py-2 bg-white bg-opacity-20 text-white rounded border-none"
-                    placeholder="Enter Max Participants"
+                    id="duration"
+                    name="duration"
+                    className="relative bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-4 py-3 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    {...register("duration", { required: true })}
+                  />
+                </div>
+              </div>
+              <div>
+                <label
+                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                >
+                  Image
+                </label>
+                <div>
+                  <input
+                    className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 px-4 py-3"
+                    type="file"
+                    {...register("thumbnail", { required: true })}
                   />
                 </div>
               </div>
@@ -89,6 +131,19 @@ const Form = () => {
                   <textarea
                     className="w-full bg-white bg-opacity-20 border-none text-white placeholder-gray-400 h-32 p-4 rounded"
                     placeholder="Describe your event"
+                    {...register("desc", { required: true })}
+                  />
+                </div>
+              </div>
+              <div className=" col-span-2">
+                <label className="block text-sm font-medium text-gray-200 mb-2">
+                  Event URL
+                </label>
+                <div>
+                  <input
+                    type="url"
+                    className="w-full text-left px-4 py-2 bg-white bg-opacity-20 text-white rounded border-none"
+                    {...register("url", { required: true })}
                   />
                 </div>
               </div>
@@ -100,6 +155,7 @@ const Form = () => {
                   <input
                     type="text"
                     className="w-full text-left px-4 py-2 bg-white bg-opacity-20 text-white rounded border-none"
+                    {...register("tag", { required: true })}
                   />
                 </div>
               </div>

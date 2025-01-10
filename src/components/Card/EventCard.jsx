@@ -1,35 +1,60 @@
-import { Calendar1Icon, LocateIcon, Users, LocateOffIcon } from 'lucide-react'
+import { Avatar, Tag, Timeline } from 'antd';
+import { Calendar1Icon, User, Locate } from 'lucide-react'
 import React from 'react'
+import { RiThumbUpFill, RiUserLocationFill } from 'react-icons/ri';
 
-const EventCard = ({ imgSrc, eventName, date, place, noOfPeople }) => {
+const EventCard = ({imgSrc, eventName, place, noOfPeople, date}) => {
   return (
-    <div className="bg-white shadow-md rounded-lg overflow-hidden font-roboto">
-      <img src={imgSrc} alt="card-img" className="w-full h-48 object-cover" />
-      <div className="p-6">
-        <h2 className="text-xl font-semibold text-gray-600 mb-2">{eventName}</h2>
-        <div className="">
-          <div className="flex items-center mb-2">
-            <Calendar1Icon className="mr-2" size={18} />
-            <span>{date}</span>
-          </div>
-          <div className="flex items-center mb-2">
-            <LocateIcon className="mr-2" size={18} />
-            <span>{place}</span>
-          </div>
-          <div className="flex items-center mb-2">
-            <Users className="mr-2" size={18} />
-            <span>{noOfPeople} attendees</span>
+    <div className="rounded-xl border border-gray-700 shadow-lg bg-gray-700 h-full flex flex-col overflow-hidden text-gray-200 font-roboto text-lg/3">
+      <div className="flex flex-col  space-y-1.5 p-0">
+        <div className="relative">
+          <img src={imgSrc} alt="event_img" />
+          <span className=" absolute right-2 bg-black top-2 p-1 rounded bg-opacity-30 text-sm/3">
+            {place}
+          </span>
+        </div>
+        <div className="p-4 flex-grow">
+          <div className=" h-full flex flex-col">
+            <h3 className="tracking-tight text-xl font-bold text-gray-200 mb-1 line-clamp-2 min-h-[3.5rem]">
+              {eventName}
+            </h3>
+            <div className=" space-y-3 mb-4">
+              <div className="flex items-center mb-2">
+                <Calendar1Icon className="mr-2" size={18} />
+                <span>{date}</span>
+              </div>
+              <div className="flex items-center mb-2">
+                <Locate className="mr-2" size={18} />
+                <span>{place}</span>
+              </div>
+              <div className="flex items-center mb-2">
+                <User className="mr-2" size={18} />
+                <span>Created By-</span>
+                <span>Anant</span>
+              </div>
+            </div>
+            <div className="mb-4">
+              <Tag size="large">AI/ML</Tag>
+              <Tag size="large">Bussinuess</Tag>
+              <Tag size="large">Tech</Tag>
+            </div>
           </div>
         </div>
-        <button
-          type="button"
-          className=" bg-indigo-600 text-white w-full mb-4  py-2 px-4 rounded-lg"
-        >
-          View Details
-        </button>
+        <div className="border-t-2 p-4 border-gray-600 flex items-center justify-between ">
+          <div className=" text-lg/3 gap-2 flex items-center ">
+            <span className=" text-gray-500">Duration:</span>
+            <span>1 hr</span>
+          </div>
+          <div className="flex items-center text-lg/3">
+            <span>
+              <RiThumbUpFill />
+            </span>
+            {10}
+          </div>
+        </div>
       </div>
     </div>
   );
 };
 
-export default EventCard
+export default EventCard;
