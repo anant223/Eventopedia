@@ -4,7 +4,7 @@ import React from 'react'
 
 const FeaturesCard = ({icon, title, desc, bgColor}) => {
   return (
-    <div className=" bg-white lg:w-[440px] w-[340px] text-black min-h-[520px]  rounded-3xl  ">
+    <div className=" bg-white lg:w-390px] w-[340px] text-black min-h-[520px]  rounded-3xl  ">
       <div className="p-8">
         <div className="w-16 h-16 mb-8 rounded-full flex  justify-center bg-gradient-to-br items-center bg-gray-800 text-gray-200">
           {icon}
