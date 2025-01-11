@@ -6,7 +6,7 @@ import { Facebook, Twitter, Instagram, Linkedin } from "lucide-react";
 const Footer = () => {
   return (
     <footer className="bg-black text-white py-16 relative">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6">
+      <div className=" container mx-auto px-4 md:px-14 lg:px-16">
         {/* Main Footer Content */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-10">
           {/* Quick Links Section */}

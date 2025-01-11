@@ -8,12 +8,12 @@ import { Carousel } from "antd";
 
 const Features = () => {
   return (
-    <section className=" pt-[40px] pb-[10px] bg-[#F5F5F7] text-gray font-roboto">
+    <section className="py-12 md:py-16 lg:py-24 bg-[#F5F5F7] text-gray font-roboto">
       <div>
         <div className=" w-full pl-4 sm:pl-0">
-          <h3 className="text-2xl lg:text-4xl lg:text-center font-bold text-gray-600">
+           <h2 className="text-4xl sm:text-5xl lg:text-6xl font-semibold text-center mb-3 md:mb-4">
             Powerful Features
-          </h3>
+          </h2>
         </div>
         <div className="relative w-full group pl-4 sm:pl-44 ">
           <div className="absolute left-0 top-1/2 -translate-y-1/2 z-10 hover:bg-gray-200 rounded-full p-2  opacity-0 group-hover:opacity-100 transition-opacity duration-300 hover:duration-300 hover:transition sm:pl-44 ">

@@ -30,23 +30,27 @@ const Header = () => {
     return (
       <header
         style={{ top: scrollDirPos }}
-        className={`w-full font-roboto text-[#FFFFFF] z-20 transition-all duration-300 ease-in-out fixed`}
+        className={`w-full font-roboto text-[#FFFFFF] z-20 transition-all duration-300 ease-in-out fixed ${countScroll > 10 ? "bg-black text-white" : "text-gray-800"}`}
       >
-        <nav className="flex items-center justify-between px-[22px] py-3 lg:px-8">
-          <div class="flex lg:flex-1">
-            <Link href="#" className="-m-1.5 p-1.5">
-              <Logo />
-            </Link>
-          </div>
-          <div class="lg:flex lg:flex-1 lg:justify-end">
-            <Link
-              to="/auth"
-              className="lg:inline-flex items-center justify-center px-5 py-2.5 text-base transition-all duration-200 font-semibold text-gray-800 hover:text-white gap-x-1"
-            >
-              Join Now <span aria-hidden="true">&rarr;</span>
-            </Link>
-          </div>
-        </nav>
+        <div className=" container mx-auto px-4 md:px-14 lg:px-16">
+          <nav className="flex items-center justify-between py-3">
+            <div class="flex lg:flex-1">
+              <Link href="#" className="-m-1.5 p-1.5">
+                <Logo 
+                  textColor={countScroll > 10 ? "text-white" : "text-900"}
+                />
+              </Link>
+            </div>
+            <div class="lg:flex lg:flex-1 lg:justify-end">
+              <Link
+                to="/auth"
+                className="lg:inline-flex items-center justify-center px-5 py-2.5 text-base transition-all duration-200 font-semibold  hover:text-gray-500 gap-x-1"
+              >
+                Join Now <span aria-hidden="true">&rarr;</span>
+              </Link>
+            </div>
+          </nav>
+        </div>
       </header>
     );
 };

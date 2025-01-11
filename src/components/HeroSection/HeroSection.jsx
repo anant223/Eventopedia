@@ -19,7 +19,10 @@ const HeroSection = () => {
               <span className="text-gray-600  font-bold">
                 Connect, Collaborate and learn{" "}
               </span>
-              <span className=" font-aus font-bold text-gray-600"> live </span>
+              <span className=" font-aus font-bold bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 bg-clip-text text-transparent">
+                {" "}
+                live{" "}
+              </span>
               or have a fun.
             </h1>
             <p className=" hidden sm:block mt-6 text-[19px] leading-snug text-gray-600 sm:text-xl">

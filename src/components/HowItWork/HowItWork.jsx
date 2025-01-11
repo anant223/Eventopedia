@@ -19,7 +19,7 @@ const HowItWork = () => {
 
         {/* Steps Section */}
         <div className="overflow-x-auto scrollbar-hide snap-x snap-mandatory group-hover:block pl-4 sm:pl-44">
-          <div className="inline-flex py-8 space-x-4 text-gray-200 text-xl font-bold">
+          <div className="inline-flex  space-x-4 text-gray-200 text-xl font-bold">
             {howitwork.map((step, index) => (
               <FeaturesCard
                 key={index}
@@ -30,7 +30,7 @@ const HowItWork = () => {
             ))}
           </div>
         </div>
-        <div className="text-center mt-16 md:mt-24 lg:mt-32">
+        <div className="text-center mt-6 md:mt-12 lg:mt-18">
           <p className="text-lg sm:text-xl text-gray-400 mb-4 md:mb-6">
             Ready to experience the difference?
           </p>
