@@ -2,7 +2,6 @@ import React, { useEffect, useRef, useState , lazy} from "react";
 import { Container, Logo, BurgerMenu, Button } from "../index.js";
 import {Link, useNavigate} from "react-router-dom"
 
-
 const Header = () => {
     const [scrollDirPos, setScrollDirPos] = useState("0");
     const [countScroll, setCountScroll] = useState(0);
@@ -56,6 +55,3 @@ const Header = () => {
 };
 
 export default Header;
-//  ${
-        //   countScroll >= 10 ? "bg-black" : " bg-transparent"
-        // }

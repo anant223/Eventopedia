@@ -2,6 +2,7 @@ import axios from 'axios';
 import { CameraIcon, Edit2Icon, EditIcon, ImageUp, UploadCloud, UploadIcon } from 'lucide-react';
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form';
+import { userService } from '../../api/auth';
 
 const UploadAvatar = ({imgUrl}) => {
   const {handleSubmit, register} = useForm();
@@ -14,14 +15,12 @@ const UploadAvatar = ({imgUrl}) => {
       const formData = new FormData();
       formData.append("avatar", data?.avatar[0]);
 
-      const response = await axios.put(
-        "http://localhost:4000/api/v1/users/update_avatar",
+      const response = await userService.updateAvatar(
         formData,
         {
           headers: {
             "Content-Type": "multipart/form-data",
           },
-          withCredentials: true,
         }
       );
 
@@ -43,7 +42,7 @@ const UploadAvatar = ({imgUrl}) => {
     <form onSubmit={handleSubmit(updateProfileImg)}>
       <div className="relative w-28 h-28 sm:w-32 sm:h-32 md:w-36 md:h-36 lg:w-40 lg:h-40 group">
         <img
-          src="abcd.jpg"
+          src={imgUrl}
           alt="Avatar"
           className=" w-full h-full rounded-full ring-2 ring-white shadow-md object-cover"
         />

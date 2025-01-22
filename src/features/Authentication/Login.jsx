@@ -2,31 +2,27 @@ import React from 'react'
 import { useForm } from 'react-hook-form';
 import { Container } from '../../components/index.js';
 import { RiArrowDownWideFill, RiArrowUpWideFill } from 'react-icons/ri';
-import axios from 'axios';
-import { Input } from 'antd';
+import { useDispatch} from "react-redux";
+import { useNavigate } from 'react-router-dom';
+import {userService} from "../../api/auth.js"
+import { login } from './authSlice.js';
 
 const Login = () => {
   const [isHidden, setIsHidden] = React.useState(false);
+  const navigate = useNavigate()
   const {
       register,
       handleSubmit,
       formState : {errors}
     } = useForm()
+    const dispatch = useDispatch();
 
-  axios.defaults.withCredentials = true
   const loginSession = async (data) => {
     try {
-      const response = await axios.post(
-        "http://localhost:4000/api/v1/users/login",
-        data,
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const loginUser = await userService.loginSession(data)
+      dispatch(login(loginUser));
       alert("You have logged in successfull");
-      console.log("Response:", response.data);
+      console.log("Response:", loginUser);
     } catch (error) {
       console.log("Error:", error.message);
 

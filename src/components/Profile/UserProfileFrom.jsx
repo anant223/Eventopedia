@@ -1,11 +1,13 @@
 import React, { useState } from 'react'
 import {Container} from '../index.js';
 import { useForm } from 'react-hook-form';
-import axios from 'axios';
+import { userService } from '../../api/auth.js';
+import { useSelector } from 'react-redux';
+import { selectUser } from '../../features/Authentication/authSelector.js';
 
 const UserProfileFrom = ({closeIt}) => {
   const {handleSubmit, register} = useForm();
-
+  const userData = useSelector(selectUser)
   const updateProfile = async (data) => {
     const socialLinks = [];
 
@@ -15,7 +17,7 @@ const UserProfileFrom = ({closeIt}) => {
         socialLinks.push({platform, url: data[key]})
       }
     });
-      const {
+    const {
         social_discord,
         social_linkedin,
         social_twitter,
@@ -28,19 +30,8 @@ const UserProfileFrom = ({closeIt}) => {
       ...rest,
       socialLinks,
     };
-    console.log(payload);
       try {
-        const response = await axios.put(
-          "http://localhost:4000/api/v1/users/update_profile",
-          payload,
-          {
-            headers: {
-              "Content-Type": "application/json",
-            },
-            withCredentials: true,
-          }
-        );
-
+        const response = await userService.updateProfile(payload)
         console.log("Response:", response.data);
         alert("You have updated the profile successfully!");
       } catch (error) {
@@ -80,7 +71,7 @@ const UserProfileFrom = ({closeIt}) => {
                   type="text"
                   name="username"
                   className="w-full px-4 py-2 bg-white bg-opacity-20 text-white rounded border-none"
-                  value={"abc123"}
+                  defaultValue={userData?.data ? userData.data.username : ""}
                   disabled
                 />
               </div>
@@ -91,6 +82,7 @@ const UserProfileFrom = ({closeIt}) => {
                 <input
                   type="text"
                   name="name"
+                  defaultValue={userData?.data ? userData.data.name : ""}
                   className="w-full px-4 py-2 bg-white bg-opacity-20 text-white rounded border-none"
                   {...register("name")}
                 />
@@ -102,6 +94,7 @@ const UserProfileFrom = ({closeIt}) => {
                 <input
                   type="email"
                   name="email"
+                  defaultValue={userData?.data ? userData.data.email : ""}
                   className="w-full px-4 py-2 bg-white bg-opacity-20 text-white rounded border-none"
                 />
               </div>
@@ -111,6 +104,7 @@ const UserProfileFrom = ({closeIt}) => {
                 </label>
                 <textarea
                   name="bio"
+                  defaultValue={userData?.data ? userData.data.bio : ""}
                   className="w-full px-4 py-2 bg-white bg-opacity-20 text-white rounded border-none h-32"
                   placeholder="Describe yourself"
                   {...register("bio")}
@@ -123,6 +117,13 @@ const UserProfileFrom = ({closeIt}) => {
                 <input
                   type="url"
                   name="linkedin"
+                  defaultValue={
+                    userData?.data
+                      ? userData.data.socialLinks.find(
+                          (link) => link.platform === "linkedin"
+                        ).url
+                      : ""
+                  }
                   className="w-full px-4 py-2 bg-white bg-opacity-20 text-white rounded border-none"
                   {...register("social_linkedin")}
                 />
@@ -134,6 +135,13 @@ const UserProfileFrom = ({closeIt}) => {
                 <input
                   type="url"
                   name="instagram"
+                  defaultValue={
+                    userData?.data
+                      ? userData.data.socialLinks.find(
+                          (link) => link.platform === "instagram"
+                        ).url
+                      : ""
+                  }
                   className="w-full px-4 py-2 bg-white bg-opacity-20 text-white rounded border-none"
                   {...register("social_instagram")}
                 />
@@ -145,6 +153,13 @@ const UserProfileFrom = ({closeIt}) => {
                 <input
                   type="url"
                   name="twitter"
+                  defaultValue={
+                    userData?.data
+                      ? userData.data.socialLinks.find(
+                          (link) => link.platform === "twitter"
+                        ).url
+                      : ""
+                  }
                   className="w-full px-4 py-2 bg-white bg-opacity-20 text-white rounded border-none"
                   {...register("social_twitter")}
                 />
@@ -167,6 +182,13 @@ const UserProfileFrom = ({closeIt}) => {
                 <input
                   type="url"
                   name="social_other"
+                  defaultValue={
+                    userData?.data
+                      ? userData.data.socialLinks.find(
+                          (link) => link.platform === "other"
+                        ).url
+                      : ""
+                  }
                   className="w-full px-4 py-2 bg-white bg-opacity-20 text-white rounded border-none"
                   {...register("social_other")}
                 />

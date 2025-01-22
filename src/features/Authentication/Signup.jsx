@@ -4,6 +4,7 @@ import { RiArrowUpWideLine, RiArrowDownWideFill } from "react-icons/ri";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { useForm } from "react-hook-form";
+import { userService } from "../../api/auth.js"; 
 
 
 const Signup = () => {
@@ -16,16 +17,7 @@ const Signup = () => {
 
   const newUser = async (data)=>{
     try {
-      const response = await axios.post(
-        "http://localhost:4000/api/v1/users/register",
-        data,
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-
+      const response = await userService.createUser(data)
       alert("You have registred successfull");
       console.log("Response:", response.data);
     } catch (error) {
@@ -39,9 +31,6 @@ const Signup = () => {
     }
 
   }
-
-  
-  
   return (
     <div className="lg:bg-gray-700 py-4 rounded-lg lg:shadow-lg w-full font-roboto text-white max-w-[420px]">
       <Container>

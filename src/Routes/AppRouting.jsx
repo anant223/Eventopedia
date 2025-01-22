@@ -9,7 +9,7 @@ import EventFrom from "../pages/EventFrom";
 import Events from "../pages/Events";
 import EditProfile from "../pages/EditProfile";
 import { UserProfileFrom } from "../components";
-
+import VideoCall from "../pages/VideoCall";
 
 const AppRouting = createBrowserRouter([
   {
@@ -34,16 +34,18 @@ const AppRouting = createBrowserRouter([
         index: true,
         element: <Events />,
       },
-
       {
         path: "all-events",
         element: <Events />,
       },
       {
-        path: "user-profile",
-        element: <Dashboard />
+        path: "one-o-one",
+        element: <VideoCall />,
       },
-
+      {
+        path: "user-profile",
+        element: <Dashboard />,
+      },
       {
         path: "all-orgnizers",
         element: <Hosters />,
@@ -54,6 +56,5 @@ const AppRouting = createBrowserRouter([
       },
     ],
   },
-  
 ]);
 export default AppRouting;

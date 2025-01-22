@@ -2,12 +2,23 @@ import axios from 'axios';
 import {CalendarIcon, MessageCircle, Users, Video } from 'lucide-react';
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form';
+import { eventService } from '../../api/event';
 const Form = () => {
-  const { handleSubmit, register} = useForm()
+  const { handleSubmit, register} = useForm();
   const newEvent = async (data) => {
     try {
+      // Debug: Log the incoming file
+      console.log("Incoming thumbnail:", data.thumbnail[0]);
+
       const formData = new FormData();
+
+      if (!data.thumbnail?.[0]) {
+        throw new Error("No thumbnail file selected");
+      }
+      console.log(data);
+      // Append file with explicit filename
       formData.append("thumbnail", data.thumbnail[0]);
+      formData.append("tag", data.tag);
       formData.append("title", data.title);
       formData.append("desc", data.desc);
       formData.append("duration", data.duration);
@@ -15,28 +26,36 @@ const Form = () => {
       formData.append("url", data.url);
       formData.append("eventType", data.eventType);
 
-      const response = await axios.post(
-        "http://localhost:4000/api/v1/event/create-event",
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-          withCredentials: true
+      // Debug: Log FormData contents
+      formData.forEach((value, key) => {
+        if (key === "thumbnail") {
+          console.log("thumbnail details:", {
+            name: value.name,
+            type: value.type,
+            size: value.size,
+          });
+        } else {
+          console.log(`${key}:`, value);
         }
-      );
-    alert("You have create a event successfull");
-    console.log("Response:", response.data);
-  } catch (error) {
-    console.log("Error:", error.message);
+      });
 
-    if (error.response) {
-      alert(error.response.data.message || "Something went wrong!");
-    } else {
-      alert("Failed to register. Please try again later.");
+      // Modify your eventService call
+      const response = await eventService.createEvent(formData, {
+        "Content-Type": "multipart/form-data",
+        Accept: "application/json",
+      });
+
+      alert("Event has been created successfully");
+      console.log(response);
+    } catch (error) {
+      console.error("Error creating event:", {
+        message: error.message,
+        response: error.response?.data,
+        status: error.response?.status,
+      });
+      throw error;
     }
-  }
-};
+  };
 
   return (
     <div className="font-roboto">
@@ -110,9 +129,7 @@ const Form = () => {
                 </div>
               </div>
               <div>
-                <label
-                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                >
+                <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                   Image
                 </label>
                 <div>
@@ -147,15 +164,15 @@ const Form = () => {
                   />
                 </div>
               </div>
-              <div className=" col-span-2">
+              <div className="col-span-2">
                 <label className="block text-sm font-medium text-gray-200 mb-2">
                   Event Tag
                 </label>
                 <div>
                   <input
                     type="text"
-                    className="w-full text-left px-4 py-2 bg-white bg-opacity-20 text-white rounded border-none"
-                    {...register("tag", { required: true })}
+                    className="w-full text-left px-4 py-2 bg-white bg-opacity-20"
+                    {...register("tag", {required: true})}
                   />
                 </div>
               </div>

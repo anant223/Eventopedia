@@ -11,6 +11,7 @@ const EventSidebar = () => {
   const handelmenuItemsClick = (path) => {
     setActiveRoute(path);
     navigate(path);
+    console.log(path);
   };
 
   return (

@@ -2,19 +2,20 @@ import React, { useState } from 'react'
 import {UserProfile, Container, UserProfileFrom } from '../components/index.js';
 import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { useSelector } from 'react-redux';
+import {selectIsAuthenticated, selectUser} from "../features/Authentication/authSelector.js"
 
 const Dashboard = () => {
   const navigate = useNavigate()
   const [isClose, setIsclosed] = useState(false)
-
+  const isAuthenticated = useSelector(selectUser)
+  console.log(isAuthenticated);
   const handleOpenModel = (status) =>{
     setIsclosed(status)
     console.log(isClose);
   }
-  React.useEffect(() => {
-    console.log("isClose state updated:", isClose);
-  }, [isClose]);
-
+ 
   return (
     <div className="relative bg-gray-800  min-h-screen pt-24 pb-8">
       <Container>
