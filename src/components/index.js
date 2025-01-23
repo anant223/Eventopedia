@@ -19,6 +19,7 @@ import UserProfile from "./Profile/UserProfile";
 import Tag from "./Tags/Tag";
 import UserProfileFrom from "./Profile/UserProfileFrom";
 import UploadAvatar from "./Avatar/UploadAvatar";
+import EventDetialModel from "./EventDetailModel/EventDetialModel";
 export {
     Logo,
     Container,
@@ -40,6 +41,6 @@ export {
     UserProfile,
     Tag,
     UserProfileFrom,
-    UploadAvatar
-    
+    UploadAvatar,
+    EventDetialModel
 }

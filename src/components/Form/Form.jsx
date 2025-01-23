@@ -1,4 +1,3 @@
-import axios from 'axios';
 import {CalendarIcon, MessageCircle, Users, Video } from 'lucide-react';
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form';

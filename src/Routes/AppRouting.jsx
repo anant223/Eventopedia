@@ -10,6 +10,7 @@ import Events from "../pages/Events";
 import EditProfile from "../pages/EditProfile";
 import { UserProfileFrom } from "../components";
 import VideoCall from "../pages/VideoCall";
+import EventDetail from "../pages/EventDetail";
 
 const AppRouting = createBrowserRouter([
   {
@@ -53,6 +54,10 @@ const AppRouting = createBrowserRouter([
       {
         path: "create-event",
         element: <EventFrom />,
+      },
+      {
+        path: "event-detail",
+        element: <EventDetail />,
       },
     ],
   },

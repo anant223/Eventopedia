@@ -1,10 +1,14 @@
 import React from "react";
 import browserImg from "../../assets/browser-removebg.png";
 import video from "../../assets/video.mp4"
+import { useNavigate } from "react-router-dom";
 
 
 const HeroSection = () => {
-
+  const navigate = useNavigate();
+  const handleClick = () =>{
+    navigate("/main");
+  }
   return (
     <section className="isolate font-roboto bg-[#F5F5F7] flex justify-center w-full overflow-hidden">
       <div className="pt-24 sm:max-w-7xl mx-auto flex justify-center flex-col items-center ">
@@ -28,7 +32,7 @@ const HeroSection = () => {
             </p>
           </div>
           <div className="mt-6 flex justify-center z-30 items-center absolute left-0 right-0">
-            <button className=" font-bold text-lg bg-black text-gray-200 px-3 py-2 sm:px-6 sm:py-3 rounded w-fit">
+            <button onClick={handleClick} className=" font-bold text-lg bg-black text-gray-200 px-3 py-2 sm:px-6 sm:py-3 rounded w-fit">
               Get Started
             </button>
           </div>
