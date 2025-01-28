@@ -3,6 +3,8 @@ import { BurgerMenu, Logo } from "../index.js";
 import axios from "axios";
 import { Link , useNavigate} from "react-router-dom";
 import {Button} from "antd"
+import apiRequest from "../../api/apiRequest.js";
+import { userService } from "../../api/auth.js";
 
 const Navbar = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -12,15 +14,9 @@ const Navbar = () => {
     setIsDropdownOpen((prev) => !prev);
   };
 
-  const logOutSession = async () => {
+  const destroySession = async () => {
     try {
-      const response = await axios.post(
-        "http://localhost:4000/api/v1/users/logout",
-        {},
-        {
-          withCredentials: true,
-        }
-      );
+      const response = await userService.logoutSession();
       if (response) {
         alert("You have logged out successfully");
       }
@@ -38,20 +34,20 @@ const Navbar = () => {
   
   return (
     <nav className="w-full inset-0 font-roboto fixed text-white z-20 h-16 bg-gray-800 flex items-center border-b border-gray-700">
-      <div className="w-full flex justify-between items-center px-4 md:px-8 lg:px-16">
-        <div className="flex lg:flex-1">
-          <Link href="#" className="-m-1.5 p-1.5">
+      <div className="w-full flex justify-between  items-center px-4 md:px-8 lg:px-16">
+        <div className="p-2">
+          <Link to={"/main/all-events"}>
             <Logo />
           </Link>
         </div>
         <div className=" hidden lg:flex md:flex sm:flex gap-4 items-center">
-          <Button size="large">Upgrade</Button>
+          {/* <Button size="large">Upgrade</Button> */}
           <div className="relative">
             <button
               onClick={toggleDropdown}
               aria-haspopup="true"
               aria-expanded={isDropdownOpen}
-              className=" lg:text-lg px-3 py-2 hover:bg-gray-700 transition focus:outline-none focus:ring-2 focus:ring-gray-500 rounded-sm"
+              className=" border px-2 w-24 h-[2.3rem] py-[0.3rem] rounded"
             >
               My Account
             </button>
@@ -70,7 +66,7 @@ const Navbar = () => {
                   Profile
                 </button>
                 <button
-                  to="/"
+                  onClick={destroySession}
                   className=" flex w-full px-4 py-2 hover:bg-gray-600 text-sm"
                 >
                   Sign out

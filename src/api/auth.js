@@ -24,12 +24,13 @@ export const userService = {
       "Invalid login credentials"
     ),
 
-  logoutSession: (customHeader = {}) =>
+  logoutSession: (data, customHeader = {}) =>
     apiRequest(
       {
         method: "POST",
         url: "/users/logout",
         customHeader: { "Content-Type": "application/json", ...customHeader },
+        data: {}
       },
       "Failed to logout"
     ),

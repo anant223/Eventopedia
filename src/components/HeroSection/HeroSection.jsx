@@ -10,7 +10,7 @@ const HeroSection = () => {
     navigate("/main");
   }
   return (
-    <section className="isolate font-roboto bg-[#F5F5F7] flex justify-center w-full overflow-hidden">
+    <section className="isolate font-roboto bg-[#F5F5F7] flex justify-center w-full overflow-hidden" style={{backgroundImage: "url(../assets/images/mentor/mentor-glow.svg)"}}>
       <div className="pt-24 sm:max-w-7xl mx-auto flex justify-center flex-col items-center ">
         <div className=" text-center sm:max-w-2xl">
           <div className="mx-6">

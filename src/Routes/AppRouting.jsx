@@ -55,10 +55,6 @@ const AppRouting = createBrowserRouter([
         path: "create-event",
         element: <EventFrom />,
       },
-      {
-        path: "event-detail",
-        element: <EventDetail />,
-      },
     ],
   },
 ]);

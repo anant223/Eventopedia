@@ -1,9 +1,13 @@
 import React from "react";
 import { Card, Container, EventSidebar } from "../components/index.js";
 import img from "../assets/chat1.jpg";
+import { useSelector } from "react-redux";
+import { selectUser } from "../features/Authentication/authSelector.js";
 
 
 const Hosters = () => {
+  const user = useSelector(selectUser)
+  console.log(user);
   return (
     <div className=" w-full min-h-screen bg-gray-800 text-white py-24">
       <Container>

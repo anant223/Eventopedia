@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Container, EventCard } from "../components/index.js";
+import { Container, EventCard, EventDetialModel } from "../components/index.js";
 import img from "../assets/chat2.jpg";
 import { eventService } from "../api/event.js";
 import { useDispatch, useSelector } from "react-redux";
@@ -8,13 +8,23 @@ import {
   selectEventLoading,
 } from "../features/AllVirtualEvents/virtualEventsSelector.js";
 import { allVirtualEvents } from "../features/AllVirtualEvents/virtualEventsSlice.js";
-import { CloudCog } from "lucide-react";
 
 const Events = () => {
   const dispatch = useDispatch();
   const allPublicEvents = useSelector(selectEvent);
   const isLoading = useSelector(selectEventLoading);
+  const [eventData, setEventData] = useState()
+  const [state, setState] = useState(false)
   const [error, setError] = useState(null);
+
+  const handelEventModel = (status, eventID) =>{
+  const chosenPublicEvent = allPublicEvents?.data?.events.find(
+    (event) => event._id === eventID
+  );
+  console.log(chosenPublicEvent);
+    setEventData(chosenPublicEvent);
+    setState(status)
+  } 
 
   useEffect(() => {
     const fetchEvents = async () => {
@@ -34,7 +44,6 @@ const Events = () => {
 
     fetchEvents();
   }, [dispatch]);
-console.log(allPublicEvents);
   return (
     <div className="bg-gray-800 w-full min-h-screen py-24 relative flex-1">
       <Container>
@@ -45,6 +54,7 @@ console.log(allPublicEvents);
             {Array.isArray(allPublicEvents?.data?.events) &&
               allPublicEvents?.data?.events.map((event, index) => (
                 <EventCard
+                  openIt ={() => handelEventModel(true, event._id)}
                   key={index}
                   eventName={event.title}
                   date={new Date(event?.startingDate).toLocaleDateString()}
@@ -54,6 +64,12 @@ console.log(allPublicEvents);
                   noOfHour={event?.duration}
                 />
               ))}
+            {state? <div className=" fixed none top-0 w-full h-full overflow-auto left-10 bg-black bg-opacity-40 flex justify-center pt-[5.5rem]">
+              <EventDetialModel
+                {...eventData}
+                closeIt={() => handelEventModel(false)}
+              />
+            </div> : null}
           </div>
         )}
       </Container>

@@ -4,10 +4,10 @@ import React from 'react'
 import { RiThumbUpFill, RiUserLocationFill } from 'react-icons/ri';
 import { Link } from 'react-router-dom';
 
-const EventCard = ({imgSrc, eventName, place, noOfHour, date, tag}) => {
+const EventCard = ({imgSrc, eventName, place, noOfHour, date, tag, openIt}) => {
   const tags = tag.split(",")
   return (
-    <Link to="/main/event-detail">
+    <button onClick={openIt}>
       <div className=" bg-gray-700 lg:w-[23.5294117647rem] w-[340px] text-gray-200 min-h-[29.4117647059rem] rounded-3xl capitalize shadow-lg font-roboto flex flex-col text-lg/3">
         {/* <div className="rounded-xl capitalize border border-gray-700 shadow-lg bg-gray-700 h-full flex flex-col overflow-hidden text-gray-200 font-roboto text-lg/3"> */}
         <div className="flex flex-col  space-y-1.5 p-0">
@@ -33,8 +33,8 @@ const EventCard = ({imgSrc, eventName, place, noOfHour, date, tag}) => {
                 </div>
               </div>
               <div className="mb-2">
-                {tags.map((tag) => (
-                  <Tag size="large">{tag}</Tag>
+                {tags.map((tag, i) => (
+                  <Tag key={i} size="large">{tag}</Tag>
                 ))}
               </div>
             </div>
@@ -53,7 +53,7 @@ const EventCard = ({imgSrc, eventName, place, noOfHour, date, tag}) => {
           </div>
         </div>
       </div>
-    </Link>
+    </button>
   );
 };
 

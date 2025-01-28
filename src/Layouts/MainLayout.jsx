@@ -26,14 +26,14 @@ const MainLayout = () => {
   return (
     <>
       <Navbar />
-      <main className="flex">
+      <main className="flex flex-row">
         {String(location.pathname) !== "/main/create-event" && (
-          <div className="hidden sw:hidden md:hidden lg:block bg-gray-100 border-r border-gray-300 p-4 shadow-sm w-64">
+          <div className="hidden sw:hidden md:hidden lg:block bg-gray-100 border-r border-gray-300 p-4 w-64">
             <EventSidebar />
           </div>
         )}
         {isAuthenticated && (
-          <div className=" bg-white flex-grow mt-4">
+          <div className=" bg-white flex-1">
             <Outlet />
           </div>
         )}

@@ -8,7 +8,7 @@ const Header = () => {
     const navigate = useNavigate()
     const lastScroll = useRef();
     const handleJoinBtn = () =>{
-        navigate("/auth")
+      navigate("/auth")
     }
     useEffect(() => {
         const handleScroll = () => {
@@ -43,7 +43,7 @@ const Header = () => {
             <div class="lg:flex lg:flex-1 lg:justify-end">
               <Link
                 to="/auth"
-                className="lg:inline-flex items-center justify-center px-5 py-2.5 text-base transition-all duration-200 font-semibold  hover:text-gray-500 gap-x-1"
+                className="lg:inline-flex items-center justify-center px-5 py-2.5 text-base transition-all duration-200 font-semibold  hover:text-gray-500 gap-x-1 text-gray-400"
               >
                 Join Now <span aria-hidden="true">&rarr;</span>
               </Link>
