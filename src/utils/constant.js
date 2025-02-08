@@ -83,4 +83,8 @@ const sidebarMenuItems = [
   { icon: Users, label: "Hosters", href: "/main/all-orgnizers" },
 ];
 
+
+
+
+
 export { features, howitwork, sidebarMenuItems};

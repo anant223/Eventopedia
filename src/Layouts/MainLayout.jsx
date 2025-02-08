@@ -24,21 +24,15 @@ const MainLayout = () => {
   }),[dispatch, navigate])
 
   return (
-    <>
+    <div className="flex flex-wrap content-start border-l">
       <Navbar />
-      <main className="flex flex-row">
-        {String(location.pathname) !== "/main/create-event" && (
-          <div className="hidden sw:hidden md:hidden lg:block bg-gray-100 border-r border-gray-300 p-4 w-64">
-            <EventSidebar />
-          </div>
-        )}
-        {isAuthenticated && (
-          <div className=" bg-white flex-1">
-            <Outlet />
-          </div>
-        )}
-      </main>
-    </>
+      {String(location.pathname) !== "/main/create-event" && (
+        <div className="hidden sw:hidden md:hidden lg:block border-gray-100 bg-gray-600 p-4 w-64 h-">
+          <EventSidebar />
+        </div>
+      )}
+      <main className="grow">{isAuthenticated && <Outlet />}</main>
+    </div>
   );
 }
 

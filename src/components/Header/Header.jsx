@@ -1,57 +1,82 @@
-import React, { useEffect, useRef, useState , lazy} from "react";
-import { Container, Logo, BurgerMenu, Button } from "../index.js";
-import {Link, useNavigate} from "react-router-dom"
-
+import React, { useEffect, useRef, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import {Logo } from "../index.js";
+import { motion } from "framer-motion";
 const Header = () => {
-    const [scrollDirPos, setScrollDirPos] = useState("0");
-    const [countScroll, setCountScroll] = useState(0);
-    const navigate = useNavigate()
-    const lastScroll = useRef();
-    const handleJoinBtn = () =>{
-      navigate("/auth")
-    }
-    useEffect(() => {
-        const handleScroll = () => {
-            const currentScroll = window.scrollY;
-            setCountScroll(currentScroll);
-            setScrollDirPos(currentScroll > lastScroll.current ? 
-              "-160px" : "0"
-            )
-            lastScroll.current = currentScroll;
-        };
+  const [scrollDirPos, setScrollDirPos] = useState("0");
+  const [countScroll, setCountScroll] = useState(0);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const navigate = useNavigate();
+  const lastScroll = useRef(0);
+  const domRef = useRef()
 
-        window.addEventListener("scroll", handleScroll);
+  const handleJoinBtn = () => {
+    navigate("/auth");
+  };
 
-        return () => {
-            window.removeEventListener("scroll", handleScroll);
-        };
-    }, []);
-    return (
-      <header
-        style={{ top: scrollDirPos }}
-        className={`w-full font-roboto text-[#FFFFFF] z-20 transition-all duration-300 ease-in-out fixed ${countScroll > 10 ? "bg-black text-white" : "text-gray-800"}`}
-      >
-        <div className=" container mx-auto px-4 md:px-14 lg:px-16">
-          <nav className="flex items-center justify-between py-3">
-            <div class="flex lg:flex-1">
-              <Link href="#" className="-m-1.5 p-1.5">
-                <Logo 
-                  textColor={countScroll > 10 ? "text-white" : "text-900"}
-                />
-              </Link>
-            </div>
-            <div class="lg:flex lg:flex-1 lg:justify-end">
-              <Link
-                to="/auth"
-                className="lg:inline-flex items-center justify-center px-5 py-2.5 text-base transition-all duration-200 font-semibold  hover:text-gray-500 gap-x-1 text-gray-400"
-              >
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScroll = window.scrollY;
+      setCountScroll(currentScroll);
+      setScrollDirPos(currentScroll > lastScroll.current ? "-160px" : "0");
+      lastScroll.current = currentScroll;
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
+//  console.log(domRef.current.innerText.split(""));
+
+  return (
+    <header
+      style={{ top: scrollDirPos }}
+      className={`w-full font-roboto z-50 transition-all duration-300 ease-in-out sticky ${
+        countScroll > 16
+          ? "bg-black shadow-lg text-white"
+          : "bg-transparent text-gray-200"
+      }`}
+    >
+      <div className="px-4 md:px-8 lg:px-12">
+        <motion.nav
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.5 }}
+          className="flex items-center justify-between py-4"
+        >
+          <div>
+            <Link to="/" className="flex items-center">
+              <Logo />
+            </Link>
+          </div>
+          <div className="lg:gap-8 flex items-center">
+            <ul className="hidden lg:flex lg:items-center lg:justify-end lg:flex-1 lg:gap-8">
+              <li className="text-base font-semibold hover:text-gray-400">
+                <Link to="/features">Features</Link>
+              </li>
+              <li 
+                className="text-base font-semibold transition-all duration-200 hover:text-gray-400">
+                <Link to="/pricing">Pricing</Link>
+              </li>
+            </ul>
+            <div>
+              <button 
+                className="text-base font-semibold">
                 Join Now <span aria-hidden="true">&rarr;</span>
-              </Link>
+              </button>
             </div>
-          </nav>
-        </div>
-      </header>
-    );
+          </div>
+        </motion.nav>
+      </div>
+    </header>
+  );
 };
 
 export default Header;

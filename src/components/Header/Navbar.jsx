@@ -34,8 +34,8 @@ const Navbar = () => {
   
   return (
     <nav className="w-full inset-0 font-roboto fixed text-white z-20 h-16 bg-gray-800 flex items-center border-b border-gray-700">
-      <div className="w-full flex justify-between  items-center px-4 md:px-8 lg:px-16">
-        <div className="p-2">
+      <div className="w-full flex justify-between  items-center px-4 md:px-8 lg:px-12">
+        <div>
           <Link to={"/main/all-events"}>
             <Logo />
           </Link>

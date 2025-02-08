@@ -1,44 +1,118 @@
-import React from 'react'
-import {Container, FeaturesCard} from '../index.js'
-import { features } from '../../utils/constant.js';
-import Button from '../Button/Button.jsx';
-import { ArrowRight, ForwardIcon } from 'lucide-react';
-import { LeftCircleFilled, LeftCircleOutlined, RightCircleOutlined } from "@ant-design/icons";
-import { Carousel } from "antd";
+import React, { useRef, useState } from "react";
+import { motion, progress } from "framer-motion";
+import { Container } from "../index";
+import {
+  FaRocket,
+  FaUsers,
+  FaStream,
+  FaChartLine,
+  FaLightbulb,
+  FaCogs,
+} from "react-icons/fa";
+import useResponsiveObserver from "antd/es/_util/responsiveObserver";
+import { CloudCog } from "lucide-react";
 
 const Features = () => {
+
+  const features_list = [
+    {
+      icon: <FaRocket className="w-12 h-12 mb-4 text-primary" />,
+      title: "Rapid Setup",
+      description:
+        "Get started in minutes with our easy-to-use platform. No downloads or installations required.",
+    },
+    {
+      icon: <FaUsers className="w-12 h-12 mb-4 text-primary" />,
+      title: "Engage Audiences",
+      description:
+        "Interactive tools like polls, Q&A, and live chat keep your audience engaged and connected.",
+    },
+    {
+      icon: <FaStream className="w-12 h-12 mb-4 text-primary" />,
+      title: "Seamless Streaming",
+      description:
+        "Stream high-quality video and audio directly from your browser, without any lag or interruptions.",
+    },
+    {
+      icon: <FaChartLine className="w-12 h-12 mb-4 text-primary" />,
+      title: "Analytics Dashboard",
+      description:
+        "Track event performance with real-time analytics and insights to improve future events.",
+    },
+    {
+      icon: <FaLightbulb className="w-12 h-12 mb-4 text-primary" />,
+      title: "Creative Freedom",
+      description:
+        "Customize your event pages and branding to match your unique style and vision.",
+    },
+    {
+      icon: <FaCogs className="w-12 h-12 mb-4 text-primary" />,
+      title: "Advanced Tools",
+      description:
+        "Access advanced features like breakout rooms, screen sharing, and recording for professional events.",
+    },
+  ];
+
+
   return (
-    <section className="py-12 md:py-16 lg:py-24 bg-[#F5F5F7] text-gray font-roboto">
-      <div>
-        <div className=" w-full pl-4 sm:pl-0">
-           <h2 className="text-4xl sm:text-5xl lg:text-6xl font-semibold text-center mb-3 md:mb-4">
-            Powerful Features
-          </h2>
-        </div>
-        <div className="relative w-full group pl-4 sm:pl-44 ">
-          <div className="absolute left-0 top-1/2 -translate-y-1/2 z-10 hover:bg-gray-200 rounded-full p-2  opacity-0 group-hover:opacity-100 transition-opacity duration-300 hover:duration-300 hover:transition sm:pl-44 ">
-            <LeftCircleOutlined className="text-5xl cursor-pointer hover:opacity-75 transition-opacity" />
+    <section className="text-text py-24 font-bricolage overflow-x-hidden ">
+      <Container>
+        <div className="w-full rounded lg:flex lg:justify-between bg-[#0c1725] py-24 px-6 lg:px-12">
+          {/* Left Section */}
+          <div className="lg:w-1/2 lg:flex flex-col md:space-y-4 md:justify-center">
+            <motion.h2
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              viewport={{ once: true }}
+              className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold font-bricolage leading-tight mb-4"
+            >
+              Why Choose Us?
+            </motion.h2>
+            <motion.p
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              viewport={{ once: true }}
+              className="text-lg sm:text-xl md:text-2xl mt-2"
+            >
+              Discover the features that make GRUPIO the preferred choice for
+              hosting and attending virtual events.
+            </motion.p>
           </div>
-          <div className="overflow-x-auto scrollbar-hide snap-x snap-mandatory group-hover:block">
-            <div className="inline-flex py-8 space-x-4">
-              {features?.map((item, index) => (
-                <FeaturesCard
-                  key={index}
-                  icon={<item.icon />}
-                  title={item?.title}
-                  desc={item?.description}
-                  bgColor={item?.color}
-                />
-              ))}
+          {/* Right Section */}
+          <div className=" w-1/2 hide-scrollbar relative mt-6 sm:mt-8 md:mt-8 lg:mt-0">
+            <div className="absolute -left-1 top-0 w-24 h-full bg-gradient-to-r from-[#0c1725] to-transparent z-10" />
+            <div
+              className=" inset-0 bg-[#0c1725]"
+              style={{ clipPath: "inset(0 -100% 0 0)" }}
+            >
+              <div className="flex px-4 gap-4  shadow-gray-400 animate-[scroll_50s_linear_infinite] overflow-ellipsis">
+                {features_list.map((feature, index) => (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, x: 40 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 300, delay: 0.2 }}
+                    viewport={{ once: true }}
+                    className={` bg-background rounded-2xl p-6 flex shadow-lg flex-col items-center justify-center w-full min-w-[440px] h-[320px] `}
+                  >
+                    <div className="mb-6 text-4xl">{feature.icon}</div>
+                    <h3 className="text-xl sm:text-2xl font-bold mb-4 text-center">
+                      {feature.title}
+                    </h3>
+                    <p className="text-base sm:text-lg text-gray-300 text-center">
+                      {feature.description}
+                    </p>
+                  </motion.div>
+                ))}
+              </div>
             </div>
           </div>
-          <div className="absolute right-0 top-1/2 -translate-y-1/2 z-10 hover:bg-gray-200 rounded-full p-2 hover:duration-300 hover:transition  opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-            <RightCircleOutlined className="text-5xl cursor-pointer hover:opacity-75 transition-opacity" />
-          </div>
         </div>
-      </div>
+      </Container>
     </section>
   );
-}
+};
 
-export default Features
+export default Features;

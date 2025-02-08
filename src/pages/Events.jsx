@@ -45,16 +45,16 @@ const Events = () => {
     fetchEvents();
   }, [dispatch]);
   return (
-    <div className="bg-gray-800 w-full min-h-screen py-24 relative flex-1">
+    <div className="bg-gray-800 w-full min-h-screen py-24 relative">
       <Container>
         {isLoading ? (
-          <div className=" text-center text-white">Loading...</div>
+          <div className="text-center text-white">Loading...</div>
         ) : (
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 px-4">
+          <div className="flex flex-col gap-4 sm:flex-row sm:gap-[2%] sm:flex-wrap lg:flex lg:gap-[2%] lg:flex-wrap">
             {Array.isArray(allPublicEvents?.data?.events) &&
               allPublicEvents?.data?.events.map((event, index) => (
                 <EventCard
-                  openIt ={() => handelEventModel(true, event._id)}
+                  openIt={() => handelEventModel(true, event._id)}
                   key={index}
                   eventName={event.title}
                   date={new Date(event?.startingDate).toLocaleDateString()}
@@ -64,12 +64,14 @@ const Events = () => {
                   noOfHour={event?.duration}
                 />
               ))}
-            {state? <div className=" fixed none top-0 w-full h-full overflow-auto left-10 bg-black bg-opacity-40 flex justify-center pt-[5.5rem]">
-              <EventDetialModel
-                {...eventData}
-                closeIt={() => handelEventModel(false)}
-              />
-            </div> : null}
+            {state ? (
+              <div className=" fixed none top-0 w-full h-full overflow-auto left-10 bg-black bg-opacity-40 flex justify-center pt-[5.5rem]">
+                <EventDetialModel
+                  {...eventData}
+                  closeIt={() => handelEventModel(false)}
+                />
+              </div>
+            ) : null}
           </div>
         )}
       </Container>

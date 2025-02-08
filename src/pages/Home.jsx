@@ -9,7 +9,7 @@ import { Container } from "../components/index.js";
 
 const Home = () => {
   return (
-    <div className=" bg-gray-900 min-h-screen flex flex-col w-full">
+    <div className=" bg-background min-h-screen flex flex-col w-full bg-bgColor">
         <HeroSection />
         <Features />
         <HowItWork />
@@ -18,3 +18,4 @@ const Home = () => {
 };
 
 export default Home;
+ 

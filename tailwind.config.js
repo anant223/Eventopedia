@@ -15,10 +15,19 @@ export default {
       fontFamily: {
         roboto: ["Roboto", "sans-serif"],
         aus: ["Playwrite AU SA", "serif"],
+        bricolage: [ "Bricolage Grotesque", "serif"],
+        CS: ["Covered By Your Grace", "serif"]
       },
-      
+
       height: {
         contentHeight: "calc(100vh - 80px)",
+      },
+      colors: {
+        text: "#dfeaf9", // Main text color
+        background: "#05101c", // Main background color
+        primary: "#8bb4e9", // Primary brand color
+        secondary: "#2e1a86", // Secondary brand color
+        accent: "#924cdd", // Accent color for emphasis
       },
     },
   },
