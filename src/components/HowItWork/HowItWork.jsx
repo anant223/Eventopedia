@@ -1,14 +1,13 @@
 import React from 'react'
-import { Button, Container, FeaturesCard } from "../index.js";
+import { Button, Container,  } from "../index.js";
 import { howitwork } from '../../utils/constant.js';
 import { ArrowRight } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 const HowItWork = () => {
  
-
   return (
-    <section className="text-text py-24 font-bricolage overflow-x-hidden ">
+    <section className="text-text py-12 sm:py-24 font-bricolage overflow-x-hidden ">
       <Container>
         <div className="w-full rounded flex bg-[#0c1725] py-24 px-12 relative flex-col">
           <div className="flex justify-between gap-2">

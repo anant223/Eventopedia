@@ -9,44 +9,43 @@ import {
   FaLightbulb,
   FaCogs,
 } from "react-icons/fa";
-import useResponsiveObserver from "antd/es/_util/responsiveObserver";
-import { CloudCog } from "lucide-react";
+
 
 const Features = () => {
 
   const features_list = [
     {
-      icon: <FaRocket className="w-12 h-12 mb-4 text-primary" />,
+      icon: <FaRocket className="lg:w-12 lg:h-12 mb-4 text-primary w-8 h-8" />,
       title: "Rapid Setup",
       description:
         "Get started in minutes with our easy-to-use platform. No downloads or installations required.",
     },
     {
-      icon: <FaUsers className="w-12 h-12 mb-4 text-primary" />,
+      icon: <FaUsers className="sm:w-12 sm:h-12 mb-4 text-primary w-8 h-8" />,
       title: "Engage Audiences",
       description:
         "Interactive tools like polls, Q&A, and live chat keep your audience engaged and connected.",
     },
     {
-      icon: <FaStream className="w-12 h-12 mb-4 text-primary" />,
+      icon: <FaStream className="sm:w-12 sm:h-12 mb-4 text-primary w-8 h-8" />,
       title: "Seamless Streaming",
       description:
         "Stream high-quality video and audio directly from your browser, without any lag or interruptions.",
     },
     {
-      icon: <FaChartLine className="w-12 h-12 mb-4 text-primary" />,
+      icon: <FaChartLine className=" sm:w-12 sm:h-12 w-8 h-8 mb-4 text-primary" />,
       title: "Analytics Dashboard",
       description:
         "Track event performance with real-time analytics and insights to improve future events.",
     },
     {
-      icon: <FaLightbulb className="w-12 h-12 mb-4 text-primary" />,
+      icon: <FaLightbulb className="sm:w-12 sm:h-12 mb-4 text-primary w-8 h-8" />,
       title: "Creative Freedom",
       description:
         "Customize your event pages and branding to match your unique style and vision.",
     },
     {
-      icon: <FaCogs className="w-12 h-12 mb-4 text-primary" />,
+      icon: <FaCogs className="sm:w-12 sm:h-12 mb-4 text-primary w-8 h-8" />,
       title: "Advanced Tools",
       description:
         "Access advanced features like breakout rooms, screen sharing, and recording for professional events.",
@@ -55,17 +54,17 @@ const Features = () => {
 
 
   return (
-    <section className="text-text py-24 font-bricolage overflow-x-hidden ">
+    <section className="text-text sm:pt-14 md:pt-16 lg:pt-24 font-bricolage overflow-x-hidden ">
       <Container>
-        <div className="w-full rounded lg:flex lg:justify-between bg-[#0c1725] py-24 px-6 lg:px-12">
+        <div className="w-full rounded lg:flex lg:justify-between bg-[#0c1725] py-24 lg:px-12">
           {/* Left Section */}
-          <div className="lg:w-1/2 lg:flex flex-col md:space-y-4 md:justify-center">
+          <div className="lg:w-1/2 lg:flex flex-col md:space-y-4 md:justify-center  px-4 lg:px-0">
             <motion.h2
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
               viewport={{ once: true }}
-              className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold font-bricolage leading-tight mb-4"
+              className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold font-bricolage leading-tight mb-4  lg:px-0"
             >
               Why Choose Us?
             </motion.h2>
@@ -93,9 +92,9 @@ const Features = () => {
                     key={index}
                     initial={{ opacity: 0, x: 40 }}
                     whileInView={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 300, delay: 0.2 }}
+                    transition={{ duration: 0.8, delay: 0.2 }}
                     viewport={{ once: true }}
-                    className={` bg-background rounded-2xl p-6 flex shadow-lg flex-col items-center justify-center w-full min-w-[440px] h-[320px] `}
+                    className={` bg-background rounded-2xl lg:p-6 p-8 flex shadow-lg flex-col items-center justify-center w-full lg:min-w-[440px] min-w-[280px] h-[240px] sm:min-h-[340px] `}
                   >
                     <div className="mb-6 text-4xl">{feature.icon}</div>
                     <h3 className="text-xl sm:text-2xl font-bold mb-4 text-center">
