@@ -51,7 +51,7 @@ const howitwork = [
   },
   {
     step: 3,
-    title: "Connect and Learn",
+    title: "Good to Go",
     description: "Join your event and start collaborating!",
   },
 ];

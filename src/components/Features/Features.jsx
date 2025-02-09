@@ -54,7 +54,7 @@ const Features = () => {
 
 
   return (
-    <section className="text-text sm:pt-14 md:pt-16 lg:pt-24 font-bricolage overflow-x-hidden ">
+    <section className="text-text sm:pt-14 md:pt-16 lg:py-24 font-bricolage overflow-x-hidden ">
       <Container>
         <div className="w-full rounded lg:flex lg:justify-between bg-[#0c1725] py-24 lg:px-12">
           {/* Left Section */}
@@ -92,7 +92,7 @@ const Features = () => {
                     key={index}
                     initial={{ opacity: 0, x: 40 }}
                     whileInView={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.8, delay: 0.2 }}
+                    transition={{ duration: 0.4, delay: 0.1, ease: "easeOut" }}
                     viewport={{ once: true }}
                     className={` bg-background rounded-2xl lg:p-6 p-8 flex shadow-lg flex-col items-center justify-center w-full lg:min-w-[440px] min-w-[280px] h-[240px] sm:min-h-[340px] `}
                   >
