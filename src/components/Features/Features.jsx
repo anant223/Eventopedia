@@ -65,9 +65,6 @@ const Features = () => {
       setTargetX(-contentWidth + containerWidth);
     }
   }),[])
-  React.useEffect((()=>{
-    console.log(performance)
-  }),[])
 
 
   return (

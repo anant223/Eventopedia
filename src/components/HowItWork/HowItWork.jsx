@@ -8,7 +8,7 @@ const HowItWork = () => {
  
   return (
     <section className="text-text py-12 sm:py-24 font-bricolage overflow-x-hidden">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <Container>
         <div className="w-full rounded-2xl bg-gradient-to-b from-[#0c1725] to-[#131f30] py-24 px-6 sm:px-12 relative">
           {/* Background decoration */}
           <div className="absolute inset-0 overflow-hidden rounded-2xl">
@@ -80,7 +80,7 @@ const HowItWork = () => {
             </div>
           </div>
         </div>
-      </div>
+      </Container>
     </section>
   );
 }
