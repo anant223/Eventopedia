@@ -46,8 +46,8 @@ const howitwork = [
   },
   {
     step: 2,
-    title: "Choose Event",
-    description: "Select a group meeting or request individual help.",
+    title: "Choose/Create Event",
+    description: "Select a event or create your own.",
   },
   {
     step: 3,

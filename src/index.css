@@ -4,14 +4,6 @@
 @tailwind components;
 @tailwind utilities;
 
-.scrollbar-hide {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-}
-.scrollbar-hide::-webkit-scrollbar {
-  display: none;
-}
-
 
 body{
   background-color: #05101c;
@@ -21,18 +13,10 @@ body{
     transform:translateX(0);
   }
   100% {
-    transform: translateX(-50%);
+    transform: translateX(-300%);
   }
 }
-.hide-scrollbar::-webkit-scrollbar {
-  display: none;
-}
 
-/* Hide scrollbar for IE, Edge, and Firefox */
-.hide-scrollbar {
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
-}
 @layer components {
   .inverted-radius {
     --r: 20px; /* the radius */
