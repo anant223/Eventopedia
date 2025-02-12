@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import {Logo } from "../index.js";
+import {Container, Logo } from "../index.js";
 import { motion } from "framer-motion";
 const Header = () => {
   const [scrollDirPos, setScrollDirPos] = useState("0");
@@ -44,7 +44,7 @@ const Header = () => {
           : "bg-transparent text-gray-200"
       }`}
     >
-      <div className="px-4 md:px-8 lg:px-12">
+      <Container>
         <motion.nav
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -74,7 +74,7 @@ const Header = () => {
             </div>
           </div>
         </motion.nav>
-      </div>
+      </Container>
     </header>
   );
 };
