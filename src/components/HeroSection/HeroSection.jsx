@@ -13,14 +13,18 @@ const HeroSection = () => {
   return (
     <section className=" text-text min-h-screen">
       <Container>
-        <div className="py-16 lg:py-24">
-          <div className="max-w-2xl">
+        <div className="py-16 lg:py-12 ">
+          <div className="max-w-xl">
             <div>
               <motion.h1
                 initial={{ opacity: 0, y: 40 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.2 }}
-                className="text-5xl sm:text-7xl md:text-8xl lg:text-8xl font-bold font-bricolage leading-tight space-y-2"
+                className="
+                 scroll-mt-7 lg:text-7xl
+                sm:text-6xl
+                text-6xl
+                font-bold font-bricolage space-y-2 tracking-tight"
               >
                 <span className="block">The ultimate</span>
                 <span className="block">Platform to</span>
