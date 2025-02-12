@@ -13,8 +13,8 @@ const HeroSection = () => {
   return (
     <section className=" text-text min-h-screen">
       <Container>
-        <div className="py-16 lg:py-12 ">
-          <div className="max-w-xl">
+        <div className="py-16 lg:py-24 ">
+          <div className="max-w-lg">
             <div>
               <motion.h1
                 initial={{ opacity: 0, y: 40 }}
