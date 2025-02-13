@@ -13,8 +13,8 @@ const HeroSection = () => {
   return (
     <section className=" text-text min-h-screen">
       <Container>
-        <div className="py-16 lg:py-24">
-          <div className="max-w-xl">
+        <div className="py-16 lg:py-24 flex gap-8">
+          <div className="max-w-lg">
             <div>
               <motion.h1
                 initial={{ opacity: 0, y: 40 }}
@@ -28,7 +28,10 @@ const HeroSection = () => {
               >
                 <span className="block">The ultimate</span>
                 <span className="block">Platform to</span>
-                <span className=" bg-gradient-to-tr bg-clip-text from-secondary via-primary to-accent text-clip overflow-hidden block font-CS text-transparent lg:text-6xl "> Host/Attend</span>
+                <span className=" bg-gradient-to-tr bg-clip-text from-secondary via-primary to-accent text-clip overflow-hidden block font-CS text-transparent lg:text-6xl ">
+                  {" "}
+                  Host/Attend
+                </span>
                 <span className="block">live workshops.</span>
               </motion.h1>
             </div>
