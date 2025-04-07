@@ -19,26 +19,36 @@ import Tag from "./Tags/Tag";
 import UserProfileFrom from "./Profile/UserProfileFrom";
 import UploadAvatar from "./Avatar/UploadAvatar";
 import EventDetialModel from "./EventDetailModel/EventDetialModel";
+import Login from "./Auth/Login/Login";
+import Signup from "./Auth/signup/Signup";
+import Share from "./Button/ShareButton";
+import Like from "./Button/LikeButton";
+import Subscribe from "./Button/SubscribeButton";
 export {
-    Logo,
-    Container,
-    Header,
-    HeroSection,
-    Features,
-    Button,
-    HowItWork,
-    BurgerMenu,
-    Footer,
-    EventSidebar,
-    Navbar,
-    DashboardCard,
-    RecentEvent,
-    Card,
-    EventCard,
-    Form,
-    UserProfile,
-    Tag,
-    UserProfileFrom,
-    UploadAvatar,
-    EventDetialModel
-}
+  Logo,
+  Container,
+  Header,
+  HeroSection,
+  Features,
+  Button,
+  HowItWork,
+  BurgerMenu,
+  Footer,
+  EventSidebar,
+  Navbar,
+  DashboardCard,
+  RecentEvent,
+  Card,
+  EventCard,
+  Form,
+  UserProfile,
+  Tag,
+  UserProfileFrom,
+  UploadAvatar,
+  EventDetialModel,
+  Login,
+  Signup,
+  Share,
+  Like,
+  Subscribe,
+};

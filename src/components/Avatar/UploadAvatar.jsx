@@ -2,20 +2,19 @@ import axios from 'axios';
 import { CameraIcon, Edit2Icon, EditIcon, ImageUp, UploadCloud, UploadIcon } from 'lucide-react';
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form';
-import { userService } from '../../api/auth';
+import userService from '../../api/userService.js';
 
 const UploadAvatar = ({imgUrl}) => {
   const {handleSubmit, register} = useForm();
+  const {isHidden, setIsHidden} = useState(false);
 
   const updateProfileImg = async (data) => {
-    console.log("Payload:", data);
 
     try {
       // Create a FormData object and append the file
       const formData = new FormData();
       formData.append("avatar", data?.avatar[0]);
-
-      const response = await userService.updateAvatar(
+      const response = await userService.updateUserAvatar(
         formData,
         {
           headers: {

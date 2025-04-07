@@ -2,23 +2,24 @@ import React, { useState } from "react";
 import {PlusCircleIcon} from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
 import {sidebarMenuItems} from "../../utils/constant.js"
-import Logo from "../Logo.jsx";
 
 const EventSidebar = () => {
   const location = useLocation();
   const [activeRoute, setActiveRoute] = useState(location.pathname);
   const navigate = useNavigate();
+  const [isOpen, setIsOpen] = useState(false)
 
   const handelmenuItemsClick = (path) => {
     setActiveRoute(path);
     navigate(path);
-    console.log(path);
   };
 
   return (
-    <div className="fixed inset-y-0 left-0 w-64 shadow-lg flex flex-col bg-gray-800">
-      <nav className=" flex-1 py-4 mt-24 px-4 md:px-8 lg:px-12">
-        <ul className="space-y-2">
+    <div
+      className={`fixed w-64 bg-background border-r border-gray-800 z-30 h-full transition-transform duration-300 ease-in-out  ${isOpen ? "translate-x-0" : "-translate-x-[105%]"}`}
+    >
+      <div className="flex flex-col justify-between h-[calc(100%-4rem)]">
+        <ul className="space-y-2 pt-12 px-12 w-full">
           {sidebarMenuItems.map((item) => (
             <li key={item.label} className="">
               <button
@@ -34,15 +35,15 @@ const EventSidebar = () => {
             </li>
           ))}
         </ul>
-      </nav>
-      <div className="p-2 border-t border-gray-700">
-        <button
-          onClick={() => navigate("/main/create-event")}
-          className="w-full text-sm flex items-center justify-center gap-2 bg-indigo-600 text-white hover:bg-indigo-700 transition-colors rounded p-2 mt-1"
-        >
-          <PlusCircleIcon className="h-5 w-5" />
-          <span>New Event</span>
-        </button>
+        <div className="p-2 border-t border-gray-700">
+          <button
+            onClick={() => navigate("/main/create-event")}
+            className="w-full text-sm flex items-center justify-center gap-2 bg-indigo-600 text-white hover:bg-indigo-700 transition-colors rounded p-2 mt-1"
+          >
+            <PlusCircleIcon className="h-5 w-5" />
+            <span>New Event</span>
+          </button>
+        </div>
       </div>
     </div>
   );

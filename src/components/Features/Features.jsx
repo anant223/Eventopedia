@@ -100,7 +100,7 @@ const Features = () => {
                 animate={{ x: targetX }}
                 transition={{ duration: 30,
                 repeatType:"loop",
-                 repeat: Infinity, ease: "linear" }}
+                repeat: Infinity, ease: "linear" }}
                 className="flex items-center px-4 gap-4  shadow-gray-400  overflow-ellipsis translate-x-[56px]"
                 ref={contentRef}
               >

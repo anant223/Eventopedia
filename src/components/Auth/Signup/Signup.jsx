@@ -1,11 +1,9 @@
 import React, { useState } from "react";
-import {Container} from "../../components/index.js";
+import {Container} from "../../index.js";
 import { RiArrowUpWideLine, RiArrowDownWideFill } from "react-icons/ri";
-import { Link } from "react-router-dom";
-import axios from "axios";
+import { data, Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { userService } from "../../api/auth.js"; 
-
+import signUp from "../../../features/Auth/register.js";
 
 const Signup = () => {
   const [isHidden, setIsHidden] = useState(false)
@@ -15,22 +13,12 @@ const Signup = () => {
     formState : {errors}
   } = useForm()
 
-  const newUser = async (data)=>{
-    try {
-      const response = await userService.createUser(data)
-      alert("You have registred successfull");
-      console.log("Response:", response.data);
-    } catch (error) {
-      console.log("Error:", error.message);
-
-       if (error.response) {
-         alert(error.response.data.message || "Something went wrong!");
-       } else {
-         alert("Failed to register. Please try again later.");
-       }
-    }
-
+  const handleRegistration = () =>{
+    signUp(data)
   }
+  
+
+
   return (
     <div className="lg:bg-gray-700 py-4 rounded-lg lg:shadow-lg w-full font-roboto text-white max-w-[420px]">
       <Container>
@@ -86,7 +74,7 @@ const Signup = () => {
           ) : (
             <>
               <form
-                onSubmit={handleSubmit(newUser)}
+                onSubmit={handleSubmit(handleRegistration)}
                 className="flex flex-col gap-4 text-black"
               >
                 <input
@@ -119,7 +107,7 @@ const Signup = () => {
                     minLength: {
                       value: 6,
                       message: "Password must be at least 6 characters long",
-                    }
+                    },
                   })}
                 />
                 <button

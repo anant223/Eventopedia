@@ -11,7 +11,7 @@ const virtualEventsSlice = createSlice({
   initialState,
   reducers: {
     allVirtualEvents: (state, action) => {
-      state.events = action.payload; // Fixed the bug by changing 'virtualMeeting' to 'events'
+      state.events = action.payload; 
       state.error = null;
     },
     setVirtualEventsError: (state, action) => {

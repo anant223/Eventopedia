@@ -5,7 +5,7 @@ export const store = configureStore({
   reducer: rootReducers,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
-      serializableCheck: false, // Disables the serializable check
+      serializableCheck: false, 
     }),
   devTools: true,
 });

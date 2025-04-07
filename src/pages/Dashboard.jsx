@@ -1,25 +1,20 @@
 import React, { useState } from 'react'
-import {UserProfile, Container, UserProfileFrom } from '../components/index.js';
-import { useLocation } from 'react-router-dom';
+import {UserProfile,  UserProfileFrom } from '../components/index.js';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import { useSelector } from 'react-redux';
-import {selectIsAuthenticated, selectUser} from "../features/Authentication/authSelector.js"
-
+import { selectUser} from "../app/selector/authSelector.js"
+import Modal from '../components/modal/Modal.jsx';
 const Dashboard = () => {
-  const navigate = useNavigate()
   const [isClose, setIsclosed] = useState(false)
   const isAuthenticated = useSelector(selectUser)
-  console.log(isAuthenticated);
   const handleOpenModel = (status) =>{
     setIsclosed(status)
-    console.log(isClose);
   }
  
   return (
-    <div className="relative bg-gray-800  min-h-screen pt-24 pb-8">
-      <Container>
-        <div className={`flex-1 `}>
+    <div className="relative bg-background min-h-screen pt-16 ml-64">
+      <div className="mx-auto px-4 md:px-8 lg:px-12 max-w-5xl">
+        <div className="flex-1">
           <div>
             <div className={` ${isClose && "blur-2xl"}`}>
               <UserProfile openIt={() => handleOpenModel(true)} />
@@ -27,13 +22,11 @@ const Dashboard = () => {
           </div>
         </div>
         {isClose && (
-          <div className="fixed bg-black sm:bg-opacity-50 sm:flex sm:justify-center items-center z-50 inset-0 top-[5rem]">
-            <div className="relative rounded-lg shadow-lg max-w-4xl">
-              <UserProfileFrom closeIt={() => handleOpenModel(false)} />
-            </div>
-          </div>
+          <Modal>
+            <UserProfileFrom closeIt={() => handleOpenModel(false)} />
+          </Modal>
         )}
-      </Container>
+      </div>
     </div>
   );
 }

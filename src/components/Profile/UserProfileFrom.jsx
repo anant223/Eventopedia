@@ -1,13 +1,14 @@
 import React, { useState } from 'react'
 import {Container} from '../index.js';
 import { useForm } from 'react-hook-form';
-import { userService } from '../../api/auth.js';
 import { useSelector } from 'react-redux';
-import { selectUser } from '../../features/Authentication/authSelector.js';
+import { selectUser } from "../../app/selector/authSelector.js";
+import userService from '../../api/userService.js';
 
 const UserProfileFrom = ({closeIt}) => {
   const {handleSubmit, register} = useForm();
   const userData = useSelector(selectUser)
+  console.log(userData);
   const updateProfile = async (data) => {
     const socialLinks = [];
 
@@ -30,8 +31,9 @@ const UserProfileFrom = ({closeIt}) => {
       ...rest,
       socialLinks,
     };
+    
       try {
-        const response = await userService.updateProfile(payload)
+        const response = await userService.updateUserProfile(payload);
         console.log("Response:", response.data);
         alert("You have updated the profile successfully!");
       } catch (error) {
@@ -47,13 +49,13 @@ const UserProfileFrom = ({closeIt}) => {
       }
   };
   return (
-    <div className="font-roboto ">
+    <div className="font-roboto">
       <Container>
-        <div className=" sm:bg-white bg-gray-800 sm:bg-opacity-10 backdrop-filter backdrop-blur-lg rounded-lg px-6 md:p-8 shadow-xl lg:max-w-xl lg:mx-auto h-screen overflow-y-scroll  ">
+        <div className="sm:bg-white bg-gray-800 sm:bg-opacity-10 backdrop-filter backdrop-blur-lg rounded-lg px-6 md:p-8 shadow-xl lg:max-w-xl lg:mx-auto h-screen overflow-y-auto transition-all duration-300 ease-in-out transform hover:scale-101">
           <button
             onClick={closeIt}
             aria-label="Close"
-            className="absolute top-3 right-3 z-50 text-gray-500 hover:text-gray-600 font-bold text-xl"
+            className="absolute top-3 right-3 z-50 text-gray-500 hover:text-gray-600 font-bold text-xl transition-transform duration-200 ease-in-out hover:scale-110"
           >
             ✕
           </button>
@@ -70,8 +72,8 @@ const UserProfileFrom = ({closeIt}) => {
                 <input
                   type="text"
                   name="username"
-                  className="w-full px-4 py-2 bg-white bg-opacity-20 text-white rounded border-none"
-                  defaultValue={userData?.data ? userData.data.username : ""}
+                  className="w-full px-4 py-2 bg-white bg-opacity-20 text-white rounded border-none transition-all duration-200 ease-in-out hover:bg-opacity-30 focus:bg-opacity-30 focus:ring-2 focus:ring-blue-500"
+                  defaultValue={userData?.data ? userData.data.data.username : ""}
                   disabled
                 />
               </div>
@@ -82,8 +84,8 @@ const UserProfileFrom = ({closeIt}) => {
                 <input
                   type="text"
                   name="name"
-                  defaultValue={userData?.data ? userData.data.name : ""}
-                  className="w-full px-4 py-2 bg-white bg-opacity-20 text-white rounded border-none"
+                  defaultValue={userData?.data ? userData.data.data.name : ""}
+                  className="w-full px-4 py-2 bg-white bg-opacity-20 text-white rounded border-none transition-all duration-200 ease-in-out hover:bg-opacity-30 focus:bg-opacity-30 focus:ring-2 focus:ring-blue-500"
                   {...register("name")}
                 />
               </div>
@@ -94,8 +96,8 @@ const UserProfileFrom = ({closeIt}) => {
                 <input
                   type="email"
                   name="email"
-                  defaultValue={userData?.data ? userData.data.email : ""}
-                  className="w-full px-4 py-2 bg-white bg-opacity-20 text-white rounded border-none"
+                  defaultValue={userData?.data ? userData.data.data.email : ""}
+                  className="w-full px-4 py-2 bg-white bg-opacity-20 text-white rounded border-none transition-all duration-200 ease-in-out hover:bg-opacity-30 focus:bg-opacity-30 focus:ring-2 focus:ring-blue-500"
                 />
               </div>
               <div className="md:col-span-2">
@@ -104,8 +106,8 @@ const UserProfileFrom = ({closeIt}) => {
                 </label>
                 <textarea
                   name="bio"
-                  defaultValue={userData?.data ? userData.data.bio : ""}
-                  className="w-full px-4 py-2 bg-white bg-opacity-20 text-white rounded border-none h-32"
+                  defaultValue={userData?.data ? userData.data.data.bio : ""}
+                  className="w-full px-4 py-2 bg-white bg-opacity-20 text-white rounded border-none h-32 transition-all duration-200 ease-in-out hover:bg-opacity-30 focus:bg-opacity-30 focus:ring-2 focus:ring-blue-500"
                   placeholder="Describe yourself"
                   {...register("bio")}
                 />
@@ -119,12 +121,12 @@ const UserProfileFrom = ({closeIt}) => {
                   name="linkedin"
                   defaultValue={
                     userData?.data
-                      ? userData.data.socialLinks.find(
+                      ? userData.data.data.socialLinks.find(
                           (link) => link.platform === "linkedin"
                         ).url
                       : ""
                   }
-                  className="w-full px-4 py-2 bg-white bg-opacity-20 text-white rounded border-none"
+                  className="w-full px-4 py-2 bg-white bg-opacity-20 text-white rounded border-none transition-all duration-200 ease-in-out hover:bg-opacity-30 focus:bg-opacity-30 focus:ring-2 focus:ring-blue-500"
                   {...register("social_linkedin")}
                 />
               </div>
@@ -137,12 +139,12 @@ const UserProfileFrom = ({closeIt}) => {
                   name="instagram"
                   defaultValue={
                     userData?.data
-                      ? userData.data.socialLinks.find(
+                      ? userData.data.data.socialLinks.find(
                           (link) => link.platform === "instagram"
                         ).url
                       : ""
                   }
-                  className="w-full px-4 py-2 bg-white bg-opacity-20 text-white rounded border-none"
+                  className="w-full px-4 py-2 bg-white bg-opacity-20 text-white rounded border-none transition-all duration-200 ease-in-out hover:bg-opacity-30 focus:bg-opacity-30 focus:ring-2 focus:ring-blue-500"
                   {...register("social_instagram")}
                 />
               </div>
@@ -155,12 +157,12 @@ const UserProfileFrom = ({closeIt}) => {
                   name="twitter"
                   defaultValue={
                     userData?.data
-                      ? userData.data.socialLinks.find(
+                      ? userData.data.data.socialLinks.find(
                           (link) => link.platform === "twitter"
                         ).url
                       : ""
                   }
-                  className="w-full px-4 py-2 bg-white bg-opacity-20 text-white rounded border-none"
+                  className="w-full px-4 py-2 bg-white bg-opacity-20 text-white rounded border-none transition-all duration-200 ease-in-out hover:bg-opacity-30 focus:bg-opacity-30 focus:ring-2 focus:ring-blue-500"
                   {...register("social_twitter")}
                 />
               </div>
@@ -171,7 +173,7 @@ const UserProfileFrom = ({closeIt}) => {
                 <input
                   type="url"
                   name="discord"
-                  className="w-full px-4 py-2 bg-white bg-opacity-20 text-white rounded border-none"
+                  className="w-full px-4 py-2 bg-white bg-opacity-20 text-white rounded border-none transition-all duration-200 ease-in-out hover:bg-opacity-30 focus:bg-opacity-30 focus:ring-2 focus:ring-blue-500"
                   {...register("social_discord")}
                 />
               </div>
@@ -184,19 +186,19 @@ const UserProfileFrom = ({closeIt}) => {
                   name="social_other"
                   defaultValue={
                     userData?.data
-                      ? userData.data.socialLinks.find(
+                      ? userData.data.data.socialLinks.find(
                           (link) => link.platform === "other"
                         ).url
                       : ""
                   }
-                  className="w-full px-4 py-2 bg-white bg-opacity-20 text-white rounded border-none"
+                  className="w-full px-4 py-2 bg-white bg-opacity-20 text-white rounded border-none transition-all duration-200 ease-in-out hover:bg-opacity-30 focus:bg-opacity-30 focus:ring-2 focus:ring-blue-500"
                   {...register("social_other")}
                 />
               </div>
               <div className="col-span-1 md:col-span-2">
                 <button
                   type="submit"
-                  className="w-full py-2 rounded bg-white text-gray-800 font-semibold hover:bg-gray-300 transition"
+                  className="w-full py-2 rounded bg-white text-gray-800 font-semibold hover:bg-gray-300 transition-all duration-200 ease-in-out transform hover:scale-105 active:scale-95"
                 >
                   Save
                 </button>

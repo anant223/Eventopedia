@@ -5,9 +5,9 @@ import { Link } from 'react-router-dom';
 
 const EventFrom = () => {
   return (
-    <div className="py-24 bg-gray-800 flex w-full min-h-screen font-roboto">
+    <div className=" bg-gray-800 flex w-full min-h-screen font-roboto">
       <Container>
-        <div className="">
+        <div className=" p-4 pt-12">
           <div className=" text-white  space-y-4 ">
             <Link
               to="/main/all-events"

@@ -11,51 +11,44 @@ const HeroSection = () => {
   };
 
   return (
-    <section className=" text-text min-h-screen">
+    <section className="text-text min-h-screen">
       <Container>
-        <div className="py-16 lg:py-24 flex gap-8">
+        <div className="py-2 md:py-4 lg:py-8">
           <div className="max-w-lg">
-            <div>
-              <motion.h1
-                initial={{ opacity: 0, y: 40 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.2 }}
-                className="
-                 scroll-mt-7 lg:text-7xl
-                sm:text-6xl
-                text-6xl
-                font-bold font-bricolage space-y-2 tracking-tight"
-              >
-                <span className="block">The ultimate</span>
-                <span className="block">Platform to</span>
-                <span className=" bg-gradient-to-tr bg-clip-text from-secondary via-primary to-accent text-clip overflow-hidden block font-CS text-transparent lg:text-6xl ">
-                  {" "}
-                  Host/Attend
-                </span>
-                <span className="block">live workshops.</span>
-              </motion.h1>
-            </div>
-            <div className="relative">
-              <motion.p
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.5 }}
-                className="mt-8 font-bricolage text-xl  leading-tight"
-              >
-                GRUPIO is a professional hosting & streaming platform for
-                virtual private and public events — allowing you to engage with
-                professionals, all in your browser.
-              </motion.p>
-            </div>
+            <motion.h1
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="scroll-mt-7 text-4xl sm:text-5xl lg:text-6xl font-bold font-bricolage tracking-tight space-y-2"
+            >
+              <span className="block">The ultimate</span>
+              <span className="block">Platform to</span>
+              <span className="bg-gradient-to-tr from-secondary via-primary to-accent bg-clip-text text-transparent block font-CS">
+                Host / Attend
+              </span>
+              <span className="block">live workshops.</span>
+            </motion.h1>
+
+            <motion.p
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.5 }}
+              className="mt-6 text-base sm:text-lg lg:text-xl font-bricolage leading-snug text-muted-foreground"
+            >
+              GRUPIO is a professional hosting & streaming platform for virtual
+              private and public events — allowing you to engage with
+              professionals, all in your browser.
+            </motion.p>
+
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.6 }}
-              className="mt-8 flex"
+              className="mt-8"
             >
               <button
                 onClick={handleClick}
-                className="font-bold text-base sm:text-lg bg-primary text-gray-900 px-4 py-3 sm:px-6 sm:py-3 hover:-translate-y-1 transition-all duration-300 transform h-14 w-96 sm:w-44  md:w-40 lg:w-44 rounded-xl"
+                className="w-full sm:w-auto px-6 py-3 rounded-xl bg-primary text-gray-900 text-base sm:text-lg font-bold transition-all duration-300 hover:-translate-y-1"
               >
                 Get Started
               </button>

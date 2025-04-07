@@ -5,13 +5,13 @@ import { Link } from 'react-router-dom';
 
 const Card = ({ img, name, number, numerOfEvents }) => {
   return (
-    <div className="rounded-xl border border-gray-700 shadow-lg bg-gray-700 h-full flex flex-col overflow-hidden text-gray-200 font-roboto text-lg/3 p-6">
+    <div className="rounded-xl border border-gray-700 shadow-lg bg-gray-700 flex flex-col overflow-hidden text-gray-200 font-roboto text-lg/3 p-2 h-48 w-full">
       <div className="flex justify-center mb-4">
         <div className="bg-white p-2 rounded-full">
           <img
             src="https://via.placeholder.com/100"
             alt="Avatar"
-            className="w-24 h-24 rounded-full object-cover"
+            className=" w-12 h-12 rounded-full object-cover"
           />
         </div>
       </div>

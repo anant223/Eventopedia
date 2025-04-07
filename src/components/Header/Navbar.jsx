@@ -1,10 +1,8 @@
 import React, { useState } from "react";
 import { BurgerMenu, Logo } from "../index.js";
-import axios from "axios";
 import { Link , useNavigate} from "react-router-dom";
-import {Button} from "antd"
-import apiRequest from "../../api/apiRequest.js";
-import { userService } from "../../api/auth.js";
+import {Button, Menu} from "antd"
+import destroySession from "../../features/Auth/logout.js"
 
 const Navbar = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -13,27 +11,19 @@ const Navbar = () => {
   const toggleDropdown = () => {
     setIsDropdownOpen((prev) => !prev);
   };
-
-  const destroySession = async () => {
-    try {
-      const response = await userService.logoutSession();
-      if (response) {
-        alert("You have logged out successfully");
-      }
-    } catch (error) {
-      console.error("Logout Error:", error.response || error.message);
-      alert(
-        error.response?.data?.message || "Failed to log out. Please try again."
-      );
-    }
-  };
-
   const handelProfile = () =>{
     navigate("/main/user-profile")
   }
-  
+  const handleLogoutSession = () =>{
+    const logout = destroySession();
+    if(logout){
+      navigate("/auth");
+    }
+    
+  }
+
   return (
-    <nav className="w-full inset-0 font-roboto fixed text-white z-20 h-16 bg-gray-800 flex items-center border-b border-gray-700">
+    <nav className="w-full inset-0 font-roboto fixed text-white z-30 h-16 bg-gray-800 flex items-center border-b border-gray-700 ">
       <div className="w-full flex justify-between  items-center px-4 md:px-8 lg:px-12">
         <div>
           <Link to={"/main/all-events"}>
@@ -66,7 +56,7 @@ const Navbar = () => {
                   Profile
                 </button>
                 <button
-                  onClick={destroySession}
+                  onClick={handleLogoutSession}
                   className=" flex w-full px-4 py-2 hover:bg-gray-600 text-sm"
                 >
                   Sign out
@@ -75,8 +65,8 @@ const Navbar = () => {
             )}
           </div>
         </div>
-        <div className=" lg:hidden md:hidden sm:hidden flex">
-          <BurgerMenu />
+        <div className=" lg:hidden md:hidden sm:flex flex">
+          <BurgerMenu onOpen={() => handle} />
         </div>
       </div>
     </nav>

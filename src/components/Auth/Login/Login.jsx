@@ -1,41 +1,24 @@
 import React from 'react'
 import { useForm } from 'react-hook-form';
-import { Container } from '../../components/index.js';
+import { Container } from '../../index.js';
 import { RiArrowDownWideFill, RiArrowUpWideFill } from 'react-icons/ri';
 import { useDispatch} from "react-redux";
-import { useNavigate } from 'react-router-dom';
-import {userService} from "../../api/auth.js"
-import { login } from './authSlice.js';
+import { Link, useNavigate } from 'react-router-dom';
+import loginSession from '../../../features/Auth/login.js';
 
 const Login = () => {
   const [isHidden, setIsHidden] = React.useState(false);
   const navigate = useNavigate()
-  const {
-      register,
-      handleSubmit,
-      formState : {errors}
-    } = useForm()
-    const dispatch = useDispatch();
+  const {register, handleSubmit, formState : {errors}} = useForm();
+  const dispatch = useDispatch();
 
-  const loginSession = async (data) => {
-    try {
-      const loginUser = await userService.loginSession(data)
-      dispatch(login(loginUser));
-      alert("You have logged in successfull");
-      console.log("Response:", loginUser);
-    } catch (error) {
-      console.log("Error:", error.message);
-
-      if (error.response) {
-        alert(error.response.data.message || "Something went wrong!");
-      } else {
-        alert("Failed to register. Please try again later.");
-      }
-    }
+  const handleSession = (data) => {
+    dispatch(loginSession(data, navigate));
   };
 
+
   return (
-    <div className="bg-white p-8 rounded-lg sm:shadow-lg max-w-[425px] w-full">
+    <div className="lg:bg-white text-text p-8 rounded-lg sm:shadow-lg max-w-[425px] w-full">
       <Container>
         <div>
           <h2 className="text-2xl font-semibold text-center mb-6">Sign In</h2>
@@ -90,7 +73,7 @@ const Login = () => {
           ) : (
             <>
               <form
-                onSubmit={handleSubmit(loginSession)}
+                onSubmit={handleSubmit(handleSession)}
                 className="flex flex-col gap-4"
               >
                 <input
@@ -131,9 +114,9 @@ const Login = () => {
           <div>
             <p className=" text-left text-gray-600 mt-4 text-sm font-roboto">
               Don't have an account?{" "}
-              <a href="#" className="text-blue-500 hover:underline">
+              <Link to="/auth" className="text-blue-500 hover:underline">
                 Sign up
-              </a>
+              </Link>
             </p>
           </div>
         </div>

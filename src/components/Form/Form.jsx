@@ -1,7 +1,7 @@
 import {CalendarIcon, MessageCircle, Users, Video } from 'lucide-react';
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form';
-import { eventService } from '../../api/event';
+import  eventService  from '../../api/eventService.js';
 const Form = () => {
   const { handleSubmit, register} = useForm();
   const newEvent = async (data) => {

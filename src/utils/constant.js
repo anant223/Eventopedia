@@ -79,8 +79,7 @@ const allEvents = [
 
 const sidebarMenuItems = [
   { icon: CalendarIcon, label: "Events", href: "/main/all-events" },
-  { icon: UserIcon, label: "One-O-One", href: "/main/one-o-one" },
-  { icon: Users, label: "Hosters", href: "/main/all-orgnizers" },
+  { icon: Users, label: "Leaders", href: "/main/all-orgnizers" },
 ];
 
 
@@ -88,3 +87,4 @@ const sidebarMenuItems = [
 
 
 export { features, howitwork, sidebarMenuItems};
+
