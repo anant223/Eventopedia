@@ -20,10 +20,10 @@ import UserProfileFrom from "./Profile/UserProfileFrom";
 import UploadAvatar from "./Avatar/UploadAvatar";
 import EventDetialModel from "./EventDetailModel/EventDetialModel";
 import Login from "./Auth/Login/Login";
-import Signup from "./Auth/signup/Signup";
 import Share from "./Button/ShareButton";
 import Like from "./Button/LikeButton";
 import Subscribe from "./Button/SubscribeButton";
+import Signup from "./Auth/Signup/Signup";
 export {
   Logo,
   Container,
@@ -34,6 +34,7 @@ export {
   HowItWork,
   BurgerMenu,
   Footer,
+  Signup,
   EventSidebar,
   Navbar,
   DashboardCard,
@@ -47,7 +48,6 @@ export {
   UploadAvatar,
   EventDetialModel,
   Login,
-  Signup,
   Share,
   Like,
   Subscribe,
