@@ -13,7 +13,7 @@ const HeroSection = () => {
 
   return (
     <section className=" text-text min-h-dvh">
-      <div className="max-w-7xl py-[140px] sm:py-[80px] mx-auto px-4 sm:px-6 md:py-[140px] lg:py-[80px]">
+      <div className="max-w-7xl  mx-auto px-4 sm:px-6 py-[80px]">
         <div className=" max-w-3xl mx-auto text-center">
           <h1 className="text-5xl  sm:text-6xl md:text-7xl font-bold lg:text-8xl mb-8">
             The <span className=" text-6xl sm:text-9xl">ultimate</span>
