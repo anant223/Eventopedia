@@ -15,16 +15,16 @@ const HeroSection = () => {
     <section className=" text-text min-h-dvh">
       <div className="max-w-7xl  mx-auto px-4 sm:px-6 py-[80px]">
         <div className=" max-w-3xl mx-auto text-center">
-          <h1 className="text-5xl  sm:text-6xl md:text-7xl font-bold lg:text-8xl mb-8">
-            The <span className=" text-6xl sm:text-9xl">ultimate</span>
+          <h1 className=" text-5xl lg:text-7xl md:text-[4.2rem] mb-8 font-bold">
+            The <span className="">ultimate</span>
             <span>
               {" "} Platform to {" "} 
             </span>
-            <span className="bg-gradient-to-tr from-secondary via-primary to-accent bg-clip-text text-transparent font-CS text-5xl sm:text-9xl">
+            <span className="bg-gradient-to-tr from-secondary via-primary to-accent bg-clip-text text-transparent font-CS">
               Host/Attend
             </span>{" "}
             <span>live </span>
-            <span className=" sm:text-9xl sm:leading-10">events.</span>
+            <span className="">events.</span>
           </h1>
           <p className="text-lg sm:text-2xl p-2 mb-8 font-semibold">
             GRUPIO lets you host and stream virtual events — public or private
