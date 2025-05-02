@@ -17,9 +17,7 @@ const HeroSection = () => {
         <div className=" max-w-3xl mx-auto text-center">
           <h1 className=" text-5xl lg:text-7xl md:text-[4.2rem] mb-4 sm:mb-8 font-bold">
             The <span className="">ultimate</span>
-            <span>
-              {" "} Platform to {" "} 
-            </span>
+            <span> Platform to </span>
             <span className="bg-gradient-to-tr from-secondary via-primary to-accent bg-clip-text text-transparent font-CS">
               Host/Attend
             </span>{" "}
@@ -32,7 +30,14 @@ const HeroSection = () => {
             browser.
           </p>
           <div>
-            <button className="inline-block bg-primary rounded-[30px] p-[14px_40px] rounded-tr-none text-[18px] sm:text-[24px] hover:rounded-tr-[30px] hover:transition-all hover:duration-300 text-black font-semibold">
+            <button
+              className="inline-block bg-primary text-black font-semibold 
+  px-6 py-3 sm:px-10 sm:py-4 
+  text-base sm:text-xl 
+  rounded-[30px] rounded-tr-none 
+  hover:rounded-tr-[30px] 
+  transition-all duration-300"
+            >
               Register
             </button>
           </div>
