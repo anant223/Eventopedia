@@ -15,7 +15,7 @@ const HeroSection = () => {
     <section className=" text-text min-h-dvh">
       <div className="max-w-7xl  mx-auto px-4 sm:px-6 py-[80px]">
         <div className=" max-w-3xl mx-auto text-center">
-          <h1 className=" text-5xl lg:text-7xl md:text-[4.2rem] mb-8 font-bold">
+          <h1 className=" text-5xl lg:text-7xl md:text-[4.2rem] mb-4 sm:mb-8 font-bold">
             The <span className="">ultimate</span>
             <span>
               {" "} Platform to {" "} 
@@ -26,7 +26,7 @@ const HeroSection = () => {
             <span>live </span>
             <span className="">events.</span>
           </h1>
-          <p className="text-lg sm:text-2xl p-2 mb-8 font-semibold">
+          <p className="text-lg sm:text-xl p-2 mb-4 sm:mb-8 font-semibold">
             GRUPIO lets you host and stream virtual events — public or private
             and connect with professionals in real-time, straight from your
             browser.
