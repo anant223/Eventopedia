@@ -16,10 +16,10 @@ const EventSidebar = () => {
 
   return (
     <div
-      className={`fixed w-64 bg-background border-r border-gray-800 z-30 h-full transition-transform duration-300 ease-in-out  ${isOpen ? "translate-x-0" : "-translate-x-[105%]"}`}
+      className={`fixed w-64 bg-background border-r border-gray-800 z-30 h-full transition-transform duration-300 ease-in-out  ${!isOpen ? "translate-x-0" : "-translate-x-[105%]"}`}
     >
       <div className="flex flex-col justify-between h-[calc(100%-4rem)]">
-        <ul className="space-y-2 pt-12 px-12 w-full">
+        <ul className="space-y-2 pt-12 pl-12 pr-4 w-full">
           {sidebarMenuItems.map((item) => (
             <li key={item.label} className="">
               <button

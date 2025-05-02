@@ -1,22 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import {Container, Logo } from "../index.js";
+import { Link } from "react-router-dom";
+import {BurgerMenu, Logo } from "../index.js";
 import { motion } from "framer-motion";
 const Header = () => {
   const [scrollDirPos, setScrollDirPos] = useState("0");
   const [countScroll, setCountScroll] = useState(0);
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const navigate = useNavigate();
   const lastScroll = useRef(0);
-  const domRef = useRef()
-
-  const handleJoinBtn = () => {
-    navigate("/auth");
-  };
-
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -33,48 +22,45 @@ const Header = () => {
     };
   }, []);
 
-//  console.log(domRef.current.innerText.split(""));
 
   return (
     <header
-      style={{ top: scrollDirPos }}
-      className={`w-full font-roboto z-50 transition-all duration-300 ease-in-out sticky ${
+      className={`w-full h-[80px] z-30  text-text px-2 sm:px-2 sticky transition-all duration-[600ms] ${
         countScroll > 16
           ? "bg-black shadow-lg text-white"
-          : "bg-transparent text-gray-200"
+          : "bg-[#05101c] text-gray-200"
       }`}
+      style={{ top: scrollDirPos }}
     >
-      <Container>
-        <motion.nav
-          initial={{ opacity: 0, y: 30 }}
+      <motion.nav initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.5 }}
-          className="flex items-center justify-between py-4"
-        >
-          <div>
-            <Link to="/" className="flex items-center">
-              <Logo />
-            </Link>
+          transition={{ duration: 0.8, delay: 0.5 }} 
+          className="flex items-center justify-between m-[0px_auto] max-w-7xl px-4 h-full">
+        <div className="">
+          <Link to="/">
+            <Logo />
+          </Link>
+        </div>
+        <div className="">
+          <ul className="hidden sm:flex text-[16px] font-medium gap-6 items-center">
+            <li className="">
+              <Link to="/features">Features</Link>
+            </li>
+            <li className="">
+              <Link to="/pricing">Function</Link>
+            </li>
+            <li className="">
+              <Link to="/pricing">Pricing</Link>
+            </li>
+            <li  className="inline-block bg-primary rounded-[30px] p-[14px_40px] rounded-tr-none text-[14px] font-semibold hover:rounded-tr-[30px] hover:transition-all hover:duration-300 text-black">
+              <Link to="/auth">Login</Link>
+            </li>
+          </ul>
+          <div className=" flex sm:hidden">
+            <BurgerMenu />
           </div>
-          <div className="lg:gap-8 flex items-center">
-            <ul className="hidden lg:flex lg:items-center lg:justify-end lg:flex-1 lg:gap-8">
-              <li className="text-base font-semibold hover:text-gray-400">
-                <Link to="/features">Features</Link>
-              </li>
-              <li 
-                className="text-base font-semibold transition-all duration-200 hover:text-gray-400">
-                <Link to="/pricing">Pricing</Link>
-              </li>
-            </ul>
-            <div>
-              <button 
-                className="text-base font-semibold">
-                Join Now <span aria-hidden="true">&rarr;</span>
-              </button>
-            </div>
-          </div>
-        </motion.nav>
-      </Container>
+        </div>
+      </motion.nav>
     </header>
   );
 };

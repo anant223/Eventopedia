@@ -29,8 +29,6 @@ const EventCard = ({imgSrc, time, eventName, place, noOfHour, date, tag, openIt,
               {eventName}
             </h2>
           </div>
-
-          {/* Location with improved icon integration */}
           <div className="flex items-center gap-2 font-medium text-gray-200 mt-3">
             <div className="flex items-center bg-black/30 backdrop-blur-sm py-1 px-2 rounded-lg">
               <MapPinIcon size={16} className="mr-1" />

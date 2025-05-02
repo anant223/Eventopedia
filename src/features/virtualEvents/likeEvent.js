@@ -5,11 +5,6 @@ const toggleLikeEvent = (eventId) => async (dispatch) => {
   try {
     const likeData = await likeService.toggleEventLike(eventId);
     if (likeData && likeData.data && likeData.data.data) {
-            console.log(
-              "toggleLike dispatched successfully:",
-              likeData.data.data
-            ); 
-
       dispatch(toggleLike(likeData.data.data));
     } else {
       console.warn("likeService returned invalid data:", likeData);

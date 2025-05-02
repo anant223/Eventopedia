@@ -2,8 +2,6 @@ import { Share2 } from 'lucide-react';
 
 const ShareButton = ({eventId, imgSrc, eventName}) => {
   
-  console.log(imgSrc);
-
   const handleShareBtn = async () => {
     try {
       if(navigator.share){

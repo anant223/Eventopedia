@@ -4,7 +4,7 @@ import { Container } from '../../index.js';
 import { RiArrowDownWideFill, RiArrowUpWideFill } from 'react-icons/ri';
 import { useDispatch} from "react-redux";
 import { Link, useNavigate } from 'react-router-dom';
-import loginSession from '../../../features/Auth/login.js';
+import { loginSession } from '../../../features/authActions.js';
 
 const Login = () => {
   const [isHidden, setIsHidden] = React.useState(false);

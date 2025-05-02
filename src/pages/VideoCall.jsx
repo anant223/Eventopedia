@@ -1,6 +1,5 @@
 import React, { useRef, useState } from 'react'
 import { useNavigate,  } from 'react-router-dom';
-import video from ".././assets/video.mp4"
 const VideoCall = () => {
   const navgate = useNavigate()
   console.log(navgate.name);

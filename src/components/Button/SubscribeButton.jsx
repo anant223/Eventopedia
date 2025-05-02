@@ -1,14 +1,11 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { registerEvent } from '../../features/virtualEvents/registerEvent'
-import useRegister from '../../hooks/useRegister'
 
 const SubscribeButton = ({eventId}) => {
   const dispatch =  useDispatch()
-  const {loading} = useRegister(eventId);
   const isSubscribed = useSelector((state) => state.auth.subscriptions.includes(eventId));
   
-
   return (
     <div>
       <button

@@ -5,17 +5,22 @@ import {
   selectEvent,
   selectEventLoading,
 } from "../app/selector/virtualEventsSelector.js";
-import useFtechEvents from "../hooks/useFetchEvents.jsx";
+import useAPI from "../hooks/useAPI.jsx";
+import eventService from "../api/eventService.js";
+import { allVirtualEvents } from "../app/features/virtualEventsSlice.js";
 
 const Events = () => {
   const allPublicEvents = useSelector(selectEvent);
   const isLoading = useSelector(selectEventLoading);
   const [eventData, setEventData] = useState()
   const [state, setState] = useState(false)
-  useFtechEvents()
+  const { loading, err } = useAPI( () =>
+    eventService.getAllPublicEvents({ page: 1, limit: 6 }),
+    allVirtualEvents,
+  );
 
   const handelEventModel = (status, eventID) =>{
-  const chosenPublicEvent = allPublicEvents?.data?.events.find(
+  const chosenPublicEvent = allPublicEvents?.events.find(
     (event) => event._id === eventID
   );
     setEventData(chosenPublicEvent);
@@ -32,8 +37,8 @@ const Events = () => {
           </div>
         ) : (
           <div className=" grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2  p-4 pt-12">
-            {Array.isArray(allPublicEvents?.data?.data?.events) &&
-              allPublicEvents?.data?.data?.events.map((event, index) => (
+            {Array.isArray(allPublicEvents?.events) &&
+              allPublicEvents?.events.map((event, index) => (
                 <EventCard
                   key={index}
                   openIt={() => handelEventModel(true, event._id)}

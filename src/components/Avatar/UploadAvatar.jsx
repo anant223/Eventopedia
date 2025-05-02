@@ -3,43 +3,44 @@ import { CameraIcon, Edit2Icon, EditIcon, ImageUp, UploadCloud, UploadIcon } fro
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form';
 import userService from '../../api/userService.js';
+import { updateProfileImg } from '../../features/profileAction.js';
 
 const UploadAvatar = ({imgUrl}) => {
   const {handleSubmit, register} = useForm();
   const {isHidden, setIsHidden} = useState(false);
 
-  const updateProfileImg = async (data) => {
+  // const updateProfileImg = async (data) => {
 
-    try {
-      // Create a FormData object and append the file
-      const formData = new FormData();
-      formData.append("avatar", data?.avatar[0]);
-      const response = await userService.updateUserAvatar(
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
+  //   try {
+  //     // Create a FormData object and append the file
+  //     const formData = new FormData();
+  //     formData.append("avatar", data?.avatar[0]);
+  //     const response = await userService.updateUserAvatar(
+  //       formData,
+  //       {
+  //         headers: {
+  //           "Content-Type": "multipart/form-data",
+  //         },
+  //       }
+  //     );
 
-      console.log("Response:", response.data);
-      alert("You have uploaded the image successfully!");
-    } catch (error) {
-      console.error("Error:", error);
+  //     console.log("Response:", response.data);
+  //     alert("You have uploaded the image successfully!");
+  //   } catch (error) {
+  //     console.error("Error:", error);
 
-      if (error.response) {
-        console.error("Status:", error.response.status);
-        console.error("Data:", error.response.data);
-        alert(error.response.data.message || "Something went wrong!");
-      } else {
-        alert("Failed to upload the image. Please try again later.");
-      }
-    }
-  };
+  //     if (error.response) {
+  //       console.error("Status:", error.response.status);
+  //       console.error("Data:", error.response.data);
+  //       alert(error.response.data.message || "Something went wrong!");
+  //     } else {
+  //       alert("Failed to upload the image. Please try again later.");
+  //     }
+  //   }
+  // };
   return (
     <form onSubmit={handleSubmit(updateProfileImg)}>
-      <div className="relative w-28 h-28 sm:w-32 sm:h-32 md:w-36 md:h-36 lg:w-40 lg:h-40 group">
+      <div className="relative w-28 h-28 sm:w-32 sm:h-32 group">
         <img
           src={imgUrl}
           alt="Avatar"

@@ -1,11 +1,12 @@
 import userService from "../../api/userService";
 
-const signUp = async (data, navigate) => {
+const signUp = async (data) => {
   try {
     const response = await userService.registerUser(data);
     if(response){
-        alert("You have registred successfull");
+      alert("You have registred successfull");
     }
+    
   } catch (error) {
     console.log("Error:", error.message);
     if (error.response) {

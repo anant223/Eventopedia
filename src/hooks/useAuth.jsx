@@ -22,6 +22,7 @@ export const useAuth = () => {
         }
       })
       .catch((err) => {
+        console.error(err.message);
         dispatch(logout());
         navigate("/auth", { replace: true });
       })

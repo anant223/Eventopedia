@@ -4,50 +4,11 @@ import { useForm } from 'react-hook-form';
 import { useSelector } from 'react-redux';
 import { selectUser } from "../../app/selector/authSelector.js";
 import userService from '../../api/userService.js';
+import { updateProfile } from '../../features/profileAction.js';
 
 const UserProfileFrom = ({closeIt}) => {
   const {handleSubmit, register} = useForm();
-  const userData = useSelector(selectUser)
-  console.log(userData);
-  const updateProfile = async (data) => {
-    const socialLinks = [];
-
-    Object.keys(data).forEach(key => {
-      if(key.startsWith("social_") && data[key]){
-        const platform = key.replace("social_", "");
-        socialLinks.push({platform, url: data[key]})
-      }
-    });
-    const {
-        social_discord,
-        social_linkedin,
-        social_twitter,
-        social_instagram,
-        ...rest
-      } = data;
-
-
-    const payload = {
-      ...rest,
-      socialLinks,
-    };
-    
-      try {
-        const response = await userService.updateUserProfile(payload);
-        console.log("Response:", response.data);
-        alert("You have updated the profile successfully!");
-      } catch (error) {
-        console.error("Error:", error);
-
-        if (error.response) {
-          console.error("Status:", error.response.status);
-          console.error("Data:", error.response.data);
-          alert(error.response.data.message || "Something went wrong!");
-        } else {
-          alert("Failed to upload the image. Please try again later.");
-        }
-      }
-  };
+  const userData = useSelector(selectUser);
   return (
     <div className="font-roboto">
       <Container>

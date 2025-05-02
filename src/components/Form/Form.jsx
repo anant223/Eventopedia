@@ -4,57 +4,7 @@ import { useForm } from 'react-hook-form';
 import  eventService  from '../../api/eventService.js';
 const Form = () => {
   const { handleSubmit, register} = useForm();
-  const newEvent = async (data) => {
-    try {
-      // Debug: Log the incoming file
-      console.log("Incoming thumbnail:", data.thumbnail[0]);
 
-      const formData = new FormData();
-
-      if (!data.thumbnail?.[0]) {
-        throw new Error("No thumbnail file selected");
-      }
-      console.log(data);
-      // Append file with explicit filename
-      formData.append("thumbnail", data.thumbnail[0]);
-      formData.append("tag", data.tag);
-      formData.append("title", data.title);
-      formData.append("desc", data.desc);
-      formData.append("duration", data.duration);
-      formData.append("startingDate", data.startingDate);
-      formData.append("url", data.url);
-      formData.append("eventType", data.eventType);
-
-      // Debug: Log FormData contents
-      formData.forEach((value, key) => {
-        if (key === "thumbnail") {
-          console.log("thumbnail details:", {
-            name: value.name,
-            type: value.type,
-            size: value.size,
-          });
-        } else {
-          console.log(`${key}:`, value);
-        }
-      });
-
-      // Modify your eventService call
-      const response = await eventService.createEvent(formData, {
-        "Content-Type": "multipart/form-data",
-        Accept: "application/json",
-      });
-
-      alert("Event has been created successfully");
-      console.log(response);
-    } catch (error) {
-      console.error("Error creating event:", {
-        message: error.message,
-        response: error.response?.data,
-        status: error.response?.status,
-      });
-      throw error;
-    }
-  };
 
   return (
     <div className="font-roboto">

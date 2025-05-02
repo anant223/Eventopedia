@@ -3,7 +3,7 @@ import {Container} from "../../index.js";
 import { RiArrowUpWideLine, RiArrowDownWideFill } from "react-icons/ri";
 import { data, Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import signUp from "../../../features/Auth/register.js";
+import { signUp } from "../../../features/authActions.js";
 
 const Signup = () => {
   const [isHidden, setIsHidden] = useState(false)
