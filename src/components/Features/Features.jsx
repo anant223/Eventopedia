@@ -68,7 +68,7 @@ const Features = () => {
 
 
   return (
-    <section className="text-text sm:pt-14 md:pt-16 lg:py-24 font-bricolage overflow-x-hidden ">
+    <section id="features" className="text-text sm:pt-14 md:pt-16 lg:py-24 font-bricolage overflow-x-hidden ">
       <Container>
         <div className="w-full rounded lg:flex lg:justify-between bg-[#0c1725] py-24 lg:px-12">
           {/* Left Section */}

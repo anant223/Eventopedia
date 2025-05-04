@@ -7,7 +7,10 @@ import { motion } from 'framer-motion';
 const HowItWork = () => {
  
   return (
-    <section className="text-text py-12 sm:py-24 font-bricolage overflow-x-hidden">
+    <section
+      id="how-it-works"
+      className="text-text py-12 sm:py-24 font-bricolage overflow-x-hidden"
+    >
       <Container>
         <div className="w-full rounded-2xl bg-gradient-to-b from-[#0c1725] to-[#131f30] py-24 px-6 sm:px-12 relative">
           {/* Background decoration */}
