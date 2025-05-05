@@ -9,7 +9,7 @@ import { Container } from "../components/index.js";
 
 const Home = () => {
   return (
-    <div className=" bg-background min-h-screen flex flex-col w-full bg-bgColor">
+    <div className="min-h-screen flex flex-col w-full">
         <HeroSection />
         <Features />
         <HowItWork />

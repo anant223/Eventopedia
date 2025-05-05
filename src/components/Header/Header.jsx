@@ -17,6 +17,7 @@ const Header = () => {
   useEffect(() => {
     const handleScroll = () => {
       const currentScroll = window.scrollY;
+  
       setCountScroll(currentScroll);
       setScrollDirPos(currentScroll > lastScroll.current ? "-160px" : "0");
       lastScroll.current = currentScroll;
@@ -28,6 +29,18 @@ const Header = () => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
+
+  useEffect((() =>{
+    if(state){
+      document.body.style.overflow = "hidden";
+    }else {
+      document.body.style.overflow = "";
+    }
+
+    return () => {
+      document.body.style.overflow = '';
+    }
+  }), [state])
 
 
   return (
