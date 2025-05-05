@@ -13,20 +13,20 @@ const HeroSection = () => {
 
   return (
     <section id="home" className="text-text min-h-dvh relative overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-[60px] sm:py-[80px] w-full">
-        <div className="max-w-2xl mx-auto text-center">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 w-full py-[40px] sm:py-[120px]">
+        <div className="max-w-3xl mx-auto text-center">
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="font-bold mb-6 lg:text-6xl md:text-5xl text-4xl leading-tight"
+            className="font-bold mb-6 lg:text-6xl md:text-5xl text-4xl"
           >
-            The <span>ultimate</span> <span>Platform to </span>
-            <span className="bg-gradient-to-tr from-secondary via-primary to-accent bg-clip-text text-transparent font-CS">
+            The <span className=" text-6xl">ultimate</span> <span className=" text-5xl ">platform to </span>
+            <span className="bg-gradient-to-tr from-secondary via-primary to-accent bg-clip-text text-transparent font-CS text-5xl">
               Host/Attend
             </span>{" "}
-            <span>live </span>
-            <span className="">events.</span>
+            <span className=" text-6xl md:text-7xl">live </span>
+            <span className=" text-5xl">events.</span>
           </motion.h1>
 
           <motion.p
