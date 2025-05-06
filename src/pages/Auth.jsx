@@ -24,7 +24,6 @@ const Auth = () => {
         className="w-full mx-auto max-w-md sm:pt-[80px]"
       >
         <Login />
-        <Signup/>
       </motion.div>
     </div>
   );
