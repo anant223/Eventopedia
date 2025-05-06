@@ -11,7 +11,7 @@ const Auth = () => {
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 0.2, ease: easeIn }}
-        className="w-1/2 lg:flex hidden max-w-md mx-auto py-[180px] text-text flex-col"
+        className="w-1/2 lg:flex hidden max-w-md mx-auto text-text flex-col justify-center"
       >
         <h1 className="text-5xl font-bold mb-4">Welcome Back!</h1>
         <p className="text-lg">Sign in to access your account.</p>
@@ -21,7 +21,7 @@ const Auth = () => {
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 0.2, ease: easeIn }}
-        className="w-full mx-auto max-w-md sm:pt-[80px]"
+        className="w-full mx-auto max-w-md flex justify-center items-center"
       >
         <Login />
       </motion.div>
