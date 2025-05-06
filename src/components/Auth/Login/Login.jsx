@@ -18,14 +18,15 @@ const Login = () => {
 
 
   return (
-    <div className="lg:bg-white text-text p-8 rounded-lg sm:shadow-lg max-w-[425px] w-full">
+    <div className=" lg:bg-gray-900 text-text p-8 rounded-lg sm:shadow-lg max-w-[425px] w-full">
       <Container>
         <div>
-          <h2 className="text-2xl font-semibold text-center mb-6">Sign In</h2>
+          <h2 className="text-2xl font-semibold text-center mb-6">Sign In Your Account</h2>
 
           {!isHidden ? (
             <div className="flex flex-col gap-4">
-              <button className="flex items-center justify-center gap-2 px-4 py-2 border-2 border-gray-200 rounded-lg transition text-gray-800">
+              <button className="flex items-center justify-center gap-2 px-4 py-2 border-2  rounded-lg transition bg-white
+              text-gray-800">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   x="0px"
@@ -79,19 +80,19 @@ const Login = () => {
                 <input
                   type="email"
                   placeholder="Email"
-                  className="px-4 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-500"
+                  className=" bg-transparent px-4 py-2 border rounded-lg focus:outline-none focus:ring focus:border-gray-500"
                   {...register("email", { required: true })}
                 />
 
                 <input
                   type="password"
                   placeholder="Password"
-                  className="px-4 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-500"
+                  className=" bg-transparent px-4 py-2 border rounded-lg focus:outline-none focus:ring focus:border-gray-500"
                   {...register("password", { required: true })}
                 />
                 <button
                   type="submit"
-                  className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition"
+                  className="px-4 py-2 bg-primary text-black rounded-lg hover:bg-blue-200 transition"
                 >
                   Login
                 </button>

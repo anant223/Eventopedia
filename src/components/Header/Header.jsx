@@ -1,13 +1,16 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import {BurgerMenu, Logo } from "../index.js";
 import { motion } from "framer-motion";
 import MobileNav from "./MobileNav.jsx";
 const Header = () => {
   const [scrollDirPos, setScrollDirPos] = useState("0");
   const [countScroll, setCountScroll] = useState(0);
+  const location = useLocation()
   const lastScroll = useRef(0);
-    const [state, setState] = useState(false);
+  const [state, setState] = useState(false);
+
+  console.log(location);
     
     const toggleBurger = () =>{
       setState(!state)
@@ -63,7 +66,7 @@ const Header = () => {
             <Logo />
           </Link>
         </div>
-        <div className="">
+        {location.pathname === "/" && <div className="">
           <ul className="hidden sm:flex text-[16px] font-medium gap-6 items-center">
             <li className="">
               <Link to="#features">Features</Link>
@@ -84,7 +87,7 @@ const Header = () => {
             </div>
             <MobileNav status={state} />
           </div>
-        </div>
+        </div>}
       </motion.nav>
     </header>
   );

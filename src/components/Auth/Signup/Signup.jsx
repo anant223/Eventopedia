@@ -20,7 +20,7 @@ const Signup = () => {
 
 
   return (
-    <div className="lg:bg-gray-700 py-4 rounded-lg lg:shadow-lg w-full font-roboto text-white max-w-[420px]">
+    <div className="lg:bg-black py-4 rounded-lg lg:shadow-lg w-full font-roboto text-white max-w-[420px]">
       <Container>
         <div>
           <h2 className="text-2xl font-semibold text-center mb-6 ">Sign Up</h2>

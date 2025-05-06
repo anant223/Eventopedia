@@ -34,6 +34,7 @@ const AppRouting = createBrowserRouter([
       {
         index: true,
         element: <Events />,
+
       },
       {
         path: "all-events",
