@@ -7,10 +7,6 @@ import { useSearchParams } from "react-router-dom";
 const Auth = () => {
   const [searchParam, setSearchParam] = useSearchParams();
   const type = searchParam.get("type");
-  
-  const handleToggle = (view) =>{
-    setSearchParam({type: view})
-  }
 
   return (
     <div className="min-h-screen flex bg-background font-roboto">
@@ -20,8 +16,14 @@ const Auth = () => {
         transition={{ duration: 0.8, delay: 0.2, ease: easeIn }}
         className="w-1/2 lg:flex hidden max-w-md mx-auto text-text flex-col justify-center"
       >
-        <h1 className="text-5xl font-bold mb-4">Welcome Back!</h1>
-        <p className="text-lg">Sign in to access your account.</p>
+        <h1 className="text-5xl font-bold mb-4">
+          {type === "login" ? "Welcome Back!" : "Welcome to Grupio"}
+        </h1>
+        <p className="text-lg text-gray-600">
+          {type === "login"
+            ? "Log in to access your account."
+            : "Grupio — The best place for professionals to connect and grow."}
+        </p>
       </motion.div>
       <div className=" w-0.5 h-screen bg-gray-800 hidden lg:flex"></div>
       <motion.div
@@ -32,9 +34,9 @@ const Auth = () => {
       >
         {console.log(searchParam)}
         {type === "login" ? (
-          <Login signupFn={handleToggle} />
+          <Login signupFn={(view) => setSearchParam({ type: view })} />
         ) : (
-          <Signup loginFn={handleToggle} />
+          <Signup loginFn={(view) => setSearchParam({ type: view })} />
         )}
       </motion.div>
     </div>
