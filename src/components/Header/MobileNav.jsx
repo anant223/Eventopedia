@@ -19,7 +19,7 @@ const MobileNav = ({status}) => {
             </li>
             <li>
               <Link
-                to="/auth"
+                to="/auth?type=login"
                 className="inline-block bg-primary rounded-[30px] p-[14px_40px] text-[14px] font-semibold text-black"
               >
                 Login

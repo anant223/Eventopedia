@@ -1,4 +1,4 @@
-import { createBrowserRouter } from "react-router-dom"
+import { createBrowserRouter, Navigate } from "react-router-dom"
 import MainLayout from "../Layouts/MainLayout";
 import AuthLayout from "../Layouts/AuthLayout";
 import Home from "../pages/Home";
@@ -8,7 +8,7 @@ import Hosters from "../pages/Hosters";
 import EventFrom from "../pages/EventFrom";
 import Events from "../pages/Events";
 import EditProfile from "../pages/EditProfile";
-import { UserProfileFrom } from "../components";
+import { Login, Signup, UserProfileFrom } from "../components";
 import VideoCall from "../pages/VideoCall";
 import EventDetail from "../pages/EventDetail";
 
@@ -33,8 +33,8 @@ const AppRouting = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Events />,
-
+        // default events
+        element: <Navigate to="all-events" />,
       },
       {
         path: "all-events",

@@ -6,11 +6,6 @@ import { Container } from "../index";
 
 const HeroSection = () => {
   const navigate = useNavigate();
-
-  const handleClick = () => {
-    navigate("/auth");
-  };
-
   return (
     <section id="home" className="text-text min-h-dvh relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 w-full py-[40px] sm:py-[120px]">
@@ -21,7 +16,8 @@ const HeroSection = () => {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="font-bold mb-6 lg:text-6xl md:text-5xl text-4xl"
           >
-            The <span className=" text-6xl">ultimate</span> <span className=" text-5xl ">platform to </span>
+            The <span className=" text-6xl">ultimate</span>{" "}
+            <span className=" text-5xl ">platform to </span>
             <span className="bg-gradient-to-tr from-secondary via-primary to-accent bg-clip-text text-transparent font-CS text-5xl">
               Host/Attend
             </span>{" "}
@@ -44,7 +40,7 @@ const HeroSection = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.6 }}
-            onClick={handleClick}
+            onClick={() => navigate("/auth?type=signup")}
             className="bg-primary text-black font-semibold px-6 py-3 sm:px-10 sm:py-4 text-base sm:text-xl rounded-[30px] rounded-tr-none hover:rounded-tr-[30px] transition-all duration-300"
           >
             Register

@@ -10,7 +10,6 @@ const Header = () => {
   const lastScroll = useRef(0);
   const [state, setState] = useState(false);
 
-  console.log(location);
     
     const toggleBurger = () =>{
       setState(!state)
@@ -66,28 +65,30 @@ const Header = () => {
             <Logo />
           </Link>
         </div>
-        {location.pathname === "/" && <div className="">
-          <ul className="hidden sm:flex text-[16px] font-medium gap-6 items-center">
-            <li className="">
-              <Link to="#features">Features</Link>
-            </li>
-            <li className="">
-              <Link to="#how-it-works">How it work</Link>
-            </li>
-            <li className="">
-              <Link to="#">Pricing</Link>
-            </li>
-            <li className="inline-block bg-primary rounded-[30px] p-[14px_40px] rounded-tr-none text-[14px] font-semibold hover:rounded-tr-[30px] hover:transition-all hover:duration-300 text-black">
-              <Link to="/auth">Login</Link>
-            </li>
-          </ul>
-          <div className=" flex sm:hidden">
-            <div className=" z-40">
-              <BurgerMenu handleClick={toggleBurger} status={state} />
+        {location.pathname === "/" && (
+          <div className="">
+            <ul className="hidden sm:flex text-[16px] font-medium gap-6 items-center">
+              <li className="">
+                <Link to="#features">Features</Link>
+              </li>
+              <li className="">
+                <Link to="#how-it-works">How it work</Link>
+              </li>
+              <li className="">
+                <Link to="#">Pricing</Link>
+              </li>
+              <li className="inline-block bg-primary rounded-[30px] p-[14px_40px] rounded-tr-none text-[14px] font-semibold hover:rounded-tr-[30px] hover:transition-all hover:duration-300 text-black">
+                <Link to="/auth?type=login">Login</Link>
+              </li>
+            </ul>
+            <div className=" flex sm:hidden">
+              <div className=" z-40">
+                <BurgerMenu handleClick={toggleBurger} status={state} />
+              </div>
+              <MobileNav status={state} />
             </div>
-            <MobileNav status={state} />
           </div>
-        </div>}
+        )}
       </motion.nav>
     </header>
   );

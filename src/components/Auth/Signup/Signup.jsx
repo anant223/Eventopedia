@@ -5,7 +5,7 @@ import { data, Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { signUp } from "../../../features/authActions.js";
 
-const Signup = () => {
+const Signup = ({loginFn}) => {
   const [isHidden, setIsHidden] = useState(false)
   const {
     register,
@@ -20,7 +20,7 @@ const Signup = () => {
 
 
   return (
-    <div className="lg:bg-black py-4 rounded-lg lg:shadow-lg w-full font-roboto text-white max-w-[420px]">
+    <div className=" lg:bg-gray-900 text-text p-8 rounded-lg sm:shadow-lg max-w-[425px] w-full">
       <Container>
         <div>
           <h2 className="text-2xl font-semibold text-center mb-6 ">Sign Up</h2>
@@ -80,7 +80,7 @@ const Signup = () => {
                 <input
                   type="text"
                   placeholder="Username"
-                  className="px-4 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-500"
+                  className=" bg-transparent px-4 py-2 border rounded-lg focus:outline-none focus:ring focus:border-gray-500"
                   {...register("username", {
                     required: "username is required",
                   })}
@@ -88,7 +88,7 @@ const Signup = () => {
                 <input
                   type="email"
                   placeholder="Email"
-                  className="px-4 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-500"
+                  className=" bg-transparent px-4 py-2 border rounded-lg focus:outline-none focus:ring focus:border-gray-500"
                   {...register("email", {
                     required: "email required",
                     pattern: {
@@ -101,7 +101,7 @@ const Signup = () => {
                 <input
                   type="password"
                   placeholder="Password"
-                  className="px-4 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-500"
+                  className=" bg-transparent px-4 py-2 border rounded-lg focus:outline-none focus:ring focus:border-gray-500"
                   {...register("password", {
                     required: "username is required",
                     minLength: {
@@ -112,18 +112,21 @@ const Signup = () => {
                 />
                 <button
                   type="submit"
-                  className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition"
+                  className="px-4 py-2 bg-primary text-black rounded-lg hover:bg-blue-200 transition"
                 >
-                  Signup
+                  Sign up
                 </button>
               </form>
             </>
           )}
           <div className=" px-1 mt-2 text-gray-200 font-roboto">
             <span>Already joined Grupio? </span>
-            <Link to="#" className="text-gray-400 hover:underline">
+            <button
+              onClick={() => loginFn("login")}
+              className="text-gray-400 hover:underline"
+            >
               Login now
-            </Link>
+            </button>
           </div>
           <div className="my-6 flex items-center">
             <hr className="flex-grow border-t border-gray-300" />

@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 
 const BurgerMenu = ({ status, handleClick }) => {
-  const [isClick, setIsClick] = useState(false);
   return (
     <div className=" z-30">
       <div

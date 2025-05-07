@@ -1,10 +1,17 @@
 import React from "react";
 import { Login, Signup } from "../components/index.js";
-import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
 import { motion } from "motion/react";
 import { easeIn } from "motion";
+import { useSearchParams } from "react-router-dom";
 
 const Auth = () => {
+  const [searchParam, setSearchParam] = useSearchParams();
+  const type = searchParam.get("type");
+  
+  const handleToggle = (view) =>{
+    setSearchParam({type: view})
+  }
+
   return (
     <div className="min-h-screen flex bg-background font-roboto">
       <motion.div
@@ -23,7 +30,12 @@ const Auth = () => {
         transition={{ duration: 0.8, delay: 0.2, ease: easeIn }}
         className="w-full mx-auto max-w-md flex justify-center items-center"
       >
-        <Login />
+        {console.log(searchParam)}
+        {type === "login" ? (
+          <Login signupFn={handleToggle} />
+        ) : (
+          <Signup loginFn={handleToggle} />
+        )}
       </motion.div>
     </div>
   );
