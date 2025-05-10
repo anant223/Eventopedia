@@ -1,7 +1,7 @@
 import axios from "axios"
 
 const axiosInstance = axios.create({
-  baseURL: "http://localhost:4000/api/v1/",
+  baseURL: import.meta.env.VITE_API_BASE_URL,
   timeout: 10000,
   withCredentials: true,
   headers: {
@@ -20,8 +20,10 @@ axiosInstance.interceptors.request.use((config) => {
 axiosInstance.interceptors.response.use(
   (res) =>  res,
   (err) => {
+
     if(err.response?.status === 401){
-      window.location.href = "/auth"
+      
+      window.location.href = "/auth?type=login"
     }
     return Promise.reject(err);
 
