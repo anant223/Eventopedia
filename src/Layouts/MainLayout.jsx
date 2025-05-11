@@ -9,14 +9,17 @@ const MainLayout = () => {
   const location = useLocation();
   const  {loading} = useAuth() 
   const isAuthenticated = useSelector(selectIsAuthenticated);
-console.log(location.pathname);
+  const hideSidebar = ["/main/create-event", "/main/user-profile"].includes(
+    location.pathname
+  );
+
   if (loading) return <div>Loading...</div>;
   return isAuthenticated ? (
     <>
       <Navbar />
       <main className="flex pt-16 min-h-screen">
      
-        {(location.pathname !== "/main/create-event" || location.pathname !== "/main/user-profile") && <EventSidebar />}
+        {!hideSidebar && <EventSidebar />}
         <Outlet />
       </main>
     </>
