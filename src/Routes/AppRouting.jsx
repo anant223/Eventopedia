@@ -1,16 +1,27 @@
+import React, {lazy} from "react";
 import { createBrowserRouter, Navigate } from "react-router-dom"
 import MainLayout from "../Layouts/MainLayout";
 import AuthLayout from "../Layouts/AuthLayout";
-import Home from "../pages/Home";
-import Auth from "../pages/Auth";
-import Dashboard from "../pages/Dashboard";
-import Hosters from "../pages/Hosters";
-import EventFrom from "../pages/EventFrom";
-import Events from "../pages/Events";
-import EditProfile from "../pages/EditProfile";
-import { Login, Signup, UserProfileFrom } from "../components";
-import VideoCall from "../pages/VideoCall";
-import EventDetail from "../pages/EventDetail";
+
+const Home = lazy(() => import( "../pages/Home"));
+const Auth = lazy(() => import("../pages/Auth"));
+const Dashboard = lazy(() => import("../pages/Dashboard"));
+const Hosters = lazy(() => import("../pages/Hosters"));
+const EventFrom = lazy(() => import("../pages/EventFrom"));
+const Events = lazy(() => import("../pages/Events"));
+const EditProfile = lazy(() => import("../pages/EditProfile"));
+const VideoCall = lazy(() => import("../pages/VideoCall"));
+const EventDetail = lazy(() => import("../pages/EventDetail"));
+
+// import Home from "../pages/Home";
+// import Auth from "../pages/Auth";
+// import Dashboard from "../pages/Dashboard";
+// import Hosters from "../pages/Hosters";
+// import EventFrom from "../pages/EventFrom";
+// import Events from "../pages/Events";
+// import EditProfile from "../pages/EditProfile";
+// import VideoCall from "../pages/VideoCall";
+// import EventDetail from "../pages/EventDetail";
 
 const AppRouting = createBrowserRouter([
   {

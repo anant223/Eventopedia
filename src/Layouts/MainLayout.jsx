@@ -18,7 +18,7 @@ const MainLayout = () => {
     <>
       <Navbar />
       <main className="flex pt-16 min-h-screen">
-     
+
         {!hideSidebar && <EventSidebar />}
         <Outlet />
       </main>
