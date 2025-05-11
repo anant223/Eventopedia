@@ -1,11 +1,10 @@
 import {CalendarIcon, MessageCircle, Users, Video } from 'lucide-react';
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form';
-import  eventService  from '../../api/eventService.js';
+import { createNewEvent } from '../../features/eventActions'; 
 const Form = () => {
   const { handleSubmit, register} = useForm();
-
-
+ 
   return (
     <div className="font-roboto">
       <div className="lg:grid lg:grid-cols-3 gap-8">
@@ -18,7 +17,7 @@ const Form = () => {
               Bring people together and share your knowledge
             </p>
           </div>
-          <form onSubmit={handleSubmit(newEvent)} className="space-y-6">
+          <form onSubmit={handleSubmit(createNewEvent)} className="space-y-6">
             <div className="lg:grid lg:grid-cols-2 flex flex-col gap-6">
               <div>
                 <label className="block text-sm font-medium text-gray-200 mb-2">

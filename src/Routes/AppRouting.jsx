@@ -22,7 +22,7 @@ const AppRouting = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: "auth",
+        path: "auth", //auth?type=login or singup
         element: <Auth />,
       },
     ],
@@ -33,7 +33,6 @@ const AppRouting = createBrowserRouter([
     children: [
       {
         index: true,
-        // default events
         element: <Navigate to="all-events" />,
       },
       {
