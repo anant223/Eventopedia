@@ -1,7 +1,7 @@
 import userService from "../../api/userService";
 import { logout } from "../../app/features/authSlice";
 
-const destroySession = async () => async (dispatch) => {
+const destroySession = () => async (dispatch) => {
   try {
     const response = await userService.logoutUser();
     if (response) {

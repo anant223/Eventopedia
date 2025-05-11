@@ -15,8 +15,8 @@ console.log(location.pathname);
     <>
       <Navbar />
       <main className="flex pt-16 min-h-screen">
-        {location.pathname !== "/main/create-event" ||
-          (location.pathname !== "/main/user-profile" && <EventSidebar />)}
+     
+        {(location.pathname !== "/main/create-event" || location.pathname !== "/main/user-profile") && <EventSidebar />}
         <Outlet />
       </main>
     </>

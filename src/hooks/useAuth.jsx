@@ -18,13 +18,13 @@ export const useAuth = () => {
           navigate("/main/all-events", { replace: true });
         } else {
           dispatch(logout());
-          navigate("/auth", { replace: true });
+          navigate("/auth?type=login", { replace: true });
         }
       })
       .catch((err) => {
         console.error(err.message);
         dispatch(logout());
-        navigate("/auth", { replace: true });
+        navigate("/auth?type=login", { replace: true });
       })
       .finally(() => setLoading(false));
   }, [dispatch, navigate]);

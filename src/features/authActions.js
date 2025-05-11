@@ -41,7 +41,7 @@ const loginSession = (data, navigate) =>
       onSuccess: logout,
       onAfter: () => {
         alert("You have logged out successfully");
-        navigate("/auth");
+        navigate("/auth?type=login");
       },
       onErr: (err) => {
         if (err?.response) {

@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { BurgerMenu, Logo } from "../index.js";
 import { Link , useNavigate} from "react-router-dom";
-import {Button, Menu} from "antd"
-import destroySession from "../../features/Auth/logout.js"
+import { destroySession } from "../../features/authActions.js";
+import { useDispatch } from "react-redux";
 
 const Navbar = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const toggleDropdown = () => {
     setIsDropdownOpen((prev) => !prev);
@@ -15,11 +16,7 @@ const Navbar = () => {
     navigate("/main/user-profile")
   }
   const handleLogoutSession = () =>{
-    const logout = destroySession();
-    if(logout){
-      navigate("/auth");
-    }
-    
+    dispatch(destroySession())
   }
 
   return (
