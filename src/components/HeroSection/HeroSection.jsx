@@ -9,7 +9,7 @@ const HeroSection = () => {
   return (
     <section className="dark:text-text relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 w-full lg:pb-56 md:py-32 md:px-10 lg:px-32 py-24 sm:py-28">
-        <div className="max-w-2xl mx-auto text-center">
+        <div className="max-w-3xl mx-auto text-center">
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
