@@ -13,15 +13,6 @@ const EditProfile = lazy(() => import("../pages/EditProfile"));
 const VideoCall = lazy(() => import("../pages/VideoCall"));
 const EventDetail = lazy(() => import("../pages/EventDetail"));
 
-// import Home from "../pages/Home";
-// import Auth from "../pages/Auth";
-// import Dashboard from "../pages/Dashboard";
-// import Hosters from "../pages/Hosters";
-// import EventFrom from "../pages/EventFrom";
-// import Events from "../pages/Events";
-// import EditProfile from "../pages/EditProfile";
-// import VideoCall from "../pages/VideoCall";
-// import EventDetail from "../pages/EventDetail";
 
 const AppRouting = createBrowserRouter([
   {

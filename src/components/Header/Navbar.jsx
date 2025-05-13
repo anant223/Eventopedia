@@ -6,18 +6,9 @@ import { useDispatch } from "react-redux";
 
 const Navbar = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false)
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
-  const toggleDropdown = () => {
-    setIsDropdownOpen((prev) => !prev);
-  };
-  const handelProfile = () =>{
-    navigate("/main/user-profile")
-  }
-  const handleLogoutSession = () =>{
-    dispatch(destroySession())
-  }
 
   return (
     <nav className="w-full inset-0 font-roboto fixed text-white z-30 h-16 bg-gray-800 flex items-center border-b border-gray-700 ">
@@ -31,7 +22,7 @@ const Navbar = () => {
           {/* <Button size="large">Upgrade</Button> */}
           <div className="relative">
             <button
-              onClick={toggleDropdown}
+              onClick={() => setIsDropdownOpen((prev) => !prev)}
               aria-haspopup="true"
               aria-expanded={isDropdownOpen}
               className=" border px-2 w-24 h-[2.3rem] py-[0.3rem] rounded"
@@ -47,13 +38,13 @@ const Navbar = () => {
                 tabindex="-1"
               >
                 <button
-                  onClick={handelProfile}
+                  onClick={() => navigate("/main/user-profile")}
                   className=" hover:bg-gray-600 px-4 py-2 text-sm w-full flex"
                 >
                   Profile
                 </button>
                 <button
-                  onClick={handleLogoutSession}
+                  onClick={() => dispatch(destroySession())}
                   className=" flex w-full px-4 py-2 hover:bg-gray-600 text-sm"
                 >
                   Sign out
@@ -63,7 +54,10 @@ const Navbar = () => {
           </div>
         </div>
         <div className=" lg:hidden md:hidden sm:flex flex">
-          <BurgerMenu onOpen={() => handle} />
+          <BurgerMenu status={isOpen} handleClick={ () => setIsOpen(!isOpen)} />
+          <div>
+            
+          </div>
         </div>
       </div>
     </nav>

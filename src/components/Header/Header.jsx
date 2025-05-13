@@ -1,19 +1,16 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
-import {BurgerMenu, Logo } from "../index.js";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import {BurgerMenu, Button, Logo } from "../index.js";
 import { motion } from "framer-motion";
 import MobileNav from "./MobileNav.jsx";
 const Header = () => {
   const [scrollDirPos, setScrollDirPos] = useState("0");
   const [countScroll, setCountScroll] = useState(0);
+  const navigate = useNavigate();
   const location = useLocation()
   const lastScroll = useRef(0);
   const [state, setState] = useState(false);
 
-    
-    const toggleBurger = () =>{
-      setState(!state)
-    }
 
 
   useEffect(() => {
@@ -60,35 +57,20 @@ const Header = () => {
         transition={{ duration: 0.8, delay: 0.5 }}
         className="flex items-center justify-between m-[0px_auto] max-w-7xl px-4 h-full"
       >
-        <div className=" z-40">
+        <div className="z-40">
           <Link to="/">
             <Logo />
           </Link>
         </div>
         {location.pathname === "/" && (
-          <div className="">
-            <ul className="hidden sm:flex text-[16px] font-medium gap-6 items-center">
-              <li className="">
-                <Link to="#features">Features</Link>
-              </li>
-              <li className="">
-                <Link to="#how-it-works">How it work</Link>
-              </li>
-              <li className="">
-                <Link to="#">Pricing</Link>
-              </li>
-              <li className="inline-block bg-primary rounded-[30px] p-[14px_40px] rounded-tr-none text-[14px] font-semibold hover:rounded-tr-[30px] hover:transition-all hover:duration-300 text-black">
-                <Link to="/auth?type=login">Login</Link>
-              </li>
-            </ul>
-            <div className=" flex sm:hidden">
-              <div className=" z-40">
-                <BurgerMenu handleClick={toggleBurger} status={state} />
-              </div>
-              <MobileNav status={state} />
-            </div>
+          <div className=" flex items-center">
+            <Button
+              name="Login"
+              handleClick={() => navigate("/auth?type=login")}
+            />
           </div>
         )}
+        
       </motion.nav>
     </header>
   );

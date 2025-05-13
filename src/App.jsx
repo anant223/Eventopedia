@@ -1,11 +1,12 @@
 import React, { Suspense } from "react"
 import { RouterProvider } from "react-router-dom";
 import AppRouting from "./Routes/AppRouting";
+import Loader from "./components/Loader/Loader";
 function App() {
 
   return (
     <div>
-      <Suspense fallback={<h1 className=" text-text font-bold">Loading...</h1>}>
+      <Suspense fallback={<Loader/>}>
         <RouterProvider router={AppRouting}/>
       </Suspense>
     </div>

@@ -3,11 +3,10 @@ import {PlusCircleIcon} from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
 import {sidebarMenuItems} from "../../utils/constant.js"
 
-const EventSidebar = () => {
+const EventSidebar = ({isOpen}) => {
   const location = useLocation();
   const [activeRoute, setActiveRoute] = useState(location.pathname);
   const navigate = useNavigate();
-  const [isOpen, setIsOpen] = useState(false)
 
   const handelmenuItemsClick = (path) => {
     setActiveRoute(path);
@@ -16,7 +15,7 @@ const EventSidebar = () => {
 
   return (
     <div
-      className={`fixed w-64 bg-background border-r border-gray-800 z-30 h-full transition-transform duration-300 ease-in-out  ${!isOpen ? "translate-x-0" : "-translate-x-[105%]"}`}
+      className={` hidden sm:block fixed w-64 bg-background border-r border-gray-800 z-30 h-full transition-transform duration-300 ease-in-out  ${!isOpen ? "translate-x-0" : "-translate-x-[105%]"}`}
     >
       <div className="flex flex-col justify-between h-[calc(100%-4rem)]">
         <ul className="space-y-2 pt-12 pl-12 pr-4 w-full">

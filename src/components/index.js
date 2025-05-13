@@ -19,11 +19,11 @@ import Tag from "./Tags/Tag";
 import UserProfileFrom from "./Profile/UserProfileFrom";
 import UploadAvatar from "./Avatar/UploadAvatar";
 import EventDetialModel from "./EventDetailModel/EventDetialModel";
-import Login from "./Auth/Login/Login";
+import Login from "./Auth/Login";
 import Share from "./Button/ShareButton";
 import Like from "./Button/LikeButton";
 import Subscribe from "./Button/SubscribeButton";
-import Signup from "./Auth/Signup/Signup";
+import Signup from "./Auth/Signup";
 export {
   Logo,
   Container,

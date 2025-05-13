@@ -1,16 +1,17 @@
 import React from 'react'
 import { useForm } from 'react-hook-form';
-import { Container } from '../../index.js';
+import { Container } from '../index.js';
 import { RiArrowDownWideFill, RiArrowUpWideFill } from 'react-icons/ri';
 import { useDispatch} from "react-redux";
 import { Link, useNavigate } from 'react-router-dom';
-import { loginSession } from '../../../features/authActions.js';
+import { loginSession } from '../../features/authActions.js';
 
 const Login = ({signupFn}) => {
   const [isHidden, setIsHidden] = React.useState(false);
   const navigate = useNavigate()
   const {register, handleSubmit, formState : {errors}} = useForm();
   const dispatch = useDispatch();
+
   const handleSession = (data) => {
     dispatch(loginSession(data, navigate));
   };

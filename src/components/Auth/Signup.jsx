@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import {Container} from "../../index.js";
+import {Container} from "../index.js";
 import { RiArrowUpWideLine, RiArrowDownWideFill } from "react-icons/ri";
 import { data, Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { signUp } from "../../../features/authActions.js";
+import { signUp } from "../../features/authActions.js";
 
 const Signup = ({loginFn}) => {
   const [isHidden, setIsHidden] = useState(false)

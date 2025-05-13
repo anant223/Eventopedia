@@ -17,16 +17,27 @@ body{
   }
 }
 
+.bar1{
+  animation: scaleUp 1s linear infinite;
 
-@layer components {
-  /* HTML: <div class="slanted-edge"></div> */
-  .slanted-edge {
-    --p: 70px; /* control the shape (can be percentage) */
-    height: 140px;
-    aspect-ratio: 1;
-    clip-path: polygon(0 0,100% 0,100% 100%,0 calc(100% - var(--p)));
-    background: #9b1926;
+}
+.bar2{
+    animation-delay: .25s;
+
+}
+.bar3{
+  animation-delay: .5s;
+}
+@keyframes scaleUp {
+  20% {
+    background-color: #fff;
+    transform: scaleY(1.5);
   }
+
+  40%{
+    transform: scaleY(1);
+  }
+
 }
 
 
