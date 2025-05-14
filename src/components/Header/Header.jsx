@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import {BurgerMenu, Button, Logo } from "../index.js";
+import {BurgerMenu, Button, Container, Logo } from "../index.js";
 import { motion } from "framer-motion";
 import MobileNav from "./MobileNav.jsx";
 const Header = () => {
@@ -51,27 +51,28 @@ const Header = () => {
       }`}
       style={{ top: scrollDirPos }}
     >
-      <motion.nav
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 0.5 }}
-        className="flex items-center justify-between m-[0px_auto] max-w-7xl px-4 h-full"
-      >
-        <div className="z-40">
-          <Link to="/">
-            <Logo />
-          </Link>
-        </div>
-        {location.pathname === "/" && (
-          <div className=" flex items-center">
-            <Button
-              name="Login"
-              handleClick={() => navigate("/auth?type=login")}
-            />
+      <Container>
+        <motion.nav
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.5 }}
+          className="flex items-center justify-between m-[0px_auto] h-full"
+        >
+          <div className="z-40">
+            <Link to="/">
+              <Logo />
+            </Link>
           </div>
-        )}
-        
-      </motion.nav>
+          {location.pathname === "/" && (
+            <div className=" flex items-center">
+              <Button
+                name="Login"
+                handleClick={() => navigate("/auth?type=login")}
+              />
+            </div>
+          )}
+        </motion.nav>
+      </Container>
     </header>
   );
 };

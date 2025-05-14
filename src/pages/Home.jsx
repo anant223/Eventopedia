@@ -5,7 +5,6 @@ import {
   HeroSection,
   HowItWork,
 } from "../components/index.js";
-import { Container } from "../components/index.js";
 
 const Home = () => {
   return (

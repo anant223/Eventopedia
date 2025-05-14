@@ -1,49 +1,19 @@
-import { StarIcon } from 'lucide-react'
+import { icons, StarIcon } from 'lucide-react'
 import React from 'react'
+import { FaRocket } from 'react-icons/fa';
 import { RiInstagramFill, RiLinkedinBoxFill, RiTwitterXFill } from 'react-icons/ri';
 import { Link } from 'react-router-dom';
 
-const Card = ({ img, name, number, numerOfEvents }) => {
+const Card = ({desc, img, title}) => {
   return (
-    <div className="rounded-xl border border-gray-700 shadow-lg bg-gray-700 flex flex-col overflow-hidden text-gray-200 font-roboto text-lg/3 p-2 h-48 w-full">
-      <div className="flex justify-center mb-4">
-        <div className="bg-white p-2 rounded-full">
-          <img
-            src="https://via.placeholder.com/100"
-            alt="Avatar"
-            className=" w-12 h-12 rounded-full object-cover"
-          />
-        </div>
-      </div>
-      <h2 className="text-xl/3 font-bold mb-4 text-white mx-auto">Shambhavi Mishra</h2>
-      <p className="text-sm text-gray-200 leading-relaxed mb-4 text-balance mx-auto">
-        Frontend Developer
-      </p>
-      <div className="flex justify-center gap-4">
-        <a
-          href="#"
-          className="bg-gray-200 p-2 rounded-full text-gray-500 hover:bg-gray-300 transition"
-          aria-label="Instagram"
-        >
-          <RiTwitterXFill />
-        </a>
-        <a
-          href="#"
-          className="bg-gray-200 p-2 rounded-full text-gray-500 hover:bg-gray-300 transition"
-          aria-label="Instagram"
-        >
-          <RiLinkedinBoxFill />
-        </a>
-        <a
-          href="#"
-          className="bg-gray-200 p-2 rounded-full text-gray-500 hover:bg-gray-300 transition"
-          aria-label="Instagram"
-        >
-          <RiInstagramFill />
-        </a>
-      </div>
+    <div className="bg-gradient-to-br from-[#0c1725] via-[#0e1c2f] to-[#0c1725] rounded-lg shadow-xl p-6 flex flex-col h-full justify-between items-center">
+      <div className="text-primary">{img}</div>
+      <h2 className="text-xl font-semibold mb-4">{title}</h2>
+      <p className="text-sm text-center">{desc}</p>
     </div>
   );
 };
+
+
 
 export default Card;
