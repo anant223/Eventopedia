@@ -71,7 +71,7 @@ const Features = () => {
         <div className="w-full rounded bg-[#0c1725] flex flex-col lg:flex-row lg:justify-between lg:items-center lg:px-14 lg:py-24 px-6 py-12 gap-10">
           <div className=" max-w-md lg:w-1/2">
             <h2 className="text-3xl sm:text-4xl font-semibold mb-6 sm:mb-8">
-              Why Choose Us?
+              Why Choose This?
             </h2>
             <p className="text-base sm:text-lg text-gray-300 leading-relaxed">
               Discover the features that make GRUPIO the preferred choice for
@@ -118,31 +118,5 @@ const Features = () => {
 
 export default Features;
 
-// {/* <section className="text-text font-bricolage overflow-x-hidden">
-//       <div className="flex items-center justify-between m-[0px_auto] max-w-7xl px-4 h-full">
-//         <div className="w-full rounded lg:flex lg:justify-between bg-[#0c1725] py-24 lg:px-12">
-//           {/* Left Section */}
-//           <motion.div
-//             initial={{ opacity: 0, y: 40 }}
-//             whileInView={{ opacity: 1, y: 0 }}
-//             transition={{ duration: 0.8, delay: 0.2 }}
-//             viewport={{ once: true }}
-//             className="lg:w-1/2 lg:flex flex-col md:space-y-4 md:justify-center  px-4 lg:px-0"
-//           >
-//             <h2 className="text-3xl sm:text-3xl md:text-4xl lg:text-5xl font-bold font-bricolage leading-tight mb-4  lg:px-0">
-//               Why Choose Us?
-//             </h2>
-//             <p className="text-2xl sm:text-3xl md:text-4xl lg:text-3xl mt-8">
-//               Discover the features that make GRUPIO the preferred choice for
-//               hosting and attending virtual events.
-//             </p>
-//           </motion.div>
-//           {/* Right Section */}
-//           <div ref={containerRef} className=" w-1/2 relative mt-16">
-//             
-//           </div>
-//         </div>
-//       </div>
-//     </section> */}
 
 

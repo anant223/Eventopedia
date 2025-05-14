@@ -8,6 +8,10 @@ import {
   UserIcon,
   PlusCircleIcon,
   CloudCog,
+  icons,
+  Zap,
+  CheckCircle,
+  Settings,
 } from "lucide-react";
 
 
@@ -38,23 +42,7 @@ const features = [
     color: "from-pink-400 to-rose-600",
   },
 ];
-const howitwork = [
-  {
-    step: 1,
-    title: "Sign Up",
-    description: "Create your account and set up your profile.",
-  },
-  {
-    step: 2,
-    title: "Choose/Create Event",
-    description: "Select a event or create your own.",
-  },
-  {
-    step: 3,
-    title: "Good to Go",
-    description: "Join your event and start collaborating!",
-  },
-];
+
 
 const allEvents = [
   {
@@ -86,5 +74,5 @@ const sidebarMenuItems = [
 
 
 
-export { features, howitwork, sidebarMenuItems};
+export { features, sidebarMenuItems};
 
