@@ -8,7 +8,7 @@ const HeroSection = () => {
   const navigate = useNavigate();
   return (
     <section className="dark:text-text relative overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 w-full lg:pb-56 md:py-32 md:px-10 lg:px-32 py-24 sm:py-28">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 w-full lg:pb-48 md:px-10 lg:px-32 py-12">
         <div className="max-w-3xl mx-auto text-center">
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
@@ -31,7 +31,7 @@ const HeroSection = () => {
             className="mb-8 text-lg sm:mb-8 dark:text-text"
           >
             GRUPIO lets you host and stream virtual events — public or private —
-            and connect with professionals in real-time, straight from your
+            and connect with professionals in real time, right from your
             browser.
           </motion.p>
           <motion.div
