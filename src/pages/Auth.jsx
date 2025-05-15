@@ -9,9 +9,9 @@ const Auth = () => {
   const type = searchParam.get("type");
 
   return (
-    <div className="py-8 md:py-16 lg:py-24 text-text font-bricolage w-full min-h-[80vh] flex items-center">
+    <div className="py-8 md:py-16 lg:py-24 text-text font-bricolage w-full min-h-[80vh] ">
       <Container>
-        <div className="w-full flex flex-col lg:flex-row justify-center items-center gap-6 lg:gap-12">
+        <div className="w-full flex flex-col lg:flex-row justify-between items-center gap-6 lg:gap-12">
           {/* Left Text Section - Responsive across all breakpoints */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -40,7 +40,7 @@ const Auth = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1, ease: easeIn }}
-            className="w-full max-w-md flex justify-center px-4 sm:px-0"
+            className="w-full max-w-md flex justify-center items-center px-4 sm:px-0"
           >
               {type === "login" ? (
                 <Login signupFn={() => setSearchParam({ type: "signup" })} />
