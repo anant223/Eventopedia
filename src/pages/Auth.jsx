@@ -9,41 +9,44 @@ const Auth = () => {
   const type = searchParam.get("type");
 
   return (
-    <div className="py-24 text-text font-bricolage w-full flex-col gap-8">
+    <div className="py-8 md:py-16 lg:py-24 text-text font-bricolage w-full min-h-[80vh] flex items-center">
       <Container>
-        <div className="w-full flex flex-col lg:flex-row justify-center items-center gap-8">
-          {/* Left Text Section */}
+        <div className="w-full flex flex-col lg:flex-row justify-center items-center gap-6 lg:gap-12">
+          {/* Left Text Section - Responsive across all breakpoints */}
           <motion.div
-            initial={{ opacity: 0, y: 40 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2, ease: easeIn }}
-            className="w-full max-w-md sm:flex hidden flex-col items-center lg:items-start text-center lg:text-left"
+            transition={{ duration: 0.6, ease: easeIn }}
+            className="w-full max-w-md flex flex-col items-center lg:items-start text-center lg:text-left px-4 sm:px-0 mb-6 lg:mb-0"
           >
-            <h1 className="font-bold text-4xl pb-2">
+            <h1 className="font-bold text-2xl sm:text-3xl md:text-4xl pb-2">
               {type === "login" ? "Welcome Back!" : "Welcome to Grupio"}
             </h1>
-            <p className="text-lg">
+            <p className="text-sm sm:text-base md:text-lg max-w-sm">
               {type === "login"
-                ? "Log in to access your account."
-                : "Grupio — The best place for professionals to connect and grow."}
+                ? "Log in to access your account and continue your journey with us."
+                : "Join Grupio — The best place for professionals to connect, collaborate, and grow together."}
             </p>
+
+            {/* Visual element for small screens */}
+            <div className="w-16 h-1 bg-primary mt-4 mb-2 lg:hidden"></div>
           </motion.div>
 
-          {/* Divider */}
-          <div className="hidden lg:flex w-px bg-gray-800 mx-4" />
+          {/* Divider - Only shows on lg screens and up */}
+          <div className="hidden lg:flex w-px bg-gray-300 dark:bg-gray-700 h-64 self-center" />
 
           {/* Right Form Section */}
           <motion.div
-            initial={{ opacity: 0, y: 40 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2, ease: easeIn }}
-            className="w-full max-w-md flex justify-center"
+            transition={{ duration: 0.6, delay: 0.1, ease: easeIn }}
+            className="w-full max-w-md flex justify-center px-4 sm:px-0"
           >
-            {type === "login" ? (
-              <Login signupFn={(view) => setSearchParam({ type: view })} />
-            ) : (
-              <Signup loginFn={(view) => setSearchParam({ type: view })} />
-            )}
+              {type === "login" ? (
+                <Login signupFn={() => setSearchParam({ type: "signup" })} />
+              ) : (
+                <Signup loginFn={() => setSearchParam({ type: "login" })} />
+              )}
           </motion.div>
         </div>
       </Container>
