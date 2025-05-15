@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import {BurgerMenu, Button, Container, Logo } from "../index.js";
+import {BurgerMenu, Button, Logo } from "../index.js";
 import { motion } from "framer-motion";
 import MobileNav from "./MobileNav.jsx";
 const Header = () => {
@@ -46,33 +46,31 @@ const Header = () => {
     <header
       className={`w-full h-[80px] z-30  text-text px-2 sm:px-2 sticky transition-all duration-[600ms] ${
         countScroll > 16
-          ? "bg-black shadow-lg text-white"
+          ? "backdrop-blur-md bg-black/70 shadow-lg"
           : "bg-[#05101c] text-gray-200"
       }`}
       style={{ top: scrollDirPos }}
     >
-      <Container>
-        <motion.nav
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.5 }}
-          className="flex items-center justify-between m-[0px_auto] h-full"
-        >
-          <div className="z-40">
-            <Link to="/">
-              <Logo />
-            </Link>
+      <motion.nav
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, delay: 0.5 }}
+        className="flex items-center justify-between mx-auto px-4 md:px-8 lg:px-12 max-w-7xl h-full"
+      >
+        <div className="z-40 hover:opacity-80 transition duration-200">
+          <Link to="/">
+            <Logo />
+          </Link>
+        </div>
+        {location.pathname === "/" && (
+          <div className=" flex items-center">
+            <Button
+              name="Login"
+              handleClick={() => navigate("/auth?type=login")}
+            />
           </div>
-          {location.pathname === "/" && (
-            <div className=" flex items-center">
-              <Button
-                name="Login"
-                handleClick={() => navigate("/auth?type=login")}
-              />
-            </div>
-          )}
-        </motion.nav>
-      </Container>
+        )}
+      </motion.nav>
     </header>
   );
 };
