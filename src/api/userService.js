@@ -14,8 +14,8 @@ const userService = {
     axiosInstance.put("/users/refresh_access_token", credentials),
 
   // User Profile Management
-  fetchCurrentUser: () => axiosInstance.get("/users/current_user"),
-
+  fetchCurrentUser: () => axiosInstance.get(`/users/current_user`),
+  
   updateUserProfile: (profileData) =>
     axiosInstance.put("/users/update_profile", profileData),
 
@@ -33,6 +33,8 @@ const userService = {
 
   requestPasswordReset: (email) =>
     axiosInstance.post("/users/forgot_password", { email }),
+  
+
 };
 
 export default userService;

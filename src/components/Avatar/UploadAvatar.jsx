@@ -9,7 +9,7 @@ const UploadAvatar = ({imgUrl}) => {
     <form onSubmit={handleSubmit(updateProfileImg)}>
       <div className="relative w-28 h-28 sm:w-32 sm:h-32 group">
         <img
-          src={imgUrl}
+          src={imgUrl || ""}
           alt="Avatar"
           className=" w-full h-full rounded-full ring-2 ring-white shadow-md object-cover"
         />

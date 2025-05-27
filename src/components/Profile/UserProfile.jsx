@@ -9,7 +9,6 @@ import { Link } from "react-router-dom";
 
 const UserProfile = ({openIt}) => {
   const userData = useSelector(selectUser)
-  console.log(userData);
   const platformIcons = {
     twitter: <RiTwitterXFill />,
     instagram: <RiInstagramFill />,
@@ -64,11 +63,9 @@ const UserProfile = ({openIt}) => {
                 </button>
                 <Link to="#" className=" hidden lg:flex justify-end gap-2">
                   <Link2 size={16} />
-                  {
-                    userData?.data?.data?.socialLinks?.find(
-                      (link) => link.platform === "other"
-                    ).url
-                  }
+                  {userData?.data?.data?.socialLinks?.find(
+                    (link) => link.platform === "other"
+                  )?.url || ""}
                 </Link>
               </div>
             </div>
@@ -89,7 +86,9 @@ const UserProfile = ({openIt}) => {
             {/* bio */}
             <div className=" w-full">
               <div className=" py-4">
-                <p className=" text-justify text-xl">{userData?.data?.data?.bio}</p>
+                <p className=" text-justify text-xl">
+                  {userData?.data?.data?.bio}
+                </p>
               </div>
             </div>
           </div>

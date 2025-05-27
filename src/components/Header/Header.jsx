@@ -1,8 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import {BurgerMenu, Button, Logo } from "../index.js";
+import {Button, Logo } from "../index.js";
 import { motion } from "framer-motion";
-import MobileNav from "./MobileNav.jsx";
 const Header = () => {
   const [scrollDirPos, setScrollDirPos] = useState("0");
   const [countScroll, setCountScroll] = useState(0);

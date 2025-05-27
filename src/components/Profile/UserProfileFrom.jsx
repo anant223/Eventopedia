@@ -3,12 +3,12 @@ import {Container} from '../index.js';
 import { useForm } from 'react-hook-form';
 import { useSelector } from 'react-redux';
 import { selectUser } from "../../app/selector/authSelector.js";
-import userService from '../../api/userService.js';
 import { updateProfile } from '../../features/profileAction.js';
 
 const UserProfileFrom = ({closeIt}) => {
   const {handleSubmit, register} = useForm();
   const userData = useSelector(selectUser);
+  console.log(userData);
   return (
     <div className="font-roboto">
       <Container>
@@ -34,7 +34,7 @@ const UserProfileFrom = ({closeIt}) => {
                   type="text"
                   name="username"
                   className="w-full px-4 py-2 bg-white bg-opacity-20 text-white rounded border-none transition-all duration-200 ease-in-out hover:bg-opacity-30 focus:bg-opacity-30 focus:ring-2 focus:ring-blue-500"
-                  defaultValue={userData?.data ? userData.data.data.username : ""}
+                  defaultValue={userData?.data?.data?.username || ""}
                   disabled
                 />
               </div>
@@ -45,7 +45,7 @@ const UserProfileFrom = ({closeIt}) => {
                 <input
                   type="text"
                   name="name"
-                  defaultValue={userData?.data ? userData.data.data.name : ""}
+                  defaultValue={userData?.data?.data?.name || ""}
                   className="w-full px-4 py-2 bg-white bg-opacity-20 text-white rounded border-none transition-all duration-200 ease-in-out hover:bg-opacity-30 focus:bg-opacity-30 focus:ring-2 focus:ring-blue-500"
                   {...register("name")}
                 />
@@ -57,7 +57,7 @@ const UserProfileFrom = ({closeIt}) => {
                 <input
                   type="email"
                   name="email"
-                  defaultValue={userData?.data ? userData.data.data.email : ""}
+                  defaultValue={userData?.data?.data?.email || ""}
                   className="w-full px-4 py-2 bg-white bg-opacity-20 text-white rounded border-none transition-all duration-200 ease-in-out hover:bg-opacity-30 focus:bg-opacity-30 focus:ring-2 focus:ring-blue-500"
                 />
               </div>
@@ -67,7 +67,7 @@ const UserProfileFrom = ({closeIt}) => {
                 </label>
                 <textarea
                   name="bio"
-                  defaultValue={userData?.data ? userData.data.data.bio : ""}
+                  defaultValue={userData?.data?.data?.bio || ""}
                   className="w-full px-4 py-2 bg-white bg-opacity-20 text-white rounded border-none h-32 transition-all duration-200 ease-in-out hover:bg-opacity-30 focus:bg-opacity-30 focus:ring-2 focus:ring-blue-500"
                   placeholder="Describe yourself"
                   {...register("bio")}
@@ -81,11 +81,9 @@ const UserProfileFrom = ({closeIt}) => {
                   type="url"
                   name="linkedin"
                   defaultValue={
-                    userData?.data
-                      ? userData.data.data.socialLinks.find(
-                          (link) => link.platform === "linkedin"
-                        ).url
-                      : ""
+                    userData?.data?.data?.socialLinks?.find(
+                      (link) => link.platform === "linkedin"
+                    )?.url || ""
                   }
                   className="w-full px-4 py-2 bg-white bg-opacity-20 text-white rounded border-none transition-all duration-200 ease-in-out hover:bg-opacity-30 focus:bg-opacity-30 focus:ring-2 focus:ring-blue-500"
                   {...register("social_linkedin")}
@@ -99,11 +97,9 @@ const UserProfileFrom = ({closeIt}) => {
                   type="url"
                   name="instagram"
                   defaultValue={
-                    userData?.data
-                      ? userData.data.data.socialLinks.find(
-                          (link) => link.platform === "instagram"
-                        ).url
-                      : ""
+                    userData?.data?.data?.socialLinks?.find(
+                      (link) => link.platform === "instagram"
+                    )?.url || ""
                   }
                   className="w-full px-4 py-2 bg-white bg-opacity-20 text-white rounded border-none transition-all duration-200 ease-in-out hover:bg-opacity-30 focus:bg-opacity-30 focus:ring-2 focus:ring-blue-500"
                   {...register("social_instagram")}
@@ -117,11 +113,9 @@ const UserProfileFrom = ({closeIt}) => {
                   type="url"
                   name="twitter"
                   defaultValue={
-                    userData?.data
-                      ? userData.data.data.socialLinks.find(
-                          (link) => link.platform === "twitter"
-                        ).url
-                      : ""
+                    userData?.data?.data?.socialLinks?.find(
+                      (link) => link.platform === "twitter"
+                    )?.url || ""
                   }
                   className="w-full px-4 py-2 bg-white bg-opacity-20 text-white rounded border-none transition-all duration-200 ease-in-out hover:bg-opacity-30 focus:bg-opacity-30 focus:ring-2 focus:ring-blue-500"
                   {...register("social_twitter")}
@@ -146,11 +140,9 @@ const UserProfileFrom = ({closeIt}) => {
                   type="url"
                   name="social_other"
                   defaultValue={
-                    userData?.data
-                      ? userData.data.data.socialLinks.find(
-                          (link) => link.platform === "other"
-                        ).url
-                      : ""
+                    userData?.data?.data?.socialLinks?.find(
+                      (link) => link.platform === "other"
+                    )?.url || ""
                   }
                   className="w-full px-4 py-2 bg-white bg-opacity-20 text-white rounded border-none transition-all duration-200 ease-in-out hover:bg-opacity-30 focus:bg-opacity-30 focus:ring-2 focus:ring-blue-500"
                   {...register("social_other")}

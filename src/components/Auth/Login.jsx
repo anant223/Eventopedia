@@ -1,6 +1,5 @@
 import React from 'react'
 import { useForm } from 'react-hook-form';
-import { Container } from '../index.js';
 import { RiArrowDownWideFill, RiArrowUpWideFill } from 'react-icons/ri';
 import { useDispatch} from "react-redux";
 import { Link, useNavigate } from 'react-router-dom';
@@ -16,6 +15,15 @@ const Login = ({signupFn}) => {
     dispatch(loginSession(data, navigate));
   };
 
+  const handleGoogleLogin = async () => {
+    window.location.href =
+      "https://eventopida-server.onrender.com/api/v1/users/google/auth";
+  };
+  const handleDiscordLogin = async () => {
+    window.location.href =
+      "https://eventopida-server.onrender.com/api/v1/users/discord/auth";
+  }
+
 
   return (
     <div className=" from-[#0c1725] via-[#0e1c2f] to-[#0c1725] text-text p-4 sm:p-6 md:p-8 rounded-lg shadow-md w-full max-w-sm mx-auto">
@@ -25,7 +33,9 @@ const Login = ({signupFn}) => {
 
       {!isHidden ? (
         <div className="flex flex-col gap-3 sm:gap-4">
-          <button className="flex items-center justify-center gap-2 px-3 py-2 sm:px-4 sm:py-2 border border-gray-300 rounded-lg transition bg-white text-gray-800 hover:bg-gray-50 text-sm sm:text-base">
+          <button
+           onClick={handleGoogleLogin}
+           className="flex items-center justify-center gap-2 px-3 py-2 sm:px-4 sm:py-2 border border-gray-300 rounded-lg transition bg-white text-gray-800 hover:bg-gray-50 text-sm sm:text-base">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="20"
@@ -52,7 +62,7 @@ const Login = ({signupFn}) => {
             </svg>
             <span className="whitespace-nowrap">Login with Google</span>
           </button>
-          <button className="flex items-center justify-center gap-2 px-3 py-2 sm:px-4 sm:py-2 bg-indigo-500 text-white rounded-lg hover:bg-indigo-600 transition w-full text-sm sm:text-base">
+          <button onClick={handleDiscordLogin} className="flex items-center justify-center gap-2 px-3 py-2 sm:px-4 sm:py-2 bg-indigo-500 text-white rounded-lg hover:bg-indigo-600 transition w-full text-sm sm:text-base">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="20"

@@ -1,14 +1,17 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { BurgerMenu, Logo } from "../index.js";
 import { Link , useNavigate} from "react-router-dom";
-import { destroySession } from "../../features/authActions.js";
 import { useDispatch } from "react-redux";
+import userService from "../../api/userService.js";
+import { logout } from "../../app/features/authSlice.js";
 
 const Navbar = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isOpen, setIsOpen] = useState(false)
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+
 
   return (
     <nav className="w-full inset-0 font-roboto fixed text-white z-30 h-16 bg-gray-800 flex items-center border-b border-gray-700 ">
@@ -44,8 +47,8 @@ const Navbar = () => {
                   Profile
                 </button>
                 <button
-                  onClick={() => dispatch(destroySession())}
-                  className=" flex w-full px-4 py-2 hover:bg-gray-600 text-sm"
+                  onClick={() => userService.logoutUser().then(() => {dispatch(logout()); navigate("/auth?type=login")}).catch((err) => console.log(err.message))}
+                  className="flex w-full px-4 py-2 hover:bg-gray-600 text-sm"
                 >
                   Sign out
                 </button>
@@ -54,10 +57,8 @@ const Navbar = () => {
           </div>
         </div>
         <div className=" lg:hidden md:hidden sm:flex flex">
-          <BurgerMenu status={isOpen} handleClick={ () => setIsOpen(!isOpen)} />
-          <div>
-            
-          </div>
+          <BurgerMenu status={isOpen} handleClick={() => setIsOpen(!isOpen)} />
+          <div></div>
         </div>
       </div>
     </nav>

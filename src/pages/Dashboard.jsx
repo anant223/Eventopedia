@@ -12,7 +12,6 @@ const Dashboard = () => {
   const handleOpenModel = (status) =>{
     setIsclosed(status)
   }
-  console.log(location.pathname);
   return (
     <div className="relative bg-background min-h-screen pt-16 ml-64">
       <div className="mx-auto px-4 md:px-8 lg:px-12 max-w-5xl">

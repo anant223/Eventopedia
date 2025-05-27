@@ -35,21 +35,17 @@ const loginSession = (data, navigate) =>
     },
   })();
 
-  const destroySession = () =>
-    createAsyncThunkHandler({
-      apiFn: () => userService.logoutUser(),
-      onSuccess: logout,
-      onAfter: () => {
-        alert("You have logged out successfully");
-        navigate("/auth?type=login");
-      },
-      onErr: (err) => {
-        if (err?.response) {
-          alert(err.response?.data?.message, "Something went wrong!");
-        } else {
-          alert("Failed to logout. Please try again");
-        }
-      },
-    })()
+  // const destroySession = () =>
+  //   createAsyncThunkHandler({
+  //     apiFn: () => userService.logoutUser(),
+  //     onSuccess: logout,
+  //     onErr: (err) => {
+  //       if (err?.response) {
+  //         alert(err.response?.data?.message, "Something went wrong!");
+  //       } else {
+  //         alert("Failed to logout. Please try again");
+  //       }
+  //     },
+  //   })()
 
-export {loginSession, signUp, destroySession};
+export {loginSession, signUp};
