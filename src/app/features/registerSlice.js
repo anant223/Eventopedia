@@ -1,35 +1,50 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice} from "@reduxjs/toolkit";
 
 const initialState = {
-  registeredEvents: [],
-  isRegistered: false,
+  subscriptions: {},
+  loading: false,
+  error: null
 };
 
 const registrationSlice = createSlice({
   name: "registration",
   initialState,
   reducers: {
-    registeredUser: (state, action) => {
-      state.isRegistered = true;
-      state.registeredEvents = action.payload;
+    toggleSubscription: (state, action) => {
+      const { event, ...rest } = action.payload;
+      if (state.subscriptions[event]) {
+        delete state.subscriptions[event];
+      }else {
+        state.subscriptions[event] = rest;
+      } 
     },
-    
-    toggleEventRegistration: (state, action) => {
-      const { eventId, subscriber, isSubscribed } = action.payload;
-      
-      const findIndex = state.registeredEvents.findIndex(
-        (event) => event.eventId === eventId && event.subscriber === subscriber
-      );
-      if(findIndex !== -1){
-        state.registeredEvents.splice(findIndex, 1);
-        state.registeredEvents[findIndex]
-      }else{
-        state.registeredEvents.push({ eventId, subscriber, isSubscribed });
-        state.isRegistered = true
-      }      
+
+    updateSubscriptions: (state, action) => {
+      const { event, ...res } = action.payload;
+      if (state.subscriptions[event]) {
+        state.subscriptions[event] = {
+          ...state.subscriptions[event],
+          ...res,
+        };
+      }
+    },
+    setError: (state, action) => {
+      state.error = action.payload;
+      state.loading = false;
+    },
+    setSubscribedEvents: (state, action) => {
+      state.subscriptions = action.payload;
+      state.loading = false;
+      state.error = null;
     },
   },
 });
 
-export const {registeredUser, toggleEventRegistration } = registrationSlice.actions;
+export const { 
+  toggleSubscription, 
+  updateSubscriptions, 
+  setError, 
+  setSubscribedEvents  
+} = registrationSlice.actions;
+
 export default registrationSlice.reducer;

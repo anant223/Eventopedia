@@ -2,7 +2,7 @@ import axios from "./axiosInstance.js";
 
 const likeService = {
   toggleEventLike: (eventId) => axios.post(`/likes/events/${eventId}/toggle`),
-  getAllLikesById: (eventId) => axios.get(`/likes/events/${eventId}`),
+  getEventLikes: (eventId) => axios.get(`/likes/event/${eventId}`),
   getLikedEvents: () => axios.get("/likes/events/all"),
 };
 

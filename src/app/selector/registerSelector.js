@@ -1,3 +1,7 @@
-import { createSelector } from "@reduxjs/toolkit";
-export const selectRegisteredEvent = (state) => state.registration.evnetRegisteredUsers;
-// export const selectIsRegistered = (state) => state.registration.isRegistered;
+export const selectAllSubscriptions = (state) => state.registration.subscriptions;
+export const selectSubscriptionById = (id) => (state) =>
+  state.registration.subscriptions[id];
+export const selectIsSubscribed = (id) => (state) =>
+  Boolean(state.registration.subscriptions[id]);
+export const selectSubscriptionCount = (state) =>
+  Object.keys(state.registration.subscriptions).length;

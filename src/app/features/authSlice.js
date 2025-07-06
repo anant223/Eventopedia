@@ -1,12 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  likedEvents: [],
   isAuthenticated: false,
   user: null,
   loading: false,
   error: null,
-  subscriptions: [],
 };
 
 const authSlice = createSlice({
@@ -25,29 +23,11 @@ const authSlice = createSlice({
       state.error = null;
     },
 
-    likedEvent: (state, action) => {
-      state.likedEvents = action.payload;
-    },
-
-    setAllSubs: (state, action) => {
-      state.subscriptions = action.payload.map(({ event }) => event?._id);
-    },
-
-    toggleSub: (state, action) => {
-      const { event } = action.payload;
-      const index = state.subscriptions.findIndex(event => event === event);
-      if (index !== -1) {
-        state.subscriptions.splice(index, 1);
-      } else {
-        state.subscriptions.push(event);
-      }
-    },
-
     setError: (state, action) => {
       state.error = action.payload;
     },
   },
 });
 
-export const { login, logout, setError, likedEvent, setAllSubs, toggleSub} = authSlice.actions;
+export const { login, logout, setError} = authSlice.actions;
 export default authSlice.reducer;

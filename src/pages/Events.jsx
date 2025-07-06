@@ -5,24 +5,28 @@ import {
   selectEvent,
   selectEventLoading,
 } from "../app/selector/virtualEventsSelector.js";
-import useAPI from "../hooks/useAPI.jsx";
 import eventService from "../api/eventService.js";
 import { allVirtualEvents } from "../app/features/virtualEventsSlice.js";
+import { useQry } from "../hooks/useQry.jsx";
 
 const Events = () => {
   const allPublicEvents = useSelector(selectEvent);
   const isLoading = useSelector(selectEventLoading);
   const [eventData, setEventData] = useState()
   const [state, setState] = useState(false)
-  const { loading, err } = useAPI( () =>
-    eventService.getAllPublicEvents({ page: 1, limit: 6 }),
-    allVirtualEvents,
-  );
+  const {loading, error, refetch} = useQry(
+    { 
+      queryKey : ["Events"],
+      apiFn : () => eventService.getAllPublicEvents({page : 1, limit :6}),
+      reduxAction : allVirtualEvents,
+      options : {}
+    }
+  )
 
   const handelEventModel = (status, eventID) =>{
-  const chosenPublicEvent = allPublicEvents?.events.find(
-    (event) => event._id === eventID
-  );
+    const chosenPublicEvent = allPublicEvents?.events.find(
+      (event) => event._id === eventID
+    );
     setEventData(chosenPublicEvent);
     setState(status)
   } 

@@ -1,7 +1,7 @@
 import axios from "axios"
 // https://eventopida-server.onrender.com
 const axiosInstance = axios.create({
-  baseURL: "https://eventopida-server.onrender.com/api/v1/",
+  baseURL: `${import.meta.env.VITE_API_BASE_URL}/api/v1`,
   timeout: 10000,
   withCredentials: true,
   headers: {
