@@ -12,7 +12,7 @@ import Navbar from "./Header/Navbar";
 import DashboardCard from "./Dashboard/DashboardCard";
 import RecentEvent from "./Dashboard/RecentEvent";
 import Card from "./Card/Card";
-import EventCard from "./Card/EventCard";
+import EventCard from "./Card/Card.event";
 import Form from "./Form/Form";
 import UserProfile from "./Profile/UserProfile";
 import Tag from "./Tags/Tag";
@@ -20,9 +20,9 @@ import UserProfileFrom from "./Profile/UserProfileFrom";
 import UploadAvatar from "./Avatar/UploadAvatar";
 import EventDetialModel from "./EventDetailModel/EventDetialModel";
 import Login from "./Auth/Login";
-import Share from "./Button/ShareButton";
-import Like from "./Button/LikeButton";
-import Subscribe from "./Button/SubscribeButton";
+import Share from "./Button/Button.share";
+import Like from "./Button/Button.like";
+import Subscribe from "./Button/Button.sub";
 import Signup from "./Auth/Signup";
 export {
   Logo,
