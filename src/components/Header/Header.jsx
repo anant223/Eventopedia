@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import {Button, Logo } from "../index.js";
-import { motion } from "framer-motion";
+import {Button, Container, Logo } from "../index.js";
+
 const Header = () => {
   const [scrollDirPos, setScrollDirPos] = useState("0");
   const [countScroll, setCountScroll] = useState(0);
@@ -40,47 +40,35 @@ const Header = () => {
 
 
   return (
-    <header className="sticky z-50 top-0 backdrop-blur-[0.75rem] w-full shadow-sm">
-      <div className="container mx-auto flex h-16 items-center justify-between px-6 lg:px-8">
-        <Link to="/">
-          <Logo />
-        </Link>
-        <div className=" hidden lg:flex items-center space-x-4">
-          <button className=" text-[#fff] font-medium text-sm px-6 py-2 h-10 rounded-full hover:transition-all hover:duration-300 hover:ease-in hover:bg-[#fff] hover:text-gray-800">
-            Log In
-          </button>
-          <Button name="Join Now" />
+    <header
+      className={`sticky z-50 top-0 backdrop-blur-[0.75rem] w-full shadow-sm overflow-hidden transition-all duration-300 ease-in-out ${
+        countScroll > 16
+          ? "backdrop-blur-md bg-black/70 shadow-lg"
+          : "bg-[#05101c] text-gray-200"
+      }`}
+      style={{ top: scrollDirPos }}
+    >
+      <Container>
+        <div className="flex h-16 items-center justify-between px-6 lg:px-8">
+          <Link to="/">
+            <Logo />
+          </Link>
+          <div className=" hidden lg:flex items-center space-x-4">
+            <button
+              onClick={() => navigate("/auth?type=login")}
+              className=" text-[#fff] font-medium text-sm px-6 py-2 h-10 rounded-full hover:transition-all hover:duration-300 hover:ease-in hover:bg-[#fff] hover:text-gray-800"
+            >
+              Log In
+            </button>
+            <Button
+              handleClick={() => navigate("/auth?type=signup")}
+              name="Join Now"
+            />
+          </div>
         </div>
-      </div>
+      </Container>
     </header>
   );
 };
 
 export default Header;
-
-{/* <header
-  className={`w-full h-[80px] z-30  text-text px-2 sm:px-2 sticky transition-all duration-[600ms] ${
-    countScroll > 16
-      ? "backdrop-blur-md bg-black/70 shadow-lg"
-      : "bg-[#05101c] text-gray-200"
-  }`}
-  style={{ top: scrollDirPos }}
->
-  <nav
-    // initial={{ opacity: 0, y: 30 }}
-    // animate={{ opacity: 1, y: 0 }}
-    // transition={{ duration: 0.8, delay: 0.5 }}
-    className="flex items-center justify-between mx-auto px-4 md:px-8 lg:px-12 max-w-7xl h-full"
-  >
-    <div className="z-40 hover:opacity-80 transition duration-200">
-      <Link to="/">
-        <Logo />
-      </Link>
-    </div>
-    {location.pathname === "/" && (
-      <div className=" flex items-center">
-        <Button name="Login" handleClick={() => navigate("/auth?type=login")} />
-      </div>
-    )}
-  </nav>
-</header>; */}

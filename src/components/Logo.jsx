@@ -40,7 +40,7 @@ const Logo = ({ textColor }) => {
     <div>
       <h1
         ref={textRef}
-        className={` lg:text-5xl line uppercase text-3xl leading-[48px] inline-block font-bold  `}
+        className="lg:text-5xl line uppercase text-3xl inline-block font-bold leading-8"
       >
         GRUPIO
       </h1>
