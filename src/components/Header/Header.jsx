@@ -48,7 +48,7 @@ const Header = () => {
       }`}
       style={{ top: scrollDirPos }}
     >
-      <Container>
+      <div className=" container mx-auto px-12 lg:px-16">
         <div className="flex h-16 items-center justify-between px-6 lg:px-8">
           <Link to="/">
             <Logo />
@@ -66,7 +66,7 @@ const Header = () => {
             />
           </div>
         </div>
-      </Container>
+      </div>
     </header>
   );
 };
