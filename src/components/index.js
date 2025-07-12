@@ -24,6 +24,8 @@ import Share from "./Button/Button.share";
 import Like from "./Button/Button.like";
 import Subscribe from "./Button/Button.sub";
 import Signup from "./Auth/Signup";
+import HomeNav from "./Header/HomeNav";
+import MainHeader from "./Header/MainHeader";
 export {
   Logo,
   Container,
@@ -51,4 +53,6 @@ export {
   Share,
   Like,
   Subscribe,
+  HomeNav,
+  MainHeader
 };

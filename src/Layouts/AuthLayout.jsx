@@ -1,5 +1,5 @@
 import React from "react";
-import { Footer, Header } from "../components";
+import { Footer, Header, HomeNav } from "../components";
 import { Outlet } from "react-router-dom";
 
 
@@ -7,7 +7,7 @@ const AuthLayout = () => {
 
   return (
     <>
-      <Header />
+      <HomeNav/>
       <main>
         <Outlet />
       </main>
