@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import {Button} from "../index.js"
 
+
 function FloatingParticle() {
   return (
     <div className=" absolute inset-0 overflow-hidden pointer-events-none">
@@ -34,24 +35,24 @@ const HeroSection = () => {
 
   
   return (
-    <section className="relative overflow-hidden  bg-background min-h-screen flex justify-center items-center px-8 sm:px-18">
+    <section className="relative overflow-hidden  bg-background min-h-screen flex justify-center sm:text-center px-8 sm:px-18">
       <div>
         <FloatingParticle />
         <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:50px_50px]" />
       </div>
-      <div className="mx-auto relative container px-4 sm:px-6 text-center lg:px-8">
+      <div className="mx-auto relative container px-4 sm:px-6 lg:px-8">
         <div className="relative">
           <motion.div className=" mb-6 sm:mb-8 font-bricolage font-medium m-[0_auto]  px-2 py-1 rounded-full border-gray-700 border bg-gray-500/10 text-text w-fit mt-20 transform-none opacity-100 flex items-center text-xs md:text-base max-w-fit overflow-hidden h-fit">
             <div className="w-2 h-2 bg-blue-400 rounded-full mr-2 animate-pulse "></div>
             Now In Beta - Join Early Access
           </motion.div>
-          <motion.h1 className="font-bold mb-8 text-[2.8rem] sm:text-4xl md:text-5xl lg:text-6xl font-bricolage text-text">
+          <motion.h1 className="font-bold mb-8 text-4xl text-[3rem] sm:text-4xl md:text-5xl lg:text-6xl font-bricolage text-text">
             <span className="inline-block">The </span>{" "}
             <span className="inline-block">ultimate </span>{" "}
             <span className="inline-block">platform to </span>
             <br className="hidden sm:block" />
-            <div className=" inline-block bg-[#2e1a86] rounded-lg p-2 shadow-2xl">
-              <span className="bg-gradient-to-tr from-[#2e1a86] via-[#8bb4e9] to-[#924cdd] bg-clip-text text-transparent font-CS inline-block ">
+            <div className=" inline-block sm:bg-[#2e1a86] rounded-lg p-2 text-5xl lg:6xl sm:text-none shadow-2xl">
+              <span className="bg-gradient-to-tr from-[#2e1a86] via-[#8bb4e9] to-[#924cdd] bg-clip-text text-transparent font-CS inline-block">
                 Host/Attend
               </span>
             </div>{" "}
@@ -63,7 +64,6 @@ const HeroSection = () => {
             and connect with professionals in real time, right from your
             browser.
           </motion.div>
-
           <motion.div className="mb-6 sm:mb-8 scale-100 hover:scale-105 transition-transform duration-300">
             <Button
               name="Let's create"
