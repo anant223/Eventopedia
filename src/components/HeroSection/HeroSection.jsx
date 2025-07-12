@@ -35,18 +35,18 @@ const HeroSection = () => {
 
   
   return (
-    <section className="relative overflow-hidden  bg-background min-h-screen flex justify-center sm:text-center px-8 sm:px-18">
+    <section className="relative overflow-hidden  bg-background min-h-screen flex justify-center sm:text-center px-8 sm:px-18 py-20">
       <div>
         <FloatingParticle />
         <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:50px_50px]" />
       </div>
       <div className="mx-auto relative container px-4 sm:px-6 lg:px-8">
         <div className="relative">
-          <motion.div className=" mb-6 sm:mt-[144px] sm:mb-8 font-bricolage font-medium m-[0_auto]  px-2 py-1 rounded-full border-gray-700 border bg-gray-500/10 text-text w-fit mt-20 transform-none opacity-100 flex items-center text-xs md:text-base max-w-fit overflow-hidden h-fit">
+          <motion.div className=" font-bricolage mb-4 sm:mb-6 font-medium m-[0_auto]  px-2 py-1 rounded-full border-gray-700 border bg-gray-500/10 text-text w-fit mt-20 transform-none opacity-100 flex items-center text-xs md:text-base max-w-fit overflow-hidden h-fit">
             <div className="w-2 h-2 bg-blue-400 rounded-full mr-2 animate-pulse "></div>
             Now In Beta - Join Early Access
           </motion.div>
-          <motion.h1 className="font-bold mb-8 text-4xl text-[3rem] sm:text-4xl md:text-5xl lg:text-6xl font-bricolage text-text sm:mt-[146px]">
+          <motion.h1 className="font-bold mb-8 text-4xl text-[3rem] sm:text-4xl md:text-5xl lg:text-6xl font-bricolage text-text">
             <span className="inline-block">The </span>{" "}
             <span className="inline-block">ultimate </span>{" "}
             <span className="inline-block">platform to </span>
