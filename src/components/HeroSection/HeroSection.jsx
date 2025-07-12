@@ -49,7 +49,7 @@ const HeroSection = () => {
           <motion.h1 className="font-bold mb-6 font-bricolage text-text text-[1.25rem] sm:text-5xl md:text-6xl lg:text-7xl sm:leading-tight leading-[0.9]">
             <span className="inline-block">The ultimate platform to </span>
             <br className="hidden sm:block" />
-            <div className=" inline-block mt-2 sm:bg-[#2e1a86] rounded-lg p-2 text-5xl lg:6xl sm:text-none shadow-2xl">
+            <div className=" inline-block mt-2 sm:bg-[#2e1a86] rounded-lg p-2 text-4xl lg:6xl sm:text-none shadow-2xl">
               <span className="bg-gradient-to-tr from-[#2e1a86] via-[#8bb4e9] to-[#924cdd] bg-clip-text text-transparent font-CS inline-block">
                 Host/Attend
               </span>
