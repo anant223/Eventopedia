@@ -1,5 +1,5 @@
 import React from "react";
-import { Container, Login, Signup } from "../components/index.js";
+import { Login, Signup } from "../components/index.js";
 import { motion } from "motion/react";
 import { easeIn } from "motion";
 import { useSearchParams } from "react-router-dom";
@@ -9,9 +9,9 @@ const Auth = () => {
   const type = searchParam.get("type");
 
   return (
-    <div className="py-8 md:py-16 lg:py-24 text-text font-bricolage w-full min-h-screen ">
-      <Container>
-        <div className="w-full flex flex-col lg:flex-row justify-between items-center gap-6 lg:gap-12 lg:items-center">
+    <div className="py-20 text-text font-bricolage w-full min-h-screen">
+      <div className=" mx-auto max-w-4xl px-4 sm:px-6 text-center lg:px-8">
+        <div className="mt-20 w-full flex flex-col lg:flex-row justify-between items-center gap-6 lg:gap-12 lg:items-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -47,7 +47,7 @@ const Auth = () => {
             )}
           </motion.div>
         </div>
-      </Container>
+      </div>
     </div>
   );
 };
