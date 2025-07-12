@@ -40,13 +40,13 @@ const HeroSection = () => {
         <FloatingParticle />
         <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:50px_50px]" />
       </div>
-      <div className="mx-auto relative container px-4 sm:px-6 lg:px-8 text-center">
+      <div className="mx-auto relative container px-4 sm:px-6 lg:px-8">
         <div className="relative max-w-4xl mx-auto">
           <motion.div className="font-bricolage mb-6 sm:mb-8 font-medium mx-auto px-3 py-2 rounded-full border border-gray-700 bg-gray-500/10 text-text w-fit flex items-center h-fit text-xs md:text-sm mt-8 sm:mt-12">
             <div className="w-2 h-2 bg-blue-400 rounded-full mr-2 animate-pulse" />
             Now In Beta - Join Early Access
           </motion.div>
-          <motion.h1 className="font-bold mb-6 font-bricolage text-text text-6xl sm:text-5xl md:text-6xl lg:text-7xl sm:leading-tight leading-[0.9]">
+          <motion.h1 className="font-bold mb-6 font-bricolage text-text text-[1.25rem] sm:text-5xl md:text-6xl lg:text-7xl sm:leading-tight leading-[0.9]">
             <span className="inline-block">The ultimate platform to </span>
             <br className="hidden sm:block" />
             <div className=" inline-block mt-2 sm:bg-[#2e1a86] rounded-lg p-2 text-5xl lg:6xl sm:text-none shadow-2xl">
