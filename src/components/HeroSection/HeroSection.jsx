@@ -45,7 +45,7 @@ const HeroSection = () => {
             <div className="w-2 h-2 bg-blue-400 rounded-full mr-2 animate-pulse "></div>
             Now In Beta - Join Early Access
           </motion.div>
-          <motion.h1 className="font-bold mb-8 text-5xl sm:text-4xl md:text-5xl lg:text-6xl font-bricolage text-text">
+          <motion.h1 className="font-bold mb-8 text-[2.8rem] sm:text-4xl md:text-5xl lg:text-6xl font-bricolage text-text">
             <span className="inline-block">The </span>{" "}
             <span className="inline-block">ultimate </span>{" "}
             <span className="inline-block">platform to </span>
