@@ -35,14 +35,14 @@ const HeroSection = () => {
 
   
   return (
-    <section className="relative overflow-hidden  bg-background min-h-screen flex justify-center sm:text-center px-8 sm:px-18 py-20">
+    <section className="relative overflow-hidden  bg-background min-h-screen flex justify-center sm:text-center sm:px-18 py-16 sm:py-20">
       <div>
         <FloatingParticle />
         <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:50px_50px]" />
       </div>
       <div className="mx-auto relative container px-4 sm:px-6 lg:px-8">
         <div className="relative">
-          <motion.div className=" font-bricolage mb-4 sm:mb-6 font-medium m-[0_auto]  px-2 py-1 rounded-full border-gray-700 border bg-gray-500/10 text-text w-fit mt-20 transform-none opacity-100 flex items-center text-xs md:text-base max-w-fit overflow-hidden h-fit">
+          <motion.div className=" font-bricolage mb-4 sm:mb-6 font-medium sm:m-[0_auto]  px-2 py-1 rounded-full border-gray-700 border bg-gray-500/10 text-text w-fit mt-20 transform-none opacity-100 flex items-center text-xs md:text-base max-w-fit overflow-hidden h-fit">
             <div className="w-2 h-2 bg-blue-400 rounded-full mr-2 animate-pulse "></div>
             Now In Beta - Join Early Access
           </motion.div>
@@ -60,7 +60,7 @@ const HeroSection = () => {
             <span className="inline-block">events.</span>{" "}
           </motion.h1>
           <motion.div className="mb-8 font-bricolage text-xl  md:text-2xl text-text mx-auto max-w-2xl">
-            GRUPIO lets you host and stream virtual events — public or private —
+            Host and attend virtual or in-person events — public or private —
             and connect with professionals in real time, right from your
             browser.
           </motion.div>
