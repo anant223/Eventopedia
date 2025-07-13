@@ -35,14 +35,14 @@ const HeroSection = () => {
 
   
   return (
-    <section className="relative overflow-hidden  bg-background min-h-[90.666vh] flex justify-center sm:text-center py-16 sm:py-20">
+    <section className="relative overflow-hidden pt-32 sm:pt-40  bg-background min-h-screen flex justify-center sm:text-center py-16 sm:py-20">
       <div className=" absolute inset-0">
         <FloatingParticle />
         <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:50px_50px]" />
       </div>
       <div className="mx-auto relative container px-4 sm:px-6 lg:px-8 sm:text-center">
         <div className="relative max-w-4xl mx-auto">
-          <motion.div className="font-bricolage mb-6 sm:mb-8 font-medium mx-auto px-3 py-2 rounded-full border border-gray-700 bg-gray-500/10 text-text w-fit flex items-center h-fit text-xs md:text-sm mt-8 sm:mt-12">
+          <motion.div className="font-bricolage mb-6 sm:mb-8 font-medium mx-auto px-3 py-2 rounded-full border border-gray-700 bg-gray-500/10 text-text w-fit flex items-center h-fit text-xs md:text-sm">
             <div className="w-2 h-2 bg-blue-400 rounded-full mr-2 animate-pulse" />
             Now In Beta - Join Early Access
           </motion.div>
