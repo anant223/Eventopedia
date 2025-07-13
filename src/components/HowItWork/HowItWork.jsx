@@ -33,7 +33,7 @@ const HowItWork = () => {
 
   return (
     <section className="text-text overflow-x-hidden font-bricolage py-16 sm:py-20 lg:py-24">
-      <Container>
+       <div className="mx-auto relative container px-4 sm:px-6 lg:px-8 sm:text-center">
         <div className="w-full rounded bg-[#0c1725] flex flex-col items-center lg:px-14 lg:py-24 px-6 py-12 gap-10">
           {/* Heading */}
           <div className="text-center">
@@ -54,7 +54,7 @@ const HowItWork = () => {
             ))}
           </div>
         </div>
-      </Container>
+      </div>
     </section>
   );
 }
