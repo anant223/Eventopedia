@@ -7,11 +7,10 @@ import { useSearchParams } from "react-router-dom";
 const Auth = () => {
   const [searchParam, setSearchParam] = useSearchParams();
   const type = searchParam.get("type");
-
   return (
-    <div className="py-20 text-text font-bricolage w-full min-h-screen">
-      <div className=" mx-auto max-w-4xl px-4 sm:px-6 text-center lg:px-8">
-        <div className="mt-20 w-full flex flex-col lg:flex-row justify-between items-center gap-6 lg:gap-12 lg:items-center">
+    <div className="text-text font-bricolage w-full min-h-screen  py-16 sm:py-20 sm:pt-40 pt-32">
+      <div className="mx-auto relative container px-4 sm:px-6 lg:px-8">
+        <div className="w-full flex flex-col lg:flex-row justify-between items-center gap-6 lg:gap-12 lg:items-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -28,7 +27,6 @@ const Auth = () => {
                 : "Join Grupio — The best place for professionals to connect, collaborate, and grow together."}
             </p>
 
-            {/* Visual element for small screens */}
             <div className="w-16 h-1 bg-primary mt-4 mb-2 lg:hidden"></div>
           </motion.div>
 

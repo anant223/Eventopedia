@@ -58,7 +58,6 @@ const HowItWork = () => {
           </motion.p>
         </motion.div>
 
-        {/* Cards Grid */}
         <motion.div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 max-w-6xl mx-auto">
           {howItWorks?.map((card, i) => (
             <div key={i} className="relative">

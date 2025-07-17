@@ -1,10 +1,10 @@
 import Logo from "./Logo";
 import Container from "./Container/Container";
 import Header from "./Header/Header";
-import HeroSection from "./HeroSection/HeroSection";
-import Features from "./Features/Features";
+import HeroSection from "./landing/HeroSection";
+import Features from "./landing/Features";
 import Button from "./Button/Button";
-import HowItWork from "./HowItWork/HowItWork";
+import HowItWork from "./landing/HowItWork";
 import BurgerMenu from "./Header/BurgerMenu";
 import Footer from "./Footer/Footer"
 import EventSidebar from "./EventSidebar/EventSidebar";
@@ -12,7 +12,7 @@ import Navbar from "./Header/Navbar";
 import DashboardCard from "./Dashboard/DashboardCard";
 import RecentEvent from "./Dashboard/RecentEvent";
 import Card from "./Card/Card";
-import EventCard from "./Card/Card.event";
+import EventCard from "./Card/CardEvent";
 import Form from "./Form/Form";
 import UserProfile from "./Profile/UserProfile";
 import Tag from "./Tags/Tag";
@@ -20,12 +20,13 @@ import UserProfileFrom from "./Profile/UserProfileFrom";
 import UploadAvatar from "./Avatar/UploadAvatar";
 import EventDetialModel from "./EventDetailModel/EventDetialModel";
 import Login from "./Auth/Login";
-import Share from "./Button/Button.share";
-import Like from "./Button/Button.like";
-import Subscribe from "./Button/Button.sub";
+import Share from "./Button/ButtonShare";
+import Like from "./Button/ButtonLike";
+import Subscribe from "./Button/ButtonSub";
 import Signup from "./Auth/Signup";
 import HomeNav from "./Header/HomeNav";
 import MainHeader from "./Header/MainHeader";
+import Bolb from "./Card/Blob";
 export {
   Logo,
   Container,
@@ -54,5 +55,6 @@ export {
   Like,
   Subscribe,
   HomeNav,
-  MainHeader
+  MainHeader,
+  Bolb
 };
