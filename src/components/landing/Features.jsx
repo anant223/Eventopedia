@@ -1,94 +1,25 @@
 import React, { useRef, useState } from "react";
 import { motion } from "motion/react";
 import { Card, Container, Bolb } from "../index.js";
-import {
-  FaRocket,
-  FaUsers,
-  FaStream,
-  FaChartLine,
-  FaLightbulb,
-  FaCogs,
-} from "react-icons/fa";
-import {
-  BarChart3,
-  Calendar,
-  Globe,
-  MessageSquare,
-  Shield,
-  Users,
-  Video,
-  Zap,
-} from "lucide-react";
+import {features} from "../../utils/constant.js"
 
 const Features = () => {
-  const containerRef = useRef(null);
+  const [info, setInfo] = useState( {
+    icon: features[0].icon,
+    title: features[0].title ,
+    desc : features[0].description
+  })
 
-  const features = [
-    {
-      id: 1,
-      icon: Video,
-      title: "HD Streaming",
-      description:
-        "Crystal clear video quality with adaptive bitrate streaming that adjusts to your audience's connection.",
-      highlights: ["4K Support", "Low Latency", "Auto Quality"],
-    },
-    {
-      id: 2,
-      icon: Users,
-      title: "Unlimited Attendees",
-      description:
-        "Host events for 10 or 10,000 people. Our infrastructure scales automatically with your audience.",
-      highlights: ["No Limits", "Auto Scaling", "Global CDN"],
-    },
-    {
-      id: 3,
-      icon: Shield,
-      title: "Enterprise Security",
-      description:
-        "Bank-level encryption and security protocols keep your events and data completely protected.",
-      highlights: ["End-to-End Encryption", "SOC 2 Compliant", "GDPR Ready"],
-    },
-    {
-      id: 4,
-      icon: MessageSquare,
-      title: "Interactive Chat",
-      description:
-        "Real-time messaging, polls, Q&A sessions, and reactions to keep your audience engaged.",
-      highlights: ["Live Polls", "Q&A Sessions", "Emoji Reactions"],
-    },
-    {
-      id: 5,
-      icon: BarChart3,
-      title: "Analytics Dashboard",
-      description:
-        "Detailed insights into attendance, engagement, and performance metrics for every event.",
-      highlights: ["Real-time Data", "Export Reports", "Audience Insights"],
-    },
-    {
-      id: 6,
-      icon: Globe,
-      title: "Global Reach",
-      description:
-        "Broadcast to audiences worldwide with our global content delivery network and multi-language support.",
-      highlights: ["Multi-language", "Global CDN", "Time Zone Support"],
-    },
-    {
-      id: 7,
-      icon: Calendar,
-      title: "Smart Scheduling",
-      description:
-        "Intelligent scheduling system with calendar integration and automated reminder notifications.",
-      highlights: ["Calendar Sync", "Auto Reminders", "Time Zone Detection"],
-    },
-    {
-      id: 8,
-      icon: Zap,
-      title: "Instant Setup",
-      description:
-        "Go live in seconds with our one-click streaming technology. No downloads or installations required.",
-      highlights: ["Browser-based", "One-click Start", "No Downloads"],
-    },
-  ];
+  const handleClickInfo = (clickInfo) => {
+    setInfo(
+      {
+        icon: clickInfo.icon,
+        title: clickInfo.title,
+        desc: clickInfo.description
+      }
+    )
+  }
+ 
 
   return (
     <section className="relative bg-background overflow-hidden font-bricolage py-16 sm:py-20 lg:py-24">
@@ -116,7 +47,14 @@ const Features = () => {
             unforgettable. Hover over the orbs to explore.
           </motion.p>
         </motion.div>
-        <div className="w-full mx-auto max-w-5xl p-2 h-[100vh] relative">
+        <div className="w-full mx-auto p-2 h-[40vh] sm:min-h-[100vh] relative">
+          <div className="from-[#0c1725] via-[#0e1c2f] to-[#0c1725] shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px] hover:shadow-[rgba(46,_26,_134,_0.3)_0px_10px_30px] w-[150px] h-[150px] sm:w-[300px] sm:h-[300px] absolute rounded-full p-4 bg-gradient-to-br left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 overflow-hidden text-text flex justify-center flex-col items-center">
+            <div className=" mb-4">{<info.icon color="#8bb4e9" />}</div>
+            <div className="">
+              <h1 className="text-[1.5vw] font-bold mb-4">{info.title}</h1>
+              <p className="text-[1vw] mb-4">{info.desc}</p>
+            </div>
+          </div>
           {features.map((feature, index) => {
             const angle = (index * 360) / features.length;
             const angleInRadians = (angle * Math.PI) / 180;
@@ -127,16 +65,17 @@ const Features = () => {
 
             return (
               <div
+                onClick={() => handleClickInfo(feature)}
                 key={feature.id}
-                className="absolute flex flex-col items-center justify-center text-white"
+                className="absolute flex flex-col items-center justify-center text-white cursor-pointer"
                 style={{
                   left: `calc(50% + ${x}px)`,
                   top: `calc(50% + ${y}px)`,
                   transform: "translate(-50%, -50%)",
                 }}
               >
-                <Bolb icon={<feature.icon/>}  />
-                <span>{feature.title}</span>
+                <Bolb icon={<feature.icon color="#8bb4e9" />} />
+                <span className=" text-[1.1vw]">{feature.title}</span>
               </div>
             );
           })}

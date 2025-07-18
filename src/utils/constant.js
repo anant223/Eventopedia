@@ -1,45 +1,78 @@
 import {
+  BarChart3,
   Calendar,
-  MessageCircle,
+  Globe,
+  MessageSquare,
+  Shield,
   Users,
   Video,
-  HomeIcon,
-  CalendarIcon,
-  UserIcon,
-  PlusCircleIcon,
-  CloudCog,
-  icons,
   Zap,
-  CheckCircle,
-  Settings,
+  CalendarIcon,
 } from "lucide-react";
-
-
-const features = [
+export const features = [
   {
-    icon: Users,
-    title: "Group Meetings",
-    description:
-      "Organize and participate in dynamic group discussions and workshops.",
-    color: "from-blue-400 to-indigo-600",
-  },
-  {
-    icon: MessageCircle,
-    title: "One-on-One Chat",
-    description: "Get personalized help through our real-time chat feature.",
-    color: "from-green-400 to-emerald-600",
-  },
-  {
+    id: 1,
     icon: Video,
-    title: "Video Consultations",
-    description: "Face-to-face interactions for in-depth problem-solving.",
-    color: "from-yellow-400 to-orange-600",
+    title: "HD Streaming",
+    description:
+      "Crystal clear video quality with adaptive bitrate streaming that adjusts to your audience's connection.",
+    highlights: ["4K Support", "Low Latency", "Auto Quality"],
   },
   {
+    id: 2,
+    icon: Users,
+    title: "Unlimited Attendees",
+    description:
+      "Host events for 10 or 10,000 people. Our infrastructure scales automatically with your audience.",
+    highlights: ["No Limits", "Auto Scaling", "Global CDN"],
+  },
+  {
+    id: 3,
+    icon: Shield,
+    title: "Enterprise Security",
+    description:
+      "Bank-level encryption and security protocols keep your events and data completely protected.",
+    highlights: ["End-to-End Encryption", "SOC 2 Compliant", "GDPR Ready"],
+  },
+  {
+    id: 4,
+    icon: MessageSquare,
+    title: "Interactive Chat",
+    description:
+      "Real-time messaging, polls, Q&A sessions, and reactions to keep your audience engaged.",
+    highlights: ["Live Polls", "Q&A Sessions", "Emoji Reactions"],
+  },
+  {
+    id: 5,
+    icon: BarChart3,
+    title: "Analytics Dashboard",
+    description:
+      "Detailed insights into attendance, engagement, and performance metrics for every event.",
+    highlights: ["Real-time Data", "Export Reports", "Audience Insights"],
+  },
+  {
+    id: 6,
+    icon: Globe,
+    title: "Global Reach",
+    description:
+      "Broadcast to audiences worldwide with our global content delivery network and multi-language support.",
+    highlights: ["Multi-language", "Global CDN", "Time Zone Support"],
+  },
+  {
+    id: 7,
     icon: Calendar,
-    title: "Easy Scheduling",
-    description: "Find the perfect time with our intuitive scheduling tool.",
-    color: "from-pink-400 to-rose-600",
+    title: "Smart Scheduling",
+    description:
+      "Intelligent scheduling system with calendar integration and automated reminder notifications.",
+    highlights: ["Calendar Sync", "Auto Reminders", "Time Zone Detection"],
+  },
+  {
+    id: 8,
+    icon: Zap,
+    title: "Instant Setup",
+    description:
+      "Go live in seconds with our one-click streaming technology. No downloads or installations required.",
+    highlights: ["Browser-based", "One-click Start", "No Downloads"],
   },
 ];
 
@@ -70,9 +103,4 @@ const sidebarMenuItems = [
   { icon: Users, label: "Leaders", href: "/main/all-orgnizers" },
 ];
 
-
-
-
-
-export { features, sidebarMenuItems};
-
+export { sidebarMenuItems };
