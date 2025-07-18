@@ -9,7 +9,8 @@ const Features = () => {
     title: features[0].title ,
     desc : features[0].description
   })
-
+  const screenWidth = typeof window !== "undefined" ? window.innerWidth : 1024;
+  const radius = screenWidth > 640 ? 250 : 140; 
   const handleClickInfo = (clickInfo) => {
     setInfo(
       {
@@ -20,6 +21,8 @@ const Features = () => {
     )
   }
  
+
+
 
   return (
     <section className="relative bg-background overflow-hidden font-bricolage py-16 sm:py-20 lg:py-24">
@@ -49,16 +52,15 @@ const Features = () => {
         </motion.div>
         <div className="w-full mx-auto p-2 h-[40vh] sm:min-h-[100vh] relative">
           <div className="from-[#0c1725] via-[#0e1c2f] to-[#0c1725] shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px] hover:shadow-[rgba(46,_26,_134,_0.3)_0px_10px_30px] w-[150px] h-[150px] sm:w-[300px] sm:h-[300px] absolute rounded-full p-4 bg-gradient-to-br left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 overflow-hidden text-text flex justify-center flex-col items-center">
-            <div className=" mb-4">{<info.icon color="#8bb4e9" />}</div>
+            <div className=" sm:mb-4 mb-2">{<info.icon color="#8bb4e9" />}</div>
             <div className="">
-              <h1 className="text-[1.5vw] font-bold mb-4">{info.title}</h1>
-              <p className="text-[1vw] mb-4">{info.desc}</p>
+              <h1 className="sm:text-[1.5vw] text-[2.5vw] font-bold sm:mb-4 mb-2">{info.title}</h1>
+              <p className="sm:text-[1vw] mb-4 text-[2vw]">{info.desc}</p>
             </div>
           </div>
           {features.map((feature, index) => {
             const angle = (index * 360) / features.length;
             const angleInRadians = (angle * Math.PI) / 180;
-            const radius = 250;
 
             const x = radius * Math.cos(angleInRadians);
             const y = radius * Math.sin(angleInRadians);
@@ -67,7 +69,7 @@ const Features = () => {
               <div
                 onClick={() => handleClickInfo(feature)}
                 key={feature.id}
-                className="absolute flex flex-col items-center justify-center text-white cursor-pointer"
+                className="absolute flex flex-col items-center justify-center text-text cursor-pointer"
                 style={{
                   left: `calc(50% + ${x}px)`,
                   top: `calc(50% + ${y}px)`,
@@ -75,7 +77,7 @@ const Features = () => {
                 }}
               >
                 <Bolb icon={<feature.icon color="#8bb4e9" />} />
-                <span className=" text-[1.1vw]">{feature.title}</span>
+                <span className=" sm:text-[1.1vw] text-[2.5vw]">{feature.title}</span>
               </div>
             );
           })}
