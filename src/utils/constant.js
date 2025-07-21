@@ -9,6 +9,7 @@ import {
   Zap,
   CalendarIcon,
 } from "lucide-react";
+
 export const features = [
   {
     id: 1,
@@ -75,32 +76,7 @@ export const features = [
     highlights: ["Browser-based", "One-click Start", "No Downloads"],
   },
 ];
-
-
-const allEvents = [
-  {
-    name: "Tech Conference 2023",
-    date: "2023-10-15",
-    attendees: 75,
-    status: "Upcoming",
-  },
-  {
-    name: "Product Launch",
-    date: "2023-09-30",
-    attendees: 120,
-    status: "Completed",
-  },
-  {
-    name: "Team Building Workshop",
-    date: "2023-11-05",
-    attendees: 30,
-    status: "Upcoming",
-  },
-];
-
-const sidebarMenuItems = [
+export const sidebarMenuItems = [
   { icon: CalendarIcon, label: "Events", href: "/main/all-events" },
   { icon: Users, label: "Leaders", href: "/main/all-orgnizers" },
 ];
-
-export { sidebarMenuItems };

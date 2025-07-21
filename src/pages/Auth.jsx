@@ -1,49 +1,22 @@
 import React from "react";
 import { Login, Signup } from "../components/index.js";
-import { motion } from "motion/react";
-import { easeIn } from "motion";
 import { useSearchParams } from "react-router-dom";
 
 const Auth = () => {
   const [searchParam, setSearchParam] = useSearchParams();
   const type = searchParam.get("type");
   return (
-    <div className="text-text font-bricolage w-full min-h-screen  py-16 sm:py-20 sm:pt-40 pt-32">
-      <div className="mx-auto relative container px-4 sm:px-6 lg:px-8">
-        <div className="w-full flex flex-col lg:flex-row justify-between items-center gap-6 lg:gap-12 lg:items-center">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: easeIn }}
-            className="w-full max-w-md flex flex-col items-center
-            lg:items-start text-center lg:text-left sm:px-0 mb-6 lg:mb-0"
-          >
-            <h1 className="font-bold text-2xl sm:text-3xl md:text-4xl pb-2">
-              {type === "login" ? "Welcome Back!" : "Welcome to Grupio"}
-            </h1>
-            <p className="text-sm sm:text-base md:text-lg max-w-sm">
-              {type === "login"
-                ? "Log in to access your account and continue your journey with us."
-                : "Join Grupio — The best place for professionals to connect, collaborate, and grow together."}
-            </p>
-
-            <div className="w-16 h-1 bg-primary mt-4 mb-2 lg:hidden"></div>
-          </motion.div>
-
-          <div className="hidden lg:flex w-px bg-gray-300 dark:bg-gray-700 h-64 self-center" />
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1, ease: easeIn }}
-            className="w-full max-w-md flex justify-center items-center px-4 sm:px-0"
-          >
-            {type === "login" ? (
-              <Login signupFn={() => setSearchParam({ type: "signup" })} />
-            ) : (
-              <Signup loginFn={() => setSearchParam({ type: "login" })} />
-            )}
-          </motion.div>
+    <div className=" min-h-screen bg-background text-text font-bricolage pt-24 pb-4">
+      <div className=" absolute inset-0">
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:50px_50px]" />
+      </div>
+      <div className="mx-auto relative container px-4 sm:px-6 lg:px-8 sm:text-center">
+        <div className=" max-w-sm mx-auto">
+          {type === "login" ? (
+            <Login signupFn={() => setSearchParam({ type: "signup" })} />
+          ) : (
+            <Signup loginFn={() => setSearchParam({ type: "login" })} />
+          )}
         </div>
       </div>
     </div>

@@ -1,6 +1,6 @@
-import React, { useRef, useState } from "react";
+import React, {useState } from "react";
 import { motion } from "motion/react";
-import { Card, Container, Bolb } from "../index.js";
+import { Bolb } from "../index.js";
 import {features} from "../../utils/constant.js"
 
 const Features = () => {
