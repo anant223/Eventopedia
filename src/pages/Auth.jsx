@@ -1,5 +1,5 @@
 import React from "react";
-import { Login, Signup } from "../components/auth/index.js";
+import { Login, Signup } from "../components/auth/index";
 import { useSearchParams } from "react-router-dom";
 
 const Auth = () => {
