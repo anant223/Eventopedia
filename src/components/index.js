@@ -19,11 +19,9 @@ import Tag from "./Tags/Tag";
 import UserProfileFrom from "./Profile/UserProfileFrom";
 import UploadAvatar from "./Avatar/UploadAvatar";
 import EventDetialModel from "./EventDetailModel/EventDetialModel";
-import Login from "./auth/Login";
 import Share from "./Button/ButtonShare";
 import Like from "./Button/ButtonLike";
 import Subscribe from "./Button/ButtonSub";
-import Signup from "./auth/Signup";
 import HomeNav from "./Header/HomeNav";
 import MainHeader from "./Header/MainHeader";
 import Bolb from "./Card/Blob";
@@ -37,7 +35,6 @@ export {
   HowItWork,
   BurgerMenu,
   Footer,
-  Signup,
   EventSidebar,
   Navbar,
   DashboardCard,
@@ -50,7 +47,6 @@ export {
   UserProfileFrom,
   UploadAvatar,
   EventDetialModel,
-  Login,
   Share,
   Like,
   Subscribe,
