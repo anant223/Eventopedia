@@ -2,8 +2,15 @@ import SocialAuthButtons from "./SocialAuthButtons";
 import AuthContainer from "./authContainer/AuthContainer";
 import Button from "./Button";
 import Input from "./Input";
+import Login from "./Login";
+import Signup from "./Signup";
 
-export { SocialAuthButtons, AuthContainer, Button, Input };
+export {
+    Signup,
+    Login,
+    Input,
+    Button,
+    AuthContainer,
+    SocialAuthButtons
 
-export { default as Login } from "./Login";
-export { default as Signup } from "./Signup";
+}
