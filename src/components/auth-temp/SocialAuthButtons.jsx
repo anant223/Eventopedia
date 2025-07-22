@@ -8,13 +8,19 @@ const SocialAuthButtons = () => {
         discord: false
     })
 
+    const getAuthURL = (provider) => {
+      const allowed = ["google", "discord"]
+      if(!allowed.includes(provider)) throw new Error("Invalid provider")
+      return `${import.meta.env.VITE_API_BASE_URL}/api/v1/users/${provider}/auth`
+    }
+
     const handleAuth = useCallback(async (provider) => {
         if(isLoading[provider]) return;
 
         setIsLoading(prev => ({...prev, [provider] : true}))
 
         try {
-            const authUrl = `${import.meta.env.VITE_API_BASE_URL}/users/${provider}/auth`;
+            const authUrl = getAuthURL(provider);
             window.location.href = authUrl;
 
         } catch (error) {
