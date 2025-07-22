@@ -14,7 +14,7 @@ const SocialAuthButtons = () => {
         setIsLoading(prev => ({...prev, [provider] : true}))
 
         try {
-            const authUrl = `/users/${provider}/auth`;
+            const authUrl = `${import.meta.env.VITE_API_BASE_URL}/users/${provider}/auth`;
             window.location.href = authUrl;
 
         } catch (error) {
