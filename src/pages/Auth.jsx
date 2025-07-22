@@ -6,7 +6,7 @@ const Auth = () => {
   const [searchParam, setSearchParam] = useSearchParams();
   const type = searchParam.get("type");
   return (
-    <div className=" min-h-screen bg-background text-text font-bricolage pt-24 pb-4">
+    <div className=" min-h-screen bg-background text-text font-bricolage pt-32 sm:pt-40 pb-4">
       <div className=" absolute inset-0">
         <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:50px_50px]" />
       </div>
