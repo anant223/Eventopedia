@@ -1,5 +1,5 @@
 import React, { useRef, useLayoutEffect } from 'react'
-import {BurgerMenu, Button, Header, Logo} from '../index.js';
+import {BurgerMenu, MainButton, Header, Logo} from '../index.js';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -54,10 +54,9 @@ const HomeNav = () => {
         </Link>
 
         <div className="hidden sm:flex items-center">
-          <Button
-            handleClick={() => navigate("/auth?type=login")}
-            name="Log in"
-          />
+          <MainButton
+            onClick={() => navigate("/auth?type=login")}
+          >Log in</MainButton>
         </div>
         <div className="sm:hidden flex items-center">
           <BurgerMenu />

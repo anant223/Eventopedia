@@ -3,7 +3,7 @@ import Container from "./Container/Container";
 import Header from "./Header/Header";
 import HeroSection from "./landing/HeroSection";
 import Features from "./landing/Features";
-import Button from "./Button/Button";
+import MainButton from "./Button/Button";
 import HowItWork from "./landing/HowItWork";
 import BurgerMenu from "./Header/BurgerMenu";
 import Footer from "./Footer/Footer"
@@ -31,7 +31,7 @@ export {
   Header,
   HeroSection,
   Features,
-  Button,
+  MainButton,
   HowItWork,
   BurgerMenu,
   Footer,

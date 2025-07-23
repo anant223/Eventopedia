@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import {Button} from "../index.js"
+import {MainButton} from "../index.js"
 
 
 function FloatingParticle() {
@@ -62,10 +62,10 @@ const HeroSection = () => {
             browser.
           </motion.p>
           <motion.div className=" transform hover:scale-105 transition-transform duration-300">
-            <Button
-              name="Let's create"
-              handleClick={() => navigate("/auth?type=signup")}
-            />
+            <MainButton 
+              onClick={() => navigate("/auth?type=signup")}>
+              Let's create
+            </MainButton>
           </motion.div>
         </div>
       </div>

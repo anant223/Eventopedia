@@ -17,10 +17,10 @@ const EventCard = ({imgSrc, time, eventName, place, noOfHour, date, tag, openIt,
       <div className="relative z-10 flex flex-col justify-between h-full p-4 ">
         <div>
           <div className="flex items-center space-x-2 text-sm font-medium mb-3">
-            <span className="bg-secondary/80 backdrop-blur-sm py-1 px-3 rounded-full shadow-sm">
+            <span className=" bg-gradient-to-br from-purple-500 via-blue-500 to-red-500 backdrop-blur-sm py-1 px-3 rounded-full shadow-sm">
               {date}
             </span>
-            <span className="bg-secondary/80 backdrop-blur-sm py-1 px-3 rounded-full shadow-sm">
+            <span className="bg-gradient-to-br from-purple-500 via-blue-500 to-red-500 backdrop-blur-sm py-1 px-3 rounded-full shadow-sm">
               {time}
             </span>
           </div>
@@ -37,14 +37,10 @@ const EventCard = ({imgSrc, time, eventName, place, noOfHour, date, tag, openIt,
           </div>
         </div>
         <div className="flex items-center justify-between mt-auto pt-3">
-          <Subscribe eventId={id}/>
+          <Subscribe eventId={id} />
           <div className="flex items-center gap-3">
-            <Like eventId={id}/>
-            <Share
-              eventId={id}
-              imgSrc={imgSrc}
-              eventName={eventName}
-            />
+            <Like eventId={id} />
+            <Share eventId={id} imgSrc={imgSrc} eventName={eventName} />
           </div>
         </div>
       </div>

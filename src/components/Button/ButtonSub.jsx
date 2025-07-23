@@ -22,7 +22,7 @@ const SubscribeButton = ({eventId}) => {
     <div>
       <button
         onClick={() => dispatch(toggleSubscribeEvent(eventId))}
-        className="bg-primary hover:bg-primary/90 text-black py-2 px-4 rounded-lg font-medium transition-all duration-200 shadow-lg hover:shadow-primary/50 transform hover:-translate-y-0.5"
+        className=" bg-gradient-to-tr from-pink-700 via-blue-700 to-purple-700 text-text hover:bg-primary text-black py-2 px-4 rounded-lg font-medium transition-all duration-200 shadow-lg hover:shadow-primary/50 transform hover:-translate-y-0.5"
       >
         {loading || isSubscribed ? "Registered" : "Register"}
       </button>

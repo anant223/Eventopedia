@@ -24,10 +24,10 @@ const EventSidebar = ({isOpen}) => {
               <button
                 onClick={() => handelmenuItemsClick(item.href)}
                 className={`flex 
-                  p-2 text-gray-900 rounded-lg  w-full dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group ${activeRoute === item.href ? "bg-gray-500" : " bg-transparent"} mx-auto`}
+                  p-2 text-text rounded-lg  w-full dark:text-white hover:bg-background dark:hover:bg-gray-700 group ${activeRoute === item.href ? "bg-gray-500" : " bg-transparent"} mx-auto`}
               >
                 <span>
-                  <item.icon className="w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" />
+                  <item.icon className="w-5 h-5 text-text transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" />
                 </span>
                 <span className="ms-3">{item.label}</span>
               </button>

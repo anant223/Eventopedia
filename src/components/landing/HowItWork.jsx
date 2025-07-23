@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Card,  } from "../index.js";
+import { Card,  } from "../index.js";
 import { ArrowRight, Calendar, CheckCircle, Settings, Users, Video, Zap } from 'lucide-react';
 import { motion } from 'framer-motion';
 
