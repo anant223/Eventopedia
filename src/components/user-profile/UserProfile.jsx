@@ -39,12 +39,11 @@ const Profile = () => {
       return data;
     }
   );
-  console.log("or",organizedEventHistory)
-  console.log("att", attendedEventHistory)
+  
 
   return (
     <div className="min-h-screen bg-background text-text pt-20 sm:pt-24 font-roboto pb-8">
-      <div className="max-w-6xl mx-auto w-full px-4 sm:px-6 lg:px-8">
+      <div className="max-w-[40rem] mx-auto px-4 sm:px-6 lg:px-8">
         {/* Profile Header */}
         <div className="relative">
           <div className="flex flex-col sm:flex-row items-center sm:items-start gap-5">

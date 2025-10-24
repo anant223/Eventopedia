@@ -41,7 +41,7 @@ const EventInfo = () => {
 
   return (
     <div className="min-h-screen bg-background pt-24 font-roboto">
-      <div className="max-w-6xl mx-auto w-full px-4 sm:px-6 lg:px-8">
+      <div className="max-w-[960px] mx-auto w-full px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col lg:flex-row gap-8 p-4 items-start">
           {/* Left Side - Thumbnail */}
           <div className="w-full lg:w-72 flex-shrink-0 relative">
