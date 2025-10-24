@@ -55,7 +55,7 @@ const EventCreationForm = () => {
   return (
     <div className="min-h-screen bg-background pt-16 pb-8 font-roboto text-text">
       <FormProvider {...methods}>
-        <div className="max-w-4xl mx-auto w-full px-4 sm:px-6 lg:px-8">
+        <div className="max-w-5xl mx-auto w-full px-4 sm:px-6 lg:px-8">
           <form
             onSubmit={handleSubmit(createNewEvent)}
             className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center p-4 sm:p-6"
