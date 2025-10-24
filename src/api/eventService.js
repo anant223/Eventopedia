@@ -1,37 +1,28 @@
 import axios from "./axiosInstance";
 
 const eventService = {
-  
-  createEvent: (data) =>
-    axios.post("/events/create-event", data, {
-      headers: { "Content-Type": "multipart/form-data"},
-    }),
+  // GET /events/public
+  getAllPublicEvents: () => axios.get("/events/public"),
 
-    updateEvent: (data) =>
-      axios.put("/events/update-event", data, {
-        headers: { "Content-Type": "multipart/form-data"},
-    }),
+  // GET /events/private/:eventId/:token
+  getPrivateEvent: (eventId, token) =>
+    axios.get(`/events/private/${eventId}/${token}`),
 
-    deleteEvent: (eventId) =>
-      axios.get("/events/delete-event", {
-        params: { eventId },
-        headers: customHeader,
-    }),
+  // POST /events/create (with JWT + file upload)
+  createEvent: (data) => axios.post("/events/create", data),
 
-    getAllPublicEvents: (params, customHeader = {}) =>
-      axios.get("/events/all-public-event", {
-      params,
-      headers: customHeader,
-    }),
+  // DELETE /events/:eventId (with JWT)
+  deleteEvent: (eventId) => axios.delete(`/events/${eventId}`),
 
-  getAllPrivateEvents: () =>
-    axios.get("/events/all-private-event"),
+  // PUT /events/:eventId (with JWT)
+  updateEvent: (eventId, data) => axios.put(`/events/${eventId}`, data),
 
-  findEventById: (eventId) =>
-    axios.get("/events/find-event-by-id", {
-      params: { eventId },
-      headers: customHeader,
-    }),
+  // GET /events/:eventId (with JWT)
+  findEventById: (eventId) => axios.get(`/events/${eventId}`),
+
+  createLocation: (input) => axios.get(`/google/place`, {
+  params: { input }})
 };
 
 export default eventService;
+

@@ -12,7 +12,7 @@ const useAPI = (
   const [err, setErr] = useState(null);
   const dispatch = useDispatch();
   const abortControllerRef = useRef(null);
-
+ 
   // Memoize external functions
   const apiFnMemoized = useCallback(apiFn, dependencies);
   const onSuccessMemoized = useCallback(onSuccess, dependencies);
@@ -31,7 +31,9 @@ const useAPI = (
 
     try {
       const res = await apiFnMemoized({ signal });
+      console.log(res)
       if (!signal.aborted && res?.data?.data){
+        console.log(res?.data.data)
         const transformed = transformFnMemoized(res.data.data);
         dispatch(onSuccessMemoized(transformed));
       }

@@ -1,13 +1,12 @@
 import React, { useCallback, useState } from 'react';
 import { DISCORD_ICON, GOOGLE_ICON } from '@/assets/web-assets/Assets';
-import { Button } from './index';
+import { AppButton } from '../common/index';
 
 const SocialAuthButtons = () => {
     const [isLoading, setIsLoading] = useState({
         google : false,
         discord: false
     })
-
     const getAuthURL = (provider) => {
       const allowed = ["google", "discord"]
       if(!allowed.includes(provider)) throw new Error("Invalid provider")
@@ -33,7 +32,7 @@ const SocialAuthButtons = () => {
     
     return (
       <div className="flex flex-col gap-4 mb-6">
-        <Button
+        <AppButton
           onClick={() => handleAuth("google")}
           size="md"
           isLoading={isLoading.google}
@@ -45,8 +44,8 @@ const SocialAuthButtons = () => {
           <span className="whitespace-nowrap">
             {isLoading.google ? "Connecting..." : "Continue with Google"}
           </span>
-        </Button>
-        <Button
+        </AppButton>
+        <AppButton
           onClick={() => handleAuth("discord")}
           size="md"
           isLoading={isLoading.discord}
@@ -58,7 +57,7 @@ const SocialAuthButtons = () => {
           <span className="whitespace-nowrap">
             {isLoading.discord ? "Connecting..." : "Continue with Discord"}
           </span>
-        </Button>
+        </AppButton>
       </div>
     );
 }

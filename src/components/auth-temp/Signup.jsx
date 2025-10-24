@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { signUp } from "../../features/authActions.js";
 import { Lock, Mail, User } from "lucide-react";
-import { AuthContainer, Input } from "./index.js";
-import { Button } from "./index.js";
+import { AuthContainer} from "./index.js";
+import { AppButton, AppInput } from "../common/index.js";
 
 
 const Signup = ({loginFn}) => {
@@ -12,7 +12,7 @@ const Signup = ({loginFn}) => {
   return (
     <AuthContainer title="Create Your Grupio">
       <form className="space-y-6" onSubmit={handleSubmit(signUp)}>
-        <Input
+        <AppInput
           type="text"
           label="Full Name"
           name="name"
@@ -37,7 +37,7 @@ const Signup = ({loginFn}) => {
             },
           })}
         />
-        <Input
+        <AppInput
           type="email"
           label="Email address"
           name="email"
@@ -54,7 +54,7 @@ const Signup = ({loginFn}) => {
             },
           })}
         />
-        <Input
+        <AppInput
           type="password"
           label="Enter password"
           name="password"
@@ -71,18 +71,18 @@ const Signup = ({loginFn}) => {
             },
           })}
         />
-        <Button
+        <AppButton
           className="w-full"
           type="submit"
           buttonStyle={"manual"}
           aria-lable="create account with email"
         >
           Sign up
-        </Button>
+        </AppButton>
       </form>
       <div>
         <span></span>
-        <Button onClick={() => loginFn("login")} size={"sm"} buttonStyle={"ghost"}>Click to log in</Button>
+        <AppButton className="w-full" onClick={() => loginFn("login")} size={"sm"} buttonStyle={"ghost"}>Click to log in</AppButton>
       </div>
     </AuthContainer>
   );

@@ -5,7 +5,7 @@ import AuthLayout from "../Layouts/AuthLayout";
 
 const Home = lazy(() => import( "../pages/Home"));
 const Auth = lazy(() => import("../pages/Auth"));
-const Dashboard = lazy(() => import("../pages/Dashboard"));
+const Profile = lazy(() => import("../pages/Dashboard"));
 const Hosters = lazy(() => import("../pages/Hosters"));
 const EventFrom = lazy(() => import("../pages/EventFrom"));
 const Events = lazy(() => import("../pages/Events"));
@@ -47,7 +47,7 @@ const AppRouting = createBrowserRouter([
       },
       {
         path: "user-profile",
-        element: <Dashboard />,
+        element: <Profile />,
       },
       {
         path: "all-orgnizers",
@@ -57,6 +57,10 @@ const AppRouting = createBrowserRouter([
         path: "create-event",
         element: <EventFrom />,
       },
+      {
+        path: `event-detail/:id`,
+        element: <EventDetail/>
+      }
     ],
   },
 ]);

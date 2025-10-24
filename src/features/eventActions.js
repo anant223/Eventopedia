@@ -1,49 +1,56 @@
 import eventService from "../api/eventService";
 
+// Special handling for combined date/time
+const DATETIME_FIELDS = {
+  startDateTime: ["start-date", "start-time"],
+  endDateTime: ["end-date", "end-time"],
+};
+
 const createNewEvent = async (data) => {
-    try {
-      const formData = new FormData();
+  try {
+    const formData = new FormData();
 
-      if (!data.thumbnail?.[0]) {
-        throw new Error("No thumbnail file selected");
-      }
-      formData.append("thumbnail", data.thumbnail[0]);
-      formData.append("tag", data.tag);
-      formData.append("title", data.title);
-      formData.append("desc", data.desc);
-      formData.append("duration", data.duration);
-      formData.append("startingDate", data.startingDate);
-      formData.append("url", data.url);
-      formData.append("eventType", data.eventType);
+    // Required fields
+    formData.append("image", data.img[0]);
+    formData.append("title", data.title);
+    formData.append("desc", data.desc);
 
-      // Debug: Log FormData contents
-      formData.forEach((value, key) => {
-        if (key === "thumbnail") {
-          console.log("thumbnail details:", {
-            name: value.name,
-            type: value.type,
-            size: value.size,
-          });
-        } else {
-          console.log(`${key}:`, value);
+    // Add missing required fields with default values or from data
+    formData.append("category", data.category || "other");
+    formData.append("location", data.location || "");
+    formData.append("capacity", data.capacity || "100");
+    formData.append("eventType", data.eventType || "public");
+    formData.append("ticketType", data.ticketType || "free");
+    formData.append("requireApproval", data.requireApproval || "false");
+
+
+    // Handle tags properly
+    const tags = Array.isArray(data.tags) ? data.tags.join(",") : data.tags;
+    formData.append("tags", tags);
+
+    // Date/time handling (your existing code)
+    Object.entries(DATETIME_FIELDS).forEach(
+      ([backendField, [dateField, timeField]]) => {
+        const date = data[dateField];
+        const time = data[timeField];
+
+        if (date && time) {
+          const combined = new Date(date);
+          const [hours, minutes] = time.split(":");
+          combined.setHours(parseInt(hours), parseInt(minutes));
+          formData.append(backendField, combined.toISOString());
         }
-      });
+      }
+    );
 
-      const response = await eventService.createEvent(formData, {
-        "Content-Type": "multipart/form-data",
-        Accept: "application/json",
-      });
-
-      alert("Event has been created successfully");
-      console.log(response);
-    } catch (error) {
-      console.error("Error creating event:", {
-        message: error.message,
-        response: error.response?.data,
-        status: error.response?.status,
-      });
-      throw error;
+    const res = await eventService.createEvent(formData);
+    if (res) {
+      alert("Event created successfully");
     }
-  };
+  } catch (error) {
+    console.error("Error creating event:", error);
+    throw error;
+  }
+};
 
-export {createNewEvent}
+export { createNewEvent };

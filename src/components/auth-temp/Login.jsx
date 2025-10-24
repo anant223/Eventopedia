@@ -4,8 +4,8 @@ import { useDispatch} from "react-redux";
 import {useNavigate } from 'react-router-dom';
 import { loginSession } from '../../features/authActions.js';
 import { Lock, Mail} from 'lucide-react';
-import { AuthContainer, Input } from './index.js';
-import { Button } from './index.js';
+import { AuthContainer} from './index.js';
+import { AppButton, AppInput } from '../common/index.js';
 
 
 const Login = ({signupFn}) => {
@@ -20,7 +20,7 @@ const Login = ({signupFn}) => {
   return (
     <AuthContainer title="Sign In Your Account">
       <form onSubmit={handleSubmit(handleSession)} className="space-y-6">
-        <Input
+        <AppInput
           type="email"
           label="Email address"
           name="email"
@@ -38,7 +38,7 @@ const Login = ({signupFn}) => {
           })}
         />
         <div>
-          <Input
+          <AppInput
             type="password"
             label="Enter password"
             name="password"
@@ -57,19 +57,20 @@ const Login = ({signupFn}) => {
           />
         </div>
         <div>
-          <Button
+          <AppButton
+            className="w-full"
             type="submit"
             buttonStyle="manual"
             aria-lable="login with email"
           >
             Sign in
-          </Button>
+          </AppButton>
         </div>
       </form>
       <div>
-        <Button onClick={() => signupFn("signup")} buttonStyle={"ghost"} size="sm">
+        <AppButton className="w-full" onClick={() => signupFn("signup")} buttonStyle={"ghost"} size="sm">
           Create Grupio Account
-        </Button>
+        </AppButton>
       </div>
     </AuthContainer>
   );

@@ -1,56 +1,45 @@
 import Logo from "./Logo";
-import Container from "./Container/Container";
-import Header from "./Header/Header";
 import HeroSection from "./landing/HeroSection";
 import Features from "./landing/Features";
-import MainButton from "./Button/Button";
 import HowItWork from "./landing/HowItWork";
-import BurgerMenu from "./Header/BurgerMenu";
-import Footer from "./Footer/Footer"
-import EventSidebar from "./EventSidebar/EventSidebar";
-import Navbar from "./Header/Navbar";
+import Footer from "./layout/Footer"
+import EventSidebar from "./layout/EventSidebar";
 import DashboardCard from "./Dashboard/DashboardCard";
 import RecentEvent from "./Dashboard/RecentEvent";
 import Card from "./Card/Card";
 import EventCard from "./Card/CardEvent";
-import Form from "./Form/Form";
-import UserProfile from "./Profile/UserProfile";
+import UserProfile from "./user-profile/UserProfile";
 import Tag from "./Tags/Tag";
-import UserProfileFrom from "./Profile/UserProfileFrom";
 import UploadAvatar from "./Avatar/UploadAvatar";
-import EventDetialModel from "./EventDetailModel/EventDetialModel";
-import Share from "./Button/ButtonShare";
-import Like from "./Button/ButtonLike";
-import Subscribe from "./Button/ButtonSub";
-import HomeNav from "./Header/HomeNav";
-import MainHeader from "./Header/MainHeader";
+import Share from "./event-button/ButtonShare";
+import Like from "./event-button/ButtonLike";
+import Subscribe from "./event-button/ButtonSub";
 import Bolb from "./Card/Blob";
+import PublicHeader from "./headers/PublicHeader";
+import AuthenticatedHeader from "./headers/AuthenticatedHeader";
+import EventInfo from "./event-detail/EventInfo";
+import UserProfileFrom from "./user-profile/UserProfileFrom";
+
 export {
   Logo,
-  Container,
-  Header,
   HeroSection,
   Features,
-  MainButton,
   HowItWork,
-  BurgerMenu,
   Footer,
   EventSidebar,
-  Navbar,
   DashboardCard,
   RecentEvent,
   Card,
   EventCard,
-  Form,
   UserProfile,
   Tag,
-  UserProfileFrom,
   UploadAvatar,
-  EventDetialModel,
   Share,
   Like,
   Subscribe,
-  HomeNav,
-  MainHeader,
-  Bolb
+  Bolb,
+  PublicHeader,
+  AuthenticatedHeader,
+  EventInfo,
+  UserProfileFrom
 };

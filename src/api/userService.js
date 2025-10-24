@@ -2,12 +2,12 @@ import axiosInstance from "./axiosInstance.js";
 
 const userService = {
   // Authentication
-  registerUser: (userData) =>
-    axiosInstance.post("/users/register", userData),
+  registerUser: (userData) => axiosInstance.post("/users/register", userData),
 
-  loginUser: (userData) =>
-    axiosInstance.post("/users/login", userData),
-
+  loginUser: (userData) => {
+    console.log(userData);
+    return axiosInstance.post("/users/login", userData);
+  },
   logoutUser: () => axiosInstance.post("/users/logout", {}),
 
   refreshToken: (credentials) =>
@@ -15,7 +15,7 @@ const userService = {
 
   // User Profile Management
   fetchCurrentUser: () => axiosInstance.get(`/users/current_user`),
-  
+
   updateUserProfile: (profileData) =>
     axiosInstance.put("/users/update_profile", profileData),
 
@@ -33,8 +33,8 @@ const userService = {
 
   requestPasswordReset: (email) =>
     axiosInstance.post("/users/forgot_password", { email }),
-  
 
+  userHistory: () => axiosInstance.get("/users/history"),
 };
 
 export default userService;

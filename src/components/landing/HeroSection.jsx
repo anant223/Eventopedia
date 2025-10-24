@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import {MainButton} from "../index.js"
+import { AppButton } from "../common/index.js";
 
 
 function FloatingParticle() {
@@ -32,7 +32,6 @@ function FloatingParticle() {
 
 const HeroSection = () => {
   const navigate = useNavigate();
-
   
   return (
     <section className="relative overflow-hidden pt-32 sm:pt-40  bg-background min-h-screen flex justify-center sm:text-center py-16 sm:py-20">
@@ -62,10 +61,13 @@ const HeroSection = () => {
             browser.
           </motion.p>
           <motion.div className=" transform hover:scale-105 transition-transform duration-300">
-            <MainButton 
-              onClick={() => navigate("/auth?type=signup")}>
+            <AppButton
+              className="rounded-full"
+              buttonStyle={"manual"}
+              onClick={() => navigate("/auth?type=signup")}
+            >
               Let's create
-            </MainButton>
+            </AppButton>
           </motion.div>
         </div>
       </div>

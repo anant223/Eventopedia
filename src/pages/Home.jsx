@@ -1,7 +1,6 @@
 import React from "react";
 import {
   Features,
-  Footer,
   HeroSection,
   HowItWork,
 } from "../components/index.js";

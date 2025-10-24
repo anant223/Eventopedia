@@ -37,10 +37,14 @@ const EventCard = ({imgSrc, time, eventName, place, noOfHour, date, tag, openIt,
           </div>
         </div>
         <div className="flex items-center justify-between mt-auto pt-3">
-          <Subscribe eventId={id} />
+          <Subscribe eventId={id}/>
           <div className="flex items-center gap-3">
-            <Like eventId={id} />
-            <Share eventId={id} imgSrc={imgSrc} eventName={eventName} />
+            <Like eventId={id}/>
+            <Share
+              eventId={id}
+              imgSrc={imgSrc}
+              eventName={eventName}
+            />
           </div>
         </div>
       </div>

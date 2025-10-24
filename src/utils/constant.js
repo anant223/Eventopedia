@@ -8,6 +8,9 @@ import {
   Video,
   Zap,
   CalendarIcon,
+  Settings,
+  MessageCircle,
+  User,
 } from "lucide-react";
 
 export const features = [
@@ -79,4 +82,13 @@ export const features = [
 export const sidebarMenuItems = [
   { icon: CalendarIcon, label: "Events", href: "/main/all-events" },
   { icon: Users, label: "Leaders", href: "/main/all-orgnizers" },
+];
+export  const quickActions = [
+  { icon: User, label: "Profile", color: "from-gray-500 to-gray-600" },
+  { icon: Calendar, label: "Schedule", color: "from-blue-500 to-blue-600" },
+  {
+    icon: MessageCircle,
+    label: "Messages",
+    color: "from-green-500 to-green-600",
+  },
 ];
