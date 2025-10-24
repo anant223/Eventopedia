@@ -60,7 +60,7 @@ const EventDetails = ({setOpen}) => {
 
   }, [setValue])
   return (
-    <div className="space-y-3 relative ring-offset-background">
+    <div className="space-y-3 relative ring-offset-">
       <div className="p-4">
         <textarea
           placeholder="Event Name"

@@ -41,7 +41,7 @@ const EventInfo = () => {
 
   return (
     <div className="min-h-screen bg-background pt-24 font-roboto">
-      <div className="container px-4 sm:px-6 lg:px-8 mx-auto">
+      <div className="max-w-6xl mx-auto w-full px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col lg:flex-row gap-8 p-4 items-start">
           {/* Left Side - Thumbnail */}
           <div className="w-full lg:w-72 flex-shrink-0 relative">
@@ -69,9 +69,7 @@ const EventInfo = () => {
                 </div>
                 {/* Share Button */}
                 <div>
-                  <button
-                    className="text-text hover:text-white transition-colors duration-200 bg-background/20 hover:bg-background/40 backdrop-blur-sm p-2 rounded-full border border-white/20 hover:border-white/30 h-10 w-10 sm:h-12 sm:w-12 sm:p-3 min-h-[44px] min-w-[44px]"
-                  >
+                  <button className="text-text hover:text-white transition-colors duration-200 bg-background/20 hover:bg-background/40 backdrop-blur-sm p-2 rounded-full border border-white/20 hover:border-white/30 h-10 w-10 sm:h-12 sm:w-12 sm:p-3 min-h-[44px] min-w-[44px]">
                     <Share2 size={18} />
                   </button>
                 </div>
@@ -108,7 +106,7 @@ const EventInfo = () => {
             </div>
 
             <div className="flex items-center gap-2 mt-4">
-              <Like eventId={id}/>
+              <Like eventId={id} />
             </div>
             {/* Registration Section */}
             <div className="rounded-2xl p-6 shadow-xl bg-white/5">
