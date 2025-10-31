@@ -31,9 +31,7 @@ const useAPI = (
 
     try {
       const res = await apiFnMemoized({ signal });
-      console.log(res)
       if (!signal.aborted && res?.data?.data){
-        console.log(res?.data.data)
         const transformed = transformFnMemoized(res.data.data);
         dispatch(onSuccessMemoized(transformed));
       }

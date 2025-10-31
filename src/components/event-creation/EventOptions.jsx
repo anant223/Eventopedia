@@ -15,7 +15,7 @@ const EventOptions = ({setOpen}) => {
     };
     
   return (
-    <div className="bg-muted rounded-lg p-4 space-y-3 transition-colors duration-200">
+    <div className="bg-muted rounded-lg p-3 space-y-1 transition-colors duration-200">
       <h3 className="text-white font-semibold text-sm sm:text-base">
         Event Options
       </h3>

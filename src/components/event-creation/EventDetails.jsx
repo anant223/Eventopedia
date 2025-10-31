@@ -3,7 +3,6 @@ import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { useFormContext } from 'react-hook-form';
 import {DateNTime} from "../common/index";
 import eventService from "../../api/eventService";
-import { tr } from 'date-fns/locale';
 
 const EventDetails = ({setOpen}) => {  
   const {register, watch, formState: {errors}, setValue} = useFormContext()  
@@ -60,8 +59,8 @@ const EventDetails = ({setOpen}) => {
 
   }, [setValue])
   return (
-    <div className="space-y-3 relative ring-offset-">
-      <div className="p-4">
+    <div className="space-y-2 relative font-roboto">
+      <div className="p-3">
         <textarea
           placeholder="Event Name"
           className="w-full font-bold bg-transparent border-none text-white placeholder-gray-500 text-xl sm:text-2xl lg:text-3xl leading-tight resize-none focus:outline-none focus:ring-0 transition-colors duration-200"
@@ -104,7 +103,7 @@ const EventDetails = ({setOpen}) => {
           <p className="text-red-500 text-sm mt-1">{errors.title.message}</p>
         )}
       </div>
-      <div className="bg-muted p-4 rounded-lg space-y-3">
+      <div className="bg-muted p-3 rounded-lg space-y-3">
         <div className="flex items-center gap-2 sm:gap-4">
           <div className="bg-green-500 w-4 h-4 rounded-full flex-shrink-0"></div>
           <div className="w-14 sm:w-16">Start:</div>
@@ -120,12 +119,12 @@ const EventDetails = ({setOpen}) => {
           </div>
         </div>
       </div>
-      <div className="flex items-center gap-2 sm:gap-4 p-4 bg-muted rounded-lg">
+      <div className="flex items-center gap-2 sm:gap-4 p-3 bg-muted rounded-lg">
         <MapPin className="w-4 h-4 text-gray-400 flex-shrink-0" />
         <div className="flex-1 min-w-0">
           <input
             placeholder="Add Event Location"
-            className="w-full bg-transparent border-none text-text placeholder:text-text focus:outline-none focus:ring-0 text-sm sm:text-base transition-colors duration-200"
+            className="w-full bg-transparent border-none text-text placeholder:text-text focus:outline-none focus:ring-0 text-sm sm:text-base transition-colors duration-200 placeholder:text-sm"
             {...register("location", { required: false })}
           />
           <p className="text-gray-500 text-xs mt-1">
@@ -135,7 +134,7 @@ const EventDetails = ({setOpen}) => {
       </div>
       <div
         id="desc"
-        className="bg-muted rounded-lg p-4 relative cursor-pointer flex items-center text-text gap-2 sm:gap-4"
+        className="bg-muted rounded-lg p-3 relative cursor-pointer flex items-center text-text gap-2 sm:gap-4"
         onClick={setOpen}
         role="button"
         tabIndex={0}
@@ -146,11 +145,11 @@ const EventDetails = ({setOpen}) => {
         }}
       >
         <NotepadText className="w-5 h-5 text-gray-400 flex-shrink-0" />
-        <span className="text-sm sm:text-base">Add Description</span>
+        <span className="text-xs sm:text-sm">Add Description</span>
       </div>
       <div
         id="category"
-        className="bg-muted rounded-lg p-4 relative cursor-pointer flex items-center text-text gap-2 sm:gap-4"
+        className="bg-muted rounded-lg p-3 relative cursor-pointer flex items-center text-text gap-2 sm:gap-4"
         onClick={setOpen}
         role="button"
         tabIndex={0}
@@ -161,7 +160,7 @@ const EventDetails = ({setOpen}) => {
         }}
       >
         <NotepadText className="w-5 h-5 text-gray-400 flex-shrink-0" />
-        <span className="text-sm sm:text-base">Add Category & Tags</span>
+        <span className="text-sm">Add Category & Tags</span>
       </div>
     </div>
   );

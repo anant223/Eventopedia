@@ -1,15 +1,20 @@
 import createAsyncThunkHandler from "../utils/asyncThunk";
 import registerService from "../api/registerService";
 import { toggleSubscription } from "../app/features/registerSlice";
+import { toast } from "sonner";
 
-export const toggleSubscribeEvent = (eventId) => {
+export const toggleSubscribeEvent = async (eventId, currentlySubscribed) => {
+  const { register } = registerService;
+
   return createAsyncThunkHandler({
-    apiFn: () => registerService.register(eventId),
-    onSuccess: (data) => {
-      return toggleSubscription({
-        event: data.event || eventId,
-        ...data,
-      });
+    apiFn: () => register(eventId),
+    onSuccess: toggleSubscription,
+    onAfter: () => {
+      toast(
+        currentlySubscribed
+          ? "You have unregistered from the event successfully"
+          : "You have registered for the event successfully"
+      );
     },
     onErr: (err) => {
       if (err?.response) {

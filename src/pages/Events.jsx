@@ -139,14 +139,13 @@ const Events = () => {
     }
   };
 
-  console.log(allPublicEvents)
 
   return (
     <div className="min-h-screen relative text-text bg-background overflow-hidden pt-12 pb-8 flex">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 relative">
+      <div className="container mx-auto px-4 sm:px-6 relative">
         <div
           ref={containerRef}
-          className="relative w-full min-h-[80vh] h-[80vh]"
+          className="relative w-full min-h-[80vh] h-[80vh] bg-red-500"
         >
           {nodes.map((node, index) => (
             <EventPortal

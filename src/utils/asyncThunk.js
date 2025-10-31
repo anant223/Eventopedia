@@ -1,18 +1,16 @@
+
 const createAsyncThunkHandler = ({ apiFn, onSuccess, onErr, onAfter }) => {
   return (...args) =>
     async (dispatch) => {
       try {
         const response = await apiFn(...args);
-
-        console.log("✅ API Response:", response);
+        console.log(response)
 
         if (response && response.data) {
           const data = response.data;
-          console.log("🟡 Data for Success:", data);
 
           if (onSuccess) {
             const action = onSuccess(data);
-            console.log("🟢 Dispatching action:", action);
             dispatch(action);
           }
 

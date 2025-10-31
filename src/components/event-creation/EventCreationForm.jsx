@@ -11,7 +11,7 @@ import ImageUpload from './ImageUpload';
 import { ChevronDown, Globe } from 'lucide-react';
 import { useForm, FormProvider } from 'react-hook-form';
 import { AppButton } from '../common';
-import {createNewEvent} from "../../features/eventActions"
+import {createNewEvent} from "../../features/eventActions";
 
 
 const EventCreationForm = () => {
@@ -21,7 +21,7 @@ const EventCreationForm = () => {
     const {handleSubmit, register, watch, setValue, formState: {errors}} = methods;
 
     const handleState = (e) => {
-        setState(e.currentTarget.id);
+      setState(e.currentTarget.id);
     }
 
     const closeModal = () => {
@@ -55,7 +55,7 @@ const EventCreationForm = () => {
   return (
     <div className="min-h-screen bg-background pt-16 pb-8 font-roboto text-text">
       <FormProvider {...methods}>
-        <div className="max-w-[960px] mx-auto w-full px-4 sm:px-6 lg:px-8">
+        <div className="max-w-[960px] mx-auto w-full px-4 sm:px-4 lg:px-6">
           <form
             onSubmit={handleSubmit(createNewEvent)}
             className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center p-4 sm:p-6"
@@ -66,8 +66,7 @@ const EventCreationForm = () => {
               error={errors?.img?.message}
               register={register("img", { required: "Please upload an image", validate: handleImgValidation})}
             />
-
-            <div className="flex-1 w-full space-y-4 sm:space-y-6">
+            <div className="flex-1 w-full space-x-2 sm:space-y-4">
               <div
                 onClick={() => setIsOpen(!isOpen)}
                 className="inline-flex items-center gap-2 shadow-2xl bg-muted backdrop-blur-sm px-4 py-3 rounded-xl border border-accent hover:bg-accent transition-all duration-200 cursor-pointer group"
@@ -78,7 +77,7 @@ const EventCreationForm = () => {
               </div>
               <EventDetails setOpen={handleState}/>
               <EventOptions setOpen={handleState}/>
-              <AppButton type="submit" className="w-full bg-blue-800/20">
+              <AppButton  type="submit" className="w-full bg-blue-800/20">
                 Create Event
               </AppButton>
             </div>

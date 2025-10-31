@@ -42,8 +42,6 @@ export class SpatialGrid {
 }
 
 // Optimized positioning hook
-
-
 // Alternative: Use the hook directly
 // const { positions, regeneratePositions } = useOptimizedPositioning(sampleEvents);
 // setEvents(positions);

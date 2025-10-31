@@ -1,30 +1,41 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Calendar, Clock, Users, Tag, Globe, PlayCircle, MapPin, Heart, Share2 } from "lucide-react";
 import {useParams } from "react-router-dom";
 import { AppButton, LoadingSpinner } from "../common";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { selectEventInfo, selectEvents } from "@/app/selector/virtualEventsSelector";
 import eventService from "@/api/eventService";
 import useAPI from "@/hooks/useAPI";
 import { singleEvent } from "@/app/features/virtualEventsSlice";
 import { formatDuration, isExpired } from "../../features/commanAction.js";
 import {Like} from "../index"
+import { selectIsSubscribed } from "@/app/selector/registerSelector";
+import registerService from "@/api/registerService";
+import { toast } from "sonner";
+import { toggleSubscription, setSubscribedEvents } from "@/app/features/registerSlice";
 
 const EventInfo = () => {
   const {findEventById} =  eventService
   const { id } = useParams();
-  const [liked, setLiked] = React.useState(false);
+  const dispatch = useDispatch()
   const events = useSelector(selectEvents);
-
+  const isSubscribed = useSelector(selectIsSubscribed(id));
+  
   const cachedEvent = events?.events.find((e) => e._id === id);
   const { loading, err, refetch } = useAPI(
     () => (!cachedEvent ? findEventById(id) : Promise.resolve(cachedEvent)),
     singleEvent,
     [id],
     (data) => {
-      console.log("Transform received:", data);
       return data;
     }
+  );
+  const registredData = useAPI(
+    () => registerService.registredEvents(),
+    setSubscribedEvents,
+    [],
+    (data) =>
+      Object.fromEntries(data.map(({ event, ...rest }) => [event._id, rest]))
   );
 
   const event = cachedEvent || useSelector(selectEventInfo);
@@ -32,7 +43,36 @@ const EventInfo = () => {
   const status = isExpired(event?.endDateTime);
   const bgColor = status === "Expired" ? "bg-red-500" : status === "Live" ? "bg-green-500" : "bg-blue-500";
 
+  
+  const handleRegister = async (id) => {
+    try {
+      const wasSubscribed = isSubscribed; // Capture the OLD value BEFORE dispatch
 
+      const res = await registerService.register(id);
+    
+      console.log("Full API Response:", res);
+      console.log("API Response Data:", res?.data);
+      console.log("API Response Structure:", res?.data?.data);
+      console.log("Was Subscribed:", wasSubscribed);
+
+      if (res?.data?.success) {
+         const payload = res?.data?.data?.event
+           ? res?.data?.data
+           : { ...res?.data?.data, event: id };
+        dispatch(toggleSubscription(payload));
+
+        toast(
+          wasSubscribed
+            ? "You have unregistered from the event successfully"
+            : "You have registered for the event successfully"
+        );
+      }
+    } catch (error) {
+      console.log("Error with register :", error.message);
+    }
+  };
+
+  
 
   
 
@@ -120,9 +160,12 @@ const EventInfo = () => {
                   </AppButton>
                 </>
               ) : (
-                <AppButton buttonStyle={"manual"} className="w-full">
+                <AppButton 
+                  onClick={() => handleRegister(id)} 
+                  buttonStyle={"manual"} 
+                  className="w-full">
                   {" "}
-                  {loading || isSubscribed ? "Registered" : "Register"}
+                  {isSubscribed ? "Registered" : "Register"}
                 </AppButton>
               )}
             </div>
@@ -130,7 +173,10 @@ const EventInfo = () => {
             {/* About Event */}
             <div className="">
               <h2 className="text-xl font-bold text-white mb-3">About Event</h2>
-              <p className="text-gray-300">{event.desc}</p>
+              <div
+                className="prose prose-sm sm:prose lg:prose-lg max-w-none text-gray-300"
+                dangerouslySetInnerHTML={{ __html: event.desc }}
+              />
             </div>
 
             {/* Host Info */}

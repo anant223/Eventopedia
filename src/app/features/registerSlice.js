@@ -1,5 +1,6 @@
 import { createSlice} from "@reduxjs/toolkit";
 
+
 const initialState = {
   subscriptions: {},
   loading: false,
@@ -11,11 +12,15 @@ const registrationSlice = createSlice({
   initialState,
   reducers: {
     toggleSubscription: (state, action) => {
+      console.log(action.payload);
       const { event, ...rest } = action.payload;
-      if (state.subscriptions[event]) {
-        delete state.subscriptions[event];
+
+      const eventId = event;
+      if(!eventId) return;
+      if (state.subscriptions[eventId]) {
+        delete state.subscriptions[eventId];
       }else {
-        state.subscriptions[event] = rest;
+        state.subscriptions[eventId] = rest;
       } 
     },
 
