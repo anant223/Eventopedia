@@ -1,3 +1,4 @@
+import { toast } from "sonner";
 import userService from "../api/userService.js";
 import { login, logout } from "../app/features/authSlice.js";
 import createAsyncThunkHandler from "../utils/asyncThunk.js";
@@ -23,14 +24,14 @@ const loginSession = (data, navigate) =>
     apiFn: () => userService.loginUser(data),
     onSuccess: login,
     onAfter: () => {
-      alert("You have logged in successfully");
+      toast("Login sucessfully");
       navigate("/main/all-events");
     },
     onErr: (err) => {
       if (err?.response) {
-        alert(err.response?.data?.message, "Something went wrong!");
+        toast.error(err.response?.data?.message, "Something went wrong!");
       } else {
-        alert("Failed to login. Please try again");
+        toast.error("Failed to login. Please try again");
       }
     },
   })();

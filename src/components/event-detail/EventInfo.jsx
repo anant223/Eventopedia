@@ -46,14 +46,10 @@ const EventInfo = () => {
   
   const handleRegister = async (id) => {
     try {
-      const wasSubscribed = isSubscribed; // Capture the OLD value BEFORE dispatch
+      const wasSubscribed = isSubscribed;
 
       const res = await registerService.register(id);
     
-      console.log("Full API Response:", res);
-      console.log("API Response Data:", res?.data);
-      console.log("API Response Structure:", res?.data?.data);
-      console.log("Was Subscribed:", wasSubscribed);
 
       if (res?.data?.success) {
          const payload = res?.data?.data?.event
@@ -61,7 +57,7 @@ const EventInfo = () => {
            : { ...res?.data?.data, event: id };
         dispatch(toggleSubscription(payload));
 
-        toast(
+        toast.success(
           wasSubscribed
             ? "You have unregistered from the event successfully"
             : "You have registered for the event successfully"

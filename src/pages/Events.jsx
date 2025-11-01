@@ -9,7 +9,7 @@ import EventCard from "../components/all-events/EventCard.jsx";
 import { SpatialGrid } from "../utils/spatialGrid.js";
 import * as d3 from "d3-force";
 import { useWindowSize } from "@/hooks/use-window-size.js";
-
+import { LoadingSpinner } from "@/components/common/index.js";
 
 
 const Events = () => {
@@ -39,6 +39,7 @@ const Events = () => {
     setEventData(chosenPublicEvent);
     setState(status);
   };
+
 
   useEffect(() => {
     if (!containerRef.current || !allPublicEvents?.events) return;
@@ -92,6 +93,7 @@ const Events = () => {
       return () => simulation.stop();
   }, [allPublicEvents?.events, width, height]);
 
+
   const calculateCardPosition = (event, mouseEvent) => {
     if (!containerRef.current) return { x: 0, y: 0 };
 
@@ -141,80 +143,42 @@ const Events = () => {
 
 
   return (
-    <div className="min-h-screen relative text-text bg-background overflow-hidden pt-12 pb-8 flex">
+    <div className="min-h-screen relative text-text bg-background overflow-hidden pt-[4.5rem] pb-8 flex">
       <div className="container mx-auto px-4 sm:px-6 relative">
-        <div
-          ref={containerRef}
-          className="relative w-full min-h-[80vh] h-[80vh] bg-red-500"
-        >
-          {nodes.map((node, index) => (
-            <EventPortal
-              key={index}
-              event={node}
-              onEnter={() => handleEventEnter(node)}
-              isHighlighted={true}
-              connectedIntrests={true}
-              onHover={handleEventHover}
-              isHovered={hoveredEvent?.id === node?.id}
-            />
-          ))}
-          {/* Floating Card */}
-          {hoveredEvent && (
-            <div className="absolute">
-              <div className="animate-in fade-in-0 zoom-in-95 duration-200">
-                <EventCard
-                  event={hoveredEvent}
-                  position={cardPosition}
-                  className="pointer-events-auto"
-                  onHover={handleEventHover}
-                />
+        {
+          loading ? <LoadingSpinner /> :
+          <div
+            ref={containerRef}
+            className="relative rounded-md w-full min-h-[85vh] bg-gray-900"
+          >
+            {nodes.map((node, index) => (
+              <EventPortal
+                key={index}
+                event={node}
+                onEnter={() => handleEventEnter(node)}
+                isHighlighted={true}
+                connectedIntrests={true}
+                onHover={handleEventHover}
+                isHovered={hoveredEvent?.id === node?.id}
+              />
+            ))}
+            {/* Floating Card */}
+            {hoveredEvent && (
+              <div className="absolute">
+                <div className="animate-in fade-in-0 zoom-in-95 duration-200">
+                  <EventCard
+                    event={hoveredEvent}
+                    position={cardPosition}
+                    className="pointer-events-auto"
+                    onHover={handleEventHover}
+                  />
+                </div>
               </div>
-            </div>
-          )}
-        </div>
+            )}
+          </div>
+        }
       </div>
     </div>
   );
 };
 export default Events;
-
-// <VideoCall />
-// {/* <div className="min-h-screen bg-background w-full relative lg:ml-64 md:ml-64 sm:ml-0 ml-0 ">
-//       <Container>
-//         {isLoading ? (
-//           <div className="flex items-center justify-center min-h-[400px]">
-//             <div className="text-center text-white">Loading...</div>
-//           </div>
-//         ) : (
-//           <div className=" grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2  p-4 pt-12">
-//             {Array.isArray(allPublicEvents?.events) &&
-//               allPublicEvents?.events.map((event, index) => (
-//                 <EventCard
-//                   key={index}
-//                   openIt={() => handelEventModel(true, event._id)}
-//                   eventName={event.title}
-//                   date={new Date(event?.startingDate).toLocaleDateString()}
-//                   time={new Date(event?.startingDate).toLocaleTimeString()}
-//                   place={event.status}
-//                   imgSrc={event?.thumbnail}
-//                   tag={event?.tag}
-//                   noOfHour={event?.duration}
-//                   id={event?._id}
-//                 />
-//               ))}
-//           </div>
-//         )}
-
-//         {/* Modal */}
-//         {state && (
-//           <div className="fixed inset-0 bg-black/40 z-50 overflow-y-auto">
-//             <div className="min-h-screen px-4 flex items-center justify-center py-8">
-//               <EventDetialModel
-//                 {...eventData}
-//                 closeIt={() => handelEventModel(false)}
-//               />
-//             </div>
-//           </div>
-//         )}
-//       </Container>
-//     </div> */}

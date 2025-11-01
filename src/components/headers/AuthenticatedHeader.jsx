@@ -65,7 +65,7 @@ const AuthenticatedHeader = () => {
             <Logo />
           </Link>
           <div className="flex items-center gap-4 justify-center">
-            <AppButton onClick={handleCreate} size="sm" buttonStyle="manual" className="rounded-2xl font-roboto">
+            <AppButton onClick={handleCreate} size="sm" buttonStyle="manual" className="rounded-2xl font-roboto hidden sm:flex">
               <Plus className="w-5 h-5" />
               <span>Create</span>
             </AppButton>

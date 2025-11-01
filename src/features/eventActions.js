@@ -45,7 +45,6 @@ const createNewEvent = async (data) => {
     formData.append("requireApproval", data.requireApproval || "false");
     
     const res = await eventService.createEvent(formData);
-    console.log("res", res)
     if (res) {
       toast.success("Event has been created successfully");
     }
