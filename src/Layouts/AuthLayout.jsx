@@ -1,27 +1,19 @@
 import React from "react";
-import { Outlet, Navigate } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { selectIsAuthenticated } from "../app/selector/authSelector.js";
+import {Outlet } from "react-router-dom";
 import { Footer, PublicHeader } from "../components";
-import { LoadingSpinner } from "@/components/common/index.js";
-import useAuth from "../hooks/useAuth.jsx";
+import { PublicRoute } from "@/Routes/PublicRoute";
 
 const AuthLayout = () => {
-  const { loading } = useAuth();
-  const isAuthenticated = useSelector(selectIsAuthenticated);
-  
-  if (isAuthenticated) {
-    return <Navigate to="/main/all-events" replace />;
-  }
-
   return (
-    <div className="min-h-screen flex flex-col">
-      <PublicHeader />
-      <main className="flex-1 flex items-center justify-center">
-        <Outlet />
-      </main>
-      <Footer />
-    </div>
+    <PublicRoute>
+      <div className="min-h-screen flex flex-col w-full">
+        <PublicHeader />
+        <main className="flex-1">
+          <Outlet />
+        </main>
+        <Footer />
+      </div>
+    </PublicRoute>
   );
 };
 

@@ -1,61 +1,100 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import { login, logout } from "../app/features/authSlice.js";
+import { selectIsAuthenticated } from "@/app/selector/authSelector";
 import userService from "../api/userService.js";
-import { useLocation } from "react-router-dom";
+
+
+
 
 
 export const useAuth = () => {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
+  const isAuthenticated = useSelector(selectIsAuthenticated);
+
   const [loading, setLoading] = useState(true);
-  const {pathname} = useLocation();
+  const [initialized, setInitialized] = useState(false);
   const [error, setError] = useState(null);
   const isMountedRef = useRef(false);
+  const checkAuthPromiseRef = useRef(null);
 
+  console.log("🧠 useAuth mounted");
+  useEffect(() => {
+    return () => console.log("💀 useAuth unmounted");
+  }, []);
 
   const checkAuth = useCallback(async () => {
-    
-    try {
-      setError(null);
-      setLoading(true);
-      const userData = await userService.fetchCurrentUser();
-
-      if (!isMountedRef.current) return;
-
-      if (userData) {
-        dispatch(login(userData));
-        if (!pathname.startsWith("/main")) {
-          navigate("/main/all-events", { replace: true });
-        }
-      } else {
-        dispatch(logout());
-        navigate("/auth?type=login", { replace: true });
-      }
-    } catch (error) {
-      if (!isMountedRef.current) return;
-      setError(error.message);
-      dispatch(logout());
-      navigate("/auth?type=login", { replace: true });
-    } finally {
-      if (isMountedRef.current) {
-        setLoading(false);
-      }
+    if (checkAuthPromiseRef.current) {
+      return checkAuthPromiseRef.current;
     }
-  }, [pathname, dispatch, navigate]);
+    const authPromise = (async () => {
+      try {
+       
+        if(initialized){
+          setLoading(false)
+          return
+        }
+        setError(null);
+        setLoading(true);
+       console.log("pre api call");
+       const userData = await userService.fetchCurrentUser();
+       console.log("later api call", userData);
+
+        if (!isMountedRef.current) return;
+
+        if (userData) {
+          dispatch(login(userData));
+        } else {
+          dispatch(logout());
+        }
+      } catch (error) {
+        if (!isMountedRef.current) return;
+        if (error.response?.status === 401) {
+          // only logout if currently authenticated to avoid infinite loops
+          if (isAuthenticated) dispatch(logout());
+        } else {
+          console.error("useAuth error:", error);
+          setError(error);
+        }
+        
+      } finally {
+        if (isMountedRef.current) {
+          setLoading(false);
+          setInitialized(true);
+          checkAuthPromiseRef.current = null;
+        }
+      }
+    })();
+
+    checkAuthPromiseRef.current = authPromise;
+    return authPromise;
+  }, [dispatch]);
+
+ 
+  const handleLogout = useCallback(() => {
+    dispatch(logout());
+  }, [dispatch]);
+
 
 
   useEffect(() => {
     isMountedRef.current = true;
-    checkAuth()
+    checkAuth();
+
     return () => {
-      isMountedRef.current = false
-    }
-  }, [checkAuth]);
+      isMountedRef.current = false;
+    };
+  }, []); 
 
-  return {loading, error, Refetch : checkAuth, isAuthenticated : !loading && !error}; 
+
+  return {
+    loading,
+    initialized,
+    error,
+    isAuthenticated,
+    refetch: checkAuth,
+    logout: handleLogout,
+  };
 };
-
 
 export default useAuth;

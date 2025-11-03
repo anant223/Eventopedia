@@ -2,6 +2,8 @@ import React, {lazy} from "react";
 import { createBrowserRouter, Navigate } from "react-router-dom"
 import MainLayout from "../Layouts/MainLayout";
 import AuthLayout from "../Layouts/AuthLayout";
+import { PublicRoute } from "./PublicRoute";
+import ProtectedRoute from "./ProtectedRoute";
 
 const Home = lazy(() => import( "../pages/Home"));
 const Auth = lazy(() => import("../pages/Auth"));
@@ -13,7 +15,6 @@ const EditProfile = lazy(() => import("../pages/EditProfile"));
 const VideoCall = lazy(() => import("../pages/VideoCall"));
 const EventDetail = lazy(() => import("../pages/EventDetail"));
 
-
 const AppRouting = createBrowserRouter([
   {
     path: "/",
@@ -24,14 +25,18 @@ const AppRouting = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: "auth", //auth?type=login or singup
+        path: "auth",
         element: <Auth />,
       },
     ],
   },
   {
     path: "/main",
-    element: <MainLayout />,
+    element: (
+      <ProtectedRoute>
+        <MainLayout />
+      </ProtectedRoute>
+    ),
     children: [
       {
         index: true,
@@ -59,8 +64,8 @@ const AppRouting = createBrowserRouter([
       },
       {
         path: `event-detail/:id`,
-        element: <EventDetail/>
-      }
+        element: <EventDetail />,
+      },
     ],
   },
 ]);

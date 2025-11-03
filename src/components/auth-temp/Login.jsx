@@ -61,7 +61,6 @@ const Login = ({signupFn}) => {
             className="w-full"
             type="submit"
             buttonStyle="manual"
-            aria-lable="login with email"
           >
             Sign in
           </AppButton>

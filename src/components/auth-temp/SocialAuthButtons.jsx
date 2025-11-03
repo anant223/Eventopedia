@@ -7,6 +7,7 @@ const SocialAuthButtons = () => {
         google : false,
         discord: false
     })
+    
     const getAuthURL = (provider) => {
       const allowed = ["google", "discord"]
       if(!allowed.includes(provider)) throw new Error("Invalid provider")

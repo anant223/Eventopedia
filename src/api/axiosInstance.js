@@ -1,5 +1,6 @@
 import axios from "axios"
-
+import store from "@/app/store";
+import { logout } from "@/app/features/authSlice";
 const axiosInstance = axios.create({
   baseURL: `${import.meta.env.VITE_API_BASE_URL}/api/v1`,
   timeout: 10000,
@@ -17,10 +18,10 @@ axiosInstance.interceptors.request.use((config) => {
 axiosInstance.interceptors.response.use(
   (res) =>  res,
   (err) => {
-
-    if(err.response?.status === 401){
-      window.location.href = "/auth?type=login"
-    }
+    store.dispatch(logout())
+    // if(err.response?.status === 401){
+    //   window.location.href = "/auth?type=login"
+    // }
     return Promise.reject(err)
   }
 

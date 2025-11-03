@@ -20,13 +20,9 @@ const EventCreationForm = () => {
     const methods = useForm();
     const {handleSubmit, register, watch, setValue, formState: {errors}} = methods;
 
-    const handleState = (e) => {
-      setState(e.currentTarget.id);
-    }
-
-    const closeModal = () => {
-      setState(null);
-    };
+    const handleState = (e) => setState(e.currentTarget.id);
+    const closeModal = () => setState(null);
+    
     
     useEffect(() => {
         if (state) {

@@ -10,5 +10,8 @@ export const store = configureStore({
   devTools: true,
 });
 
+if (typeof window !== "undefined") {
+  window.store = store;
+}
 export default store
 
