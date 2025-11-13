@@ -32,13 +32,6 @@ const Events = () => {
   const [nodes, setNodes] = useState([]);
   const handleEventEnter = (event) => {setSelectedEvent(event)};
 
-  const handelEventModel = (status, eventID) => {
-    const chosenPublicEvent = allPublicEvents?.events.find(
-      (event) => event._id === eventID
-    );
-    setEventData(chosenPublicEvent);
-    setState(status);
-  };
 
 
   useEffect(() => {

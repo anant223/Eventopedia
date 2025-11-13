@@ -3,12 +3,9 @@ import { RouterProvider } from "react-router-dom";
 import AppRouting from "./Routes/AppRouting";
 import { Toaster } from "sonner"; 
 import { LoadingSpinner } from "./components/common";
-import useAuth from "./hooks/useAuth";
 
 function App() {
-  // const {loading, initialized} = useAuth()
-  // if(loading || initialized) return <LoadingSpinner/>
-  return (
+  return(
     <div>
       <Toaster position="top-center" richColors/>
         <Suspense fallback={<LoadingSpinner />}>

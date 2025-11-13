@@ -8,11 +8,10 @@ export const PublicRoute = ({ children }) => {
   const {loading} = useAuth();
   const isAuthenticated = useSelector(selectIsAuthenticated);
 
-  if (loading) return <LoadingSpinner />;
-
   if (isAuthenticated) {
     return <Navigate to="/main/all-events" replace />;
   }
 
   return children;
 };
+
