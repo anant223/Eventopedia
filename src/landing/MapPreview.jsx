@@ -1,5 +1,5 @@
 import MapSvg from "@/assets/map.svg?react";
-import { BodyContainer } from "@/components/container/Container";
+import { BodyContainer } from "@/components/containers/Container";
 
 
 

@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { FadeUp, FeatureCard, SectionLabel, stagger } from "./components";
-import { BodyContainer, WrapperContainer } from "@/components/container/Container";
+import { BodyContainer, WrapperContainer } from "@/components/containers/Container";
 
 const FEATURES = [
   {

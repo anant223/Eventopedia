@@ -1,4 +1,4 @@
-import { BodyContainer } from "@/components/container/Container";
+import { BodyContainer } from "@/components/containers/Container";
 import { FadeUp, SectionLabel } from "./components";
 
 /**

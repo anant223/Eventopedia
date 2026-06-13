@@ -1,10 +1,9 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Badge, EmailInput, stagger, fadeUp } from "./components";
-import { BodyContainer, WrapperContainer } from "@/components/container/Container";
+import { BodyContainer } from "@/components/containers/Container";
 import mapSrc from "@/assets/map.svg";
 import useWaitlist from "@/hooks/useWaitlist";
-import ApiError from "@/utils/handleApiError";
 import { toast } from "sonner";
 
 
