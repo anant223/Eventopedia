@@ -5,11 +5,23 @@ import { combineReducers } from "@reduxjs/toolkit";
 // import registrationReducer from "@/app/slices/registerSlice";
 import waitlistReducer from "@/app/slices/waitlistSlice";
 
-const rootReducer = combineReducers({
+// const rootReducer = combineReducers({
   // auth: authReducer,
   // event: eventsReducer,
   // likes: likesReducer,
   // registration: registrationReducer,
+//   waitlist: waitlistReducer,
+// });
+
+const rootReducer = combineReducers({
+  auth: (
+    state = {
+      isAuthenticated: false,
+      user: null,
+      initialized: false,
+      loading: false,
+    }
+  ) => state,
   waitlist: waitlistReducer,
 });
 
