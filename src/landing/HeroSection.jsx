@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Badge, EmailInput, stagger, fadeUp } from "./components";
 import { BodyContainer } from "@/components/containers/Container";
+import { Badge, EmailInput, stagger, fadeUp } from "./Components";
 import mapSrc from "@/assets/map.svg";
 import useWaitlist from "@/hooks/useWaitlist";
 import { toast } from "sonner";
