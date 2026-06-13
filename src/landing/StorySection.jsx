@@ -1,5 +1,5 @@
 import { BodyContainer } from "@/components/containers/Container";
-import { FadeUp, SectionLabel } from "./components";
+import { FadeUp, SectionLabel } from "./Components";
 
 /**
  * StorySection
