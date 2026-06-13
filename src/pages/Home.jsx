@@ -4,13 +4,16 @@ import {
   HeroSection,
   HowItWork,
 } from "../components/index.js";
+import LandingPage from "@/landing/LandingPage.jsx";
+
 
 const Home = () => {
   return (
     <div>
-      <HeroSection />
+      <LandingPage/>
+      {/* <HeroSection />
       <HowItWork />
-      <Features />
+      <Features /> */}
     </div>
   );
 };

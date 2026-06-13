@@ -1,14 +1,24 @@
 import { combineReducers } from "@reduxjs/toolkit";
-import authReducer from "./features/authSlice.js";
-import virtualEventsReducer from "./features/virtualEventsSlice.js";
-import likesReducer from "./features/likeSlice.js";
-import registrationReducer from "./features/registerSlice.js";
+import authReducer from "@/app/slices/authSlice.js";
+import eventsReducer from "@/app/slices/eventsSlice.js";
+import likesReducer from "@/app/slices/likeSlice.js";
+import registrationReducer from "@/app/slices/registerSlice";
+import bookingReducer from "@/app/slices/registerSlice";
+import paymentReducer from "@/app/slices/paymentSlice";
+import notificationReducer  from "@/app/slices/notificationSlice";
+import categoryReducer from "@/app/slices/categorySlice"
+import waitlistReducer from "@/app/slices/waitlistSlice"
 
 const rootReducer = combineReducers({
   auth: authReducer,
-  virtualEvents: virtualEventsReducer,
+  event: eventsReducer,
   likes: likesReducer,
-  registration: registrationReducer
+  registration: registrationReducer,
+  booking: bookingReducer,
+  payment: paymentReducer,
+  notifications: notificationReducer,
+  category: categoryReducer,
+  waitlist: waitlistReducer
 });
 
 export default rootReducer;
