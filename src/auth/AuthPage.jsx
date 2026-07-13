@@ -3,7 +3,7 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import SignupForm from "./components/Signup";
 import LoginForm from "./components/Login";
-import useSocialAuth from "@/hooks/useSocialAuth ";
+import useSocialAuth from "@/hooks/useSocialAuth";
 
 
 const AuthPage = () => {
