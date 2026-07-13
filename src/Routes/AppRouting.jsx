@@ -10,16 +10,16 @@ import OnBoardingRoute from "./OnBoardingRoute";
 
 const Home = lazy(() => import( "../pages/Home"));
 const Auth = lazy(() => import("../pages/Auth"));
-const Profile = lazy(() => import("../pages/Profile"));
-const EventFrom = lazy(() => import("../pages/EventFrom"));
+// const Profile = lazy(() => import("../pages/Profile"));
+// const EventFrom = lazy(() => import("../pages/EventFrom"));
 const Events = lazy(() => import("../pages/Events"));
-const EventDetail = lazy(() => import("../pages/EventDetail"));
-const Checkout = lazy(() => import("../pages/Checkout"))
-const PaymentSuccess = lazy(() => import("../pages/paymentSuccess"))
+// const EventDetail = lazy(() => import("../pages/EventDetail"));
+// const Checkout = lazy(() => import("../pages/Checkout"))
+// const PaymentSuccess = lazy(() => import("../pages/paymentSuccess"))
 const OnBoarding = lazy(() => import("@/pages/Welcome"));
-const Notification = lazy(() => import("@/pages/Notification"));
-const Settings = lazy(() => import("../pages/Settings"));
-const Verify = lazy(() => import("../pages/Verifying"));
+// const Notification = lazy(() => import("@/pages/Notification"));
+// const Settings = lazy(() => import("../pages/Settings"));
+// const Verify = lazy(() => import("../pages/Verifying"));
 const ForgetPassword = lazy(() => import("../pages/ForgetPassword"))
 const ResetPassword = lazy(() => import("../pages/ResetPassword"))
 const AppRouting = createBrowserRouter([
@@ -49,10 +49,10 @@ const AppRouting = createBrowserRouter([
       },
     ],
   },
-  {
-    path: "verifying-request",
-    element: <Verify />,
-  },
+  // {
+  //   path: "verifying-request",
+  //   element: <Verify />,
+  // },
   {
     path: "/onboarding",
     element: (
