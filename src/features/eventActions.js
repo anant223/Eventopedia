@@ -1,57 +1,189 @@
-import eventService from "../api/eventService";
-import { toast } from "sonner";
+import { EventService } from "@/services";
+import { createAsyncThunk} from "@reduxjs/toolkit";
 
-// Special handling for combined date/time
-const DATETIME_FIELDS = {
-  startDateTime: ["start", "start-time"],
-  endDateTime: ["end", "end-time"],
-};
+const eventService = new EventService();
 
-const createNewEvent = async (data) => {
-  try {
-    const formData = new FormData();
-
-    // Required fieldss
-    formData.append("image", data.img[0]);
-    formData.append("title", data.title);
-    formData.append("desc", data.desc);
-
-    // Date/time handling (your existing code)
-    Object.entries(DATETIME_FIELDS).forEach(
-      ([backendField, [dateField, timeField]]) => {
-        const date = data[dateField];
-        const time = data[timeField];
-
-        if (date && time) {
-          const combined = new Date(date);
-          const [hours, minutes] = time.split(":");
-          combined.setHours(parseInt(hours), parseInt(minutes));
-          formData.append(backendField, combined.toISOString());
-        }
-      }
-    );
-
-    // Add missing required fields with default values or from data
-    formData.append("category", data.category || "other");
-
-    // Handle tags properly
-    const tags = Array.isArray(data.tags) ? data.tags.join(",") : data.tags;
-    formData.append("tags", tags);
-
-    formData.append("location", data.location || "Online");
-    formData.append("capacity", data.capacity || "100");
-    formData.append("eventType", data.eventType || "public");
-    formData.append("ticketType", data.ticketType || "free");
-    formData.append("requireApproval", data.requireApproval || "false");
-    
-    const res = await eventService.createEvent(formData);
-    if (res) {
-      toast.success("Event has been created successfully");
+export const createEvent = createAsyncThunk(
+  "event/create",
+  async (data, { rejectWithValue }) => {
+    try {
+      const response = await eventService.createEvent(data);
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response?.data || "Failed to create event");
     }
-  } catch (error) {
-    console.error("Error creating event:", error);
-    throw error;
   }
-};
+);
 
-export { createNewEvent };
+export const deleteEvent = createAsyncThunk(
+  "event/delete",
+  async (eventId, { rejectWithValue }) => {
+    try {
+      const response = await eventService.deleteEvent(eventId);
+      return { eventId, data: response.data };
+    } catch (error) {
+      return rejectWithValue(error.response?.data || "Failed to delete event");
+    }
+  }
+);
+
+export const updateEvent = createAsyncThunk(
+  "event/update",
+  async ({ eventId, data }, { rejectWithValue }) => {
+    try {
+      const response = await eventService.updateEvent(eventId, data);
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response?.data || "Failed to update event");
+    }
+  }
+);
+
+export const fetchEventById = createAsyncThunk(
+  "event/fetchById",
+  async (eventId, { rejectWithValue }) => {
+    try {
+      const response = await eventService.readEvent(eventId);
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response?.data || "Failed to fetch event");
+    }
+  }
+);
+
+export const fetchAllEvents = createAsyncThunk(
+  "event/fetchAll",
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await eventService.readEvents();
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response?.data || "Failed to fetch events");
+    }
+  }
+);
+
+export const fetchPrivateEvent = createAsyncThunk(
+  "event/fetchPrivate",
+  async ({ eventId, token }, { rejectWithValue }) => {
+    try {
+      const response = await eventService.readprivateEvent(eventId, token);
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(
+        error.response?.data || "Failed to fetch private event"
+      );
+    }
+  }
+);
+
+
+
+
+export const updateCoHost = createAsyncThunk(
+  "event/updateCoHost",
+  async ({ eventId, data }, { rejectWithValue }) => {
+    try {
+      const res = await eventService.updateCoHost(eventId, data);
+      return res.data;
+    } catch (error) {
+      return rejectWithValue(
+        error.response?.data || "Failed to update co-hosts"
+      );
+    }
+  }
+);
+
+export const inviteUsers = createAsyncThunk(
+  "event/inviteUsers",
+  async ({ eventId, data }, { rejectWithValue }) => {
+    try {
+      const res = await eventService.updateUserInvitation(eventId, data);
+      return res.data;
+    } catch (error) {
+      return rejectWithValue(error.response?.data || "Failed to invite users");
+    }
+  }
+);
+export const respondInvitation = createAsyncThunk(
+  "event/respondInvitation",
+  async ({ eventId, data }, { rejectWithValue }) => {
+    try {
+      const res = await eventService.invitationConfirmation(eventId, data);
+      return res.data;
+    } catch (error) {
+      return rejectWithValue(
+        error.response?.data || "Failed to respond to invitation"
+      );
+    }
+  }
+);
+export const cancelEvent = createAsyncThunk(
+  "event/cancelEvent",
+  async (eventId, { rejectWithValue }) => {
+    try {
+      const res = await eventService.cancelEvent(eventId);
+      return res.data;
+    } catch (error) {
+      return rejectWithValue(error.response?.data || "Failed to cancel event");
+    }
+  }
+);
+
+export const activateEvent = createAsyncThunk(
+  "event/activateEvent",
+  async (eventId, { rejectWithValue }) => {
+    try {
+      const res = await eventService.activeEvent(eventId);
+      return res.data;
+    } catch (error) {
+      return rejectWithValue(
+        error.response?.data || "Failed to activate event"
+      );
+    }
+  }
+);
+
+
+
+// likes
+export const toggleEventLike = createAsyncThunk(
+  "event/toggle-like",
+  async (eventId, { rejectWithValue }) => {
+    try {
+      const response = await likeService.toggleEventLike(eventId);
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(
+        error.response?.data || "Failed to search location"
+      );
+    }
+  }
+);
+export const eventLikes = createAsyncThunk(
+  "event/event-likes",
+  async (eventId, { rejectWithValue }) => {
+    try {
+      const response = await likeService.getEventLikedUsers(eventId);
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(
+        error.response?.data || "Failed to search location"
+      );
+    }
+  }
+);
+export const userLikeHistory = createAsyncThunk(
+  "event/events-like",
+  async (eventId, { rejectWithValue }) => {
+    try {
+      const response = await likeService.getLikedEventsByUser(eventId);
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(
+        error.response?.data || "Failed to search location"
+      );
+    }
+  }
+);
+
