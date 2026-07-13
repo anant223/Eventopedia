@@ -1,80 +1,83 @@
-import React, { useEffect } from "react";
-import { Calendar, Clock, Users, Tag, Globe, PlayCircle, MapPin, Heart, Share2 } from "lucide-react";
-import {useParams } from "react-router-dom";
+import React, {useEffect} from "react";
+import { Calendar, Clock, Users, MapPin, Trash2Icon, MoreVertical, Share, Clipboard } from "lucide-react";
+import {useNavigate, useParams } from "react-router-dom";
 import { AppButton, LoadingSpinner } from "../common";
-import { useDispatch, useSelector } from "react-redux";
-import { selectEventInfo, selectEvents } from "@/app/selector/virtualEventsSelector";
-import eventService from "@/api/eventService";
-import useAPI from "@/hooks/useAPI";
-import { singleEvent } from "@/app/features/virtualEventsSlice";
-import { formatDuration, isExpired } from "../../features/commanAction.js";
+import { formatDuration, isExpired } from "@/utils/commanAction.js";
 import {Like} from "../index"
-import { selectIsSubscribed } from "@/app/selector/registerSelector";
-import registerService from "@/api/registerService";
-import { toast } from "sonner";
-import { toggleSubscription, setSubscribedEvents } from "@/app/features/registerSlice";
+import { Button } from "../ui/button";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuTrigger } from "../ui/dropdown-menu";
+import { loadStripe } from "@stripe/stripe-js";
+import useEvents from "@/hooks/useEvents";
+import useEnroll from "@/hooks/useEnroll";
+import useAuth from "@/hooks/useAuth";
+import usePayment from "@/hooks/usePayment";
+
+const stripe_client_key = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
 
 const EventInfo = () => {
-  const {findEventById} =  eventService
+  const navigate = useNavigate()
   const { id } = useParams();
-  const dispatch = useDispatch()
-  const events = useSelector(selectEvents);
-  const isSubscribed = useSelector(selectIsSubscribed(id));
-  
-  const cachedEvent = events?.events.find((e) => e._id === id);
-  const { loading, err, refetch } = useAPI(
-    () => (!cachedEvent ? findEventById(id) : Promise.resolve(cachedEvent)),
-    singleEvent,
-    [id],
-    (data) => {
-      return data;
-    }
-  );
-  const registredData = useAPI(
-    () => registerService.registredEvents(),
-    setSubscribedEvents,
-    [],
-    (data) =>
-      Object.fromEntries(data.map(({ event, ...rest }) => [event._id, rest]))
-  );
+  const {user} = useAuth();
+  const {getEventById, delEvent, loading, currentEvent, activate} = useEvents();
+  const {isRegistered, toggleRegistration} = useEnroll(id)
+  const {createIntent} = usePayment()
 
-  const event = cachedEvent || useSelector(selectEventInfo);
 
-  const status = isExpired(event?.endDateTime);
-  const bgColor = status === "Expired" ? "bg-red-500" : status === "Live" ? "bg-green-500" : "bg-blue-500";
+  useEffect(() => {
+    if (!id) return;
+    getEventById(id);
+  },[]);
 
   
-  const handleRegister = async (id) => {
-    try {
-      const wasSubscribed = isSubscribed;
-
-      const res = await registerService.register(id);
-    
-
-      if (res?.data?.success) {
-         const payload = res?.data?.data?.event
-           ? res?.data?.data
-           : { ...res?.data?.data, event: id };
-        dispatch(toggleSubscription(payload));
-
-        toast.success(
-          wasSubscribed
-            ? "You have unregistered from the event successfully"
-            : "You have registered for the event successfully"
-        );
-      }
-    } catch (error) {
-      console.log("Error with register :", error.message);
-    }
+  const options = {
+    stripe_client_key,
+    appearance: {
+      theme: "stripe",
+    },
   };
 
-  
+  console.log(currentEvent)
+  const handleDelete = async () => {
+    try {
+      await delEvent(id);
+      toast.success("Event deleted successfully!");
+      navigate("/main/all-events");
+    } catch (error) {
+      toast.error(error.message || "Failed to delete event");
+    }
+  }
 
-  
+  const handleShare = () => {
+    const url = window.location.href
+    navigator.clipboard.writeText(url)
+    toast.success("Link copied to clipboard!")
+  }
 
+  const handleRegister = async () => {
+    try {
+      if(currentEvent.ticketType === "free"){
+        await toggleRegistration(id);
+        toast.success("Event registered successfully!");
+      }else {
+        await createIntent({eventId: id, ticketQuantity: 1})
+        navigate("main/checkout");
+        return;
+      }    
+    } catch (error) {
+      toast.error(error.message || "Failed to toggle");
+    }
+  }
+
+  const status = isExpired(currentEvent?.endDateTime);
+  const bgColor = status === "Expired" ? "bg-red-500" : status === "Live" ? "bg-green-500" : "bg-blue-500";
+
+ 
   if (loading) return <LoadingSpinner />;
-  if (!event) return <div className="text-white">Event not found</div>;
+  if (!currentEvent) return <div className="text-white">Event not found</div>;
 
+  const isHost = currentEvent?.hosts?.some((host) => host._id === user?._id);
+
+  console.log(currentEvent)
   return (
     <div className="min-h-screen bg-background pt-24 font-roboto">
       <div className="max-w-[960px] mx-auto w-full px-4 sm:px-6 lg:px-8">
@@ -82,8 +85,8 @@ const EventInfo = () => {
           {/* Left Side - Thumbnail */}
           <div className="w-full lg:w-72 flex-shrink-0 relative">
             <img
-              src={event?.image}
-              alt={event?.title}
+              src={currentEvent?.image}
+              alt={currentEvent?.title}
               className="w-full h-72 object-cover rounded-lg shadow-lg"
             />
           </div>
@@ -100,53 +103,99 @@ const EventInfo = () => {
                     {status}
                   </span>
                   <h1 className="text-3xl lg:text-4xl font-bold text-white mt-3">
-                    {event?.title}
+                    {currentEvent?.title}
                   </h1>
                 </div>
                 {/* Share Button */}
-                <div>
-                  <button className="text-text hover:text-white transition-colors duration-200 bg-background/20 hover:bg-background/40 backdrop-blur-sm p-2 rounded-full border border-white/20 hover:border-white/30 h-10 w-10 sm:h-12 sm:w-12 sm:p-3 min-h-[44px] min-w-[44px]">
-                    <Share2 size={18} />
-                  </button>
+                <div className="space-x-2">
+                  {isHost ? (
+                    <DropdownMenu modal={false}>
+                      <DropdownMenuTrigger asChild>
+                        <Button
+                          size={"default"}
+                          className="bg-gray-800 hover:bg-gray-700"
+                        >
+                          <MoreVertical size={18} />
+                        </Button>
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent
+                        align="end"
+                        className="w-48 border-gray-700"
+                      >
+                        <DropdownMenuGroup>
+                          <DropdownMenuItem
+                            variant="destructive"
+                            onClick={handleShare}
+                          >
+                            <Share size={18} />
+                            Share
+                          </DropdownMenuItem>
+                        </DropdownMenuGroup>
+                        <DropdownMenuGroup>
+                          <DropdownMenuItem
+                            variant="destructive"
+                            className="text-red-500 hover:text-red-500"
+                            onClick={handleDelete}
+                          >
+                            <Trash2Icon />
+                            Delete
+                          </DropdownMenuItem>
+                        </DropdownMenuGroup>
+                      </DropdownMenuContent>
+                    </DropdownMenu>
+                  ) : (
+                    <Button
+                      onClick={handleShare}
+                      className="bg-gray-800 hover:bg-gray-700"
+                    >
+                      <Clipboard size={18} />
+                    </Button>
+                  )}
                 </div>
               </div>
-              {/* Date / Time / Location */}
               <div className="space-y-3 text-gray-300">
                 <div className="flex items-center gap-2">
                   <Calendar size={20} />
                   <span>
-                    {new Date(event.startDateTime).toLocaleDateString()} •{" "}
-                    {new Date(event.startDateTime).toLocaleTimeString("en-IN", {
-                      hour: "2-digit",
-                      minute: "2-digit",
-                    })}
+                    {new Date(currentEvent.startDateTime).toLocaleDateString()}{" "}
+                    •{" "}
+                    {new Date(currentEvent.startDateTime).toLocaleTimeString(
+                      "en-IN",
+                      {
+                        hour: "2-digit",
+                        minute: "2-digit",
+                      }
+                    )}
                   </span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Clock size={20} />
                   <span>
-                    {formatDuration(event?.startDateTime, event?.endDateTime)}
+                    {formatDuration(
+                      currentEvent?.startDateTime,
+                      currentEvent?.endDateTime
+                    )}
                   </span>
                 </div>
-                {event.location && (
+                {currentEvent?.location && (
                   <div className="flex items-center gap-2">
                     <MapPin size={20} />
-                    <span>{event.location}</span>
+                    <span>{currentEvent?.location}</span>
                   </div>
                 )}
                 <div className="flex items-center gap-2">
                   <Users size={20} />
-                  <span>{event?.capacity || 0} Attendees</span>
+                  <span>{currentEvent?.capacity || 0} Attendees</span>
                 </div>
               </div>
             </div>
 
             <div className="flex items-center gap-2 mt-4">
-              <Like eventId={id} />
+              <Like eventId={currentEvent._id} />
             </div>
             {/* Registration Section */}
             <div className="rounded-2xl p-6 shadow-xl bg-white/5">
-              {status === "Expired" ? (
+              {new Date(event.startDateTime) < new Date() ? (
                 <>
                   <span className="text-gray-500">
                     This event has successfully ended.
@@ -156,31 +205,41 @@ const EventInfo = () => {
                   </AppButton>
                 </>
               ) : (
-                <AppButton 
-                  onClick={() => handleRegister(id)} 
-                  buttonStyle={"manual"} 
-                  className="w-full">
+                <AppButton
+                  onClick={() => handleRegister()}
+                  buttonStyle={"manual"}
+                  className="w-full"
+                >
                   {" "}
-                  {isSubscribed ? "Registered" : "Register"}
+                  {isRegistered ? "Registered" : "Register"}
                 </AppButton>
               )}
             </div>
+            <AppButton
+              onClick={() => {
+                console.log(id)
+                return activate(id)}
+              }
+              buttonStyle={"manual"}
+              className="w-full"
+            >
+              active
+            </AppButton>
 
             {/* About Event */}
             <div className="">
               <h2 className="text-xl font-bold text-white mb-3">About Event</h2>
               <div
                 className="prose prose-sm sm:prose lg:prose-lg max-w-none text-gray-300"
-                dangerouslySetInnerHTML={{ __html: event.desc }}
+                dangerouslySetInnerHTML={{ __html: currentEvent.desc }}
               />
             </div>
 
-            {/* Host Info */}
             <div className="bg-white/5 p-6 shadow-xl rounded-2xl">
               <h2 className="text-xl font-bold text-white mb-4">Hosted By</h2>
 
               <div className="space-y-4">
-                {event?.hosts?.map(({ avatar, email, name, _id }, i) => (
+                {currentEvent?.hosts?.map(({ avatar, email, name, _id }, i) => (
                   <div
                     key={_id}
                     className="flex items-center gap-4 bg-white/5 p-3 rounded-xl hover:bg-white/10 transition"
@@ -201,6 +260,11 @@ const EventInfo = () => {
           </div>
         </div>
       </div>
+      {/* <AlertDialog stripe={stripePromise} options={options}>
+        <Elements>
+          <CheckoutForm />
+        </Elements>
+      </AlertDialog> */}
     </div>
   );
 };

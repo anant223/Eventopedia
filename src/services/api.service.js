@@ -1,6 +1,6 @@
 import store from "@/app/store";
 import AppService from "./app.service";
-import { clearUser } from "@/app/slices/authSlice";
+// import { clearUser } from "@/app/slices/authSlice";
 
 export default class ApiService extends AppService {
   constructor() {
@@ -11,6 +11,8 @@ export default class ApiService extends AppService {
     });
     this.setupInterceptors()
   }
+
+
   setupInterceptors() {
     this.axiosInstance.interceptors.response.use(
       (res) => res,
@@ -26,12 +28,6 @@ export default class ApiService extends AppService {
           return Promise.reject(err);
         }
 
-        // store.dispatch(clearUser());
-        console.log("it cleared")
-
-        // if (!window.location.pathname.includes('/auth')) {
-        //   window.location.href = "/auth?type=login";
-        // }
         return Promise.reject(err)
       }
       return Promise.reject(err);

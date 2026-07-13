@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { OtherService } from "@/services/other.service";
+import { OtherService } from "@/services/index";
 
 const otherService = new OtherService();
 

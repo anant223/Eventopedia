@@ -1,22 +1,34 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useForm } from 'react-hook-form';
-import { useDispatch} from "react-redux";
 import {useNavigate } from 'react-router-dom';
-import { loginSession } from '../../features/authActions.js';
 import { Lock, Mail} from 'lucide-react';
 import { AuthContainer} from './index.js';
 import { AppButton, AppInput, LoadingSpinner } from '../common/index.js';
 import {  motion } from 'framer-motion';
+import { toast } from 'sonner';
 
-const Login = ({signupFn}) => {
+const Login = ({signupFn, loginFn}) => {
   const navigate = useNavigate()
   const {register, handleSubmit, formState : {errors, isSubmitting}, } = useForm();
-  const dispatch = useDispatch();
-  
-  const handleSession =  async(data) => {
-    await dispatch(loginSession(data, navigate));
-  };
 
+  
+ const handleSession = async (data) => {
+   try {
+      console.log(data)
+     await loginFn(data);
+     toast.success("Login successfully");
+     navigate("/main/all-events");
+   } catch (error) {
+      if (error.code === "auth/user-not-found") {
+        toast.error("User not found. Please sign up first.");
+      } else if (error.code === "auth/wrong-password") {
+        toast.error("Incorrect email/password.");
+      } else {
+        toast.error(error.message || "Login failed. Please try again.");
+      }
+   }
+ };
+console.log(isSubmitting)
   return (
     <>
       <AuthContainer title="Sign In Your Account">

@@ -1,5 +1,4 @@
 import React, { useCallback, useState } from 'react';
-import { DISCORD_ICON, GOOGLE_ICON } from '@/assets/web-assets/Assets';
 import { AppButton } from '../common/index';
 
 const SocialAuthButtons = () => {

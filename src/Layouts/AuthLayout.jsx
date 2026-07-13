@@ -1,7 +1,7 @@
 import React from "react";
 import {Outlet } from "react-router-dom";
 import { Footer} from "../components";
-import { PublicHeader } from "@/components/headers";
+import { PublicHeader } from "@/components/headers/PublicHeader";
 
 const PublicLayout = () => {
   return (

@@ -1,14 +1,27 @@
-import React, { useState } from "react";
+import React from "react";
 import { useForm } from "react-hook-form";
-import { signUp } from "../../features/authActions.js";
 import { Lock, Mail, User } from "lucide-react";
 import { AuthContainer} from "./index.js";
 import { AppButton, AppInput } from "../common/index.js";
 import {motion} from "framer-motion";
 
 
-const Signup = ({loginFn}) => {
-  const {register, handleSubmit, formState : {errors, isSubmitting}} = useForm()
+const Signup = ({ loginFn, signupFn }) => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm();
+
+  const createAccount = async (data) => {
+    try {
+      await signupFn(data);
+      toast.success("Account created successfully");
+    } catch (error) {
+      console.error("signup error:", error); 
+      toast.error("Something went wrong with Signup. Please try again");
+    }
+  };
 
   return (
     <AuthContainer title="Create Your Grupio">
@@ -17,7 +30,7 @@ const Signup = ({loginFn}) => {
         animate={{ opacity: 1 }}
         transition={{ duration: 0.3, delay: 0.1 }}
         className="space-y-6"
-        onSubmit={handleSubmit(signUp)}
+        onSubmit={handleSubmit(createAccount)}
       >
         <AppInput
           type="text"

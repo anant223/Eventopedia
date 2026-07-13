@@ -1,29 +1,50 @@
-// Get the full Map of eventLikes
-export const selectAllLikes = (state) => state.likes.eventLikes;
+import { createSelector } from "@reduxjs/toolkit";
 
-// Check if a specific user liked a specific event
-export const selectIsLiked = (eventId, userId) => (state) => {
-  const event = state.likes.eventLikes.get(eventId);
- 
-  return Boolean(event?.users?.[userId]);
+export const selectLike = (state) => state.likes;
+export const selectEventLikes = (state) => state.likes.eventLikes;
+export const selectUserLikedEvents = (state) => state.likes.userLikedEvents;
+export const selectEventLikedUsers = (state) => state.likes.eventLikedUsers;
+export const selectToggleLoading = (state) => state.likes.toggleLoading;
+export const selectLikeLoading = (state) => state.likes.loading;
+export const selectLikeError = (state) => state.likes.error;
 
-};
+// Memoized selectors
+export const selectEventLikeDetails = (eventId) =>
+  createSelector(
+    [selectEventLikes],
+    (eventLikes) => eventLikes[eventId] || { count: 0, isLiked: false }
+  );
 
+export const selectIsEventLiked = (eventId) =>
+  createSelector(
+    [selectEventLikes],
+    (eventLikes) => eventLikes[eventId]?.isLiked || false
+  );
 
-export const selectLikesById = (eventId) => (state) => {
-  const likes = state.likes?.eventLikes;
+export const selectEventLikeCount = (eventId) =>
+  createSelector(
+    [selectEventLikes],
+    (eventLikes) => eventLikes[eventId]?.count || 0
+  );
 
-  if (!(likes instanceof Map)) {
-    return undefined;
-  }
+export const selectIsEventLikeLoading = (eventId) =>
+  createSelector(
+    [selectToggleLoading],
+    (toggleLoading) => toggleLoading[eventId] || false
+  );
 
-  return likes.get(eventId);
-};
+export const selectUsersWhoLikedEvent = (eventId) =>
+  createSelector(
+    [selectEventLikedUsers],
+    (eventLikedUsers) => eventLikedUsers[eventId] || []
+  );
 
+export const selectUserLikedEventsCount = createSelector(
+  [selectUserLikedEvents],
+  (userLikedEvents) => userLikedEvents.length
+);
 
-// Get the like count for a specific event
-export const selectLikeCountByEvent = (eventId) => (state) =>
-  state.likes.eventLikes.get(eventId)?.likesCount || 0;
-
-// Get total number of liked events
-export const selectTotalLikedEvents = (state) => state.likes.eventLikes;
+export const selectUserLikedEventIds = createSelector(
+  [selectUserLikedEvents],
+  (userLikedEvents) => userLikedEvents.map((e) => e._id)
+);

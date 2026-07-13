@@ -1,6 +1,6 @@
 import ApiService from "./api.service"
 
-export class OtherService extends ApiService {
+export default class OtherService extends ApiService {
   otherLiveEventsPreview = async ({lat, lng, page = 0,
         size = 100,
         radius = 50,}) => {

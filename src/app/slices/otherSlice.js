@@ -1,4 +1,4 @@
-import { otherLiveEventsPreview } from "@/features/otherAction";
+import { otherLiveEventsPreview } from "@/features/otherActions";
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {

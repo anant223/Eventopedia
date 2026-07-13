@@ -10,7 +10,7 @@ const EventOptions = ({setOpen}) => {
 
 
     const handleApprovalChange = (checked) => {
-      setRequireApproval(checked);
+      // setRequireApproval(checked);
       setValue("approval", checked, { shouldValidate: true });
     };
     
@@ -19,8 +19,6 @@ const EventOptions = ({setOpen}) => {
       <h3 className="text-white font-semibold text-sm sm:text-base">
         Event Options
       </h3>
-
-      {/* Tickets */}
       <div className="flex items-center justify-between gap-2 sm:gap-4">
         <div className="flex items-center gap-2 sm:gap-4 flex-1 min-w-0">
           <Ticket className="w-4 h-4 text-gray-400 flex-shrink-0" />
@@ -30,6 +28,7 @@ const EventOptions = ({setOpen}) => {
         <div className="flex items-center gap-2 flex-shrink-0">
           <span className="text-text text-sm">Free</span>
           <Button
+            type="button"
             id="ticket"
             variant="ghost"
             size="sm"
@@ -40,8 +39,6 @@ const EventOptions = ({setOpen}) => {
           </Button>
         </div>
       </div>
-
-      {/* Require Approval */}
       <div className="flex items-center justify-between gap-2 sm:gap-4">
         <div className="flex items-center gap-2 sm:gap-4 min-w-0 flex-1">
           <Users className="w-4 h-4 text-text flex-shrink-0" />
@@ -55,7 +52,6 @@ const EventOptions = ({setOpen}) => {
           />
         </div>
       </div>
-      {/* Capacity */}
       <div className="flex items-center justify-between gap-2 sm:gap-4">
         <div className="flex items-center gap-2 sm:gap-4 min-w-0 flex-1">
           <Users className="w-4 h-4 sm:w-5 sm:h-5 text-gray-400 flex-shrink-0" />
@@ -64,6 +60,7 @@ const EventOptions = ({setOpen}) => {
         <div className="flex items-center gap-2 flex-shrink-0">
           <span className="text-text text-sm">Unlimited</span>
           <Button
+            type="button"
             id="capacity"
             variant="ghost"
             size="sm"

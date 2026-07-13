@@ -6,9 +6,104 @@
 @tailwind components;
 @tailwind utilities;
 
-.rdp-root {
-  --rdp-accent-color: indigo; 
-  --rdp-accent-background-color: #f0f0f0;
+
+
+/* index.css */
+* {
+  scrollbar-width: none; /* Firefox */
+}
+
+*::-webkit-scrollbar {
+  display: none; /* Chrome, Safari */
+}
+
+html {
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  overscroll-behavior: none;
+}
+
+.event-marker {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #D85A30;
+  border: 2px solid white;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.3);
+  cursor: pointer;
+}
+
+.event-marker.marker-highlighted {
+  background: #1a1814;
+  transform: scale(1.25);
+  transition: transform 0.15s ease;
+}
+
+.gm-style-iw,
+.gm-style-iw-d {
+  padding: 0 !important;
+  overflow: hidden !important;
+}
+
+
+
+.gm-style-iw-c {
+  padding: 0 !important;
+  border-radius: 12px !important;
+}
+
+/* Reset Google Maps InfoWindow close button */
+.gm-ui-hover-effect {
+  all: unset !important;
+  position: absolute !important;
+  top: 8px !important;
+  right: 8px !important;
+  width: 28px !important;
+  height: 28px !important;
+  cursor: pointer !important;
+  z-index: 10 !important;
+
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+
+  background: rgba(255, 255, 255, 0.9) !important;
+  border-radius: 9999px !important;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2) !important;
+}
+
+.gm-ui-hover-effect > span {
+  all: unset !important;
+  width: 14px !important;
+  height: 14px !important;
+  display: block !important;
+  position: relative !important;
+}
+
+/* Create the X using pseudo-elements */
+.gm-ui-hover-effect > span::before,
+.gm-ui-hover-effect > span::after {
+  content: '' !important;
+  position: absolute !important;
+  top: 50% !important;
+  left: 50% !important;
+  width: 14px !important;
+  height: 2px !important;
+  background: #333 !important;
+}
+
+.gm-ui-hover-effect > span::before {
+  transform: translate(-50%, -50%) rotate(45deg) !important;
+}
+
+.gm-ui-hover-effect > span::after {
+  transform: translate(-50%, -50%) rotate(-45deg) !important;
+}
+
+/* Hover effect */
+.gm-ui-hover-effect:hover > span::before,
+.gm-ui-hover-effect:hover > span::after {
+  background: #000 !important;
 }
 
 

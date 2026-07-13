@@ -1,28 +1,33 @@
-import createAsyncThunkHandler from "../utils/asyncThunk";
-import registerService from "../api/registerService";
-import { toggleSubscription } from "../app/features/registerSlice";
-import { toast } from "sonner";
+import {createAsyncThunk } from "@reduxjs/toolkit";
+import { RegisterService } from "@/services";
 
-export const toggleSubscribeEvent = async (eventId, currentlySubscribed) => {
-  const { register } = registerService;
+const registerService = new RegisterService();
 
-  return createAsyncThunkHandler({
-    apiFn: () => register(eventId),
-    onSuccess: toggleSubscription,
-    onAfter: () => {
-      toast(
-        currentlySubscribed
-          ? "You have unregistered from the event successfully"
-          : "You have registered for the event successfully"
+export const toggleEventRegistration = createAsyncThunk(
+  "registration/toggle",
+  async (eventId, { rejectWithValue }) => {
+    try {
+      const response = await registerService.toggleRegisterEvent(eventId);
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(
+        error.response?.data || "Failed to toggle registration"
       );
-    },
-    onErr: (err) => {
-      if (err?.response) {
-        alert(err.response?.data?.message || "Something went wrong!");
-      } else {
-        alert("Failed to register for event. Please try again");
-      }
-    },
-  })();
-};
+    }
+  }
+);
+
+export const fetchRegisteredEvents = createAsyncThunk(
+  "registration/fetchAll",
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await registerService.registredEvents();
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(
+        error.response?.data || "Failed to fetch registered events"
+      );
+    }
+  }
+);
 

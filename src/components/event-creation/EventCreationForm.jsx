@@ -11,18 +11,20 @@ import ImageUpload from './ImageUpload';
 import { ChevronDown, Globe } from 'lucide-react';
 import { useForm, FormProvider } from 'react-hook-form';
 import { AppButton } from '../common';
-import {createNewEvent} from "../../features/eventActions";
+import { eventFormData } from '@/utils/eventFormData';
+import { toast } from 'sonner';
+import useEvents from '@/hooks/useEvents';
 
 
 const EventCreationForm = () => {
-    const [state, setState] = useState(null)
-    const [isOpen, setIsOpen] = useState(false);
-    const methods = useForm();
-    const {handleSubmit, register, watch, setValue, formState: {errors}} = methods;
+  const {create} = useEvents()
+  const [state, setState] = useState(null)
+  const [isOpen, setIsOpen] = useState(false);
+  const methods = useForm();
+  const {handleSubmit, register, watch, setValue, formState: {errors}} = methods;
 
-    const handleState = (e) => setState(e.currentTarget.id);
-    const closeModal = () => setState(null);
-    
+  const handleState = (e) => setState(e.currentTarget.id);
+  const closeModal = () => setState(null);
     
     useEffect(() => {
         if (state) {
@@ -36,7 +38,7 @@ const EventCreationForm = () => {
     }, [state]);
 
 
-    const handleImgValidation = (fileList) => {
+  const handleImgValidation = (fileList) => {
       if(!fileList  || fileList.length === 0 ) return true;
 
       const file = fileList[0];
@@ -45,7 +47,33 @@ const EventCreationForm = () => {
         return "File size must be less than 5mb"
       }
       return  true;
+  }
+
+  const createNewEvent = async (data) => {
+    try {
+      const formData  = eventFormData(data)
+      await create(formData)
+      toast.success("Event created sucessfully")
+    } catch (error) {
+      toast.success("Event created sucessfully");
+      console.log("event creation error", error.message)
     }
+  }
+
+  useEffect(() => {
+    register("desc", {
+      required: "Event description is required",
+      validate: (value) => {
+        const textContent = value?.replace(/<[^>]*>/g, "").trim() || "";
+        if (textContent.length < 20) {
+          return "Description must have at least 20 characters";
+        }
+        return true;
+      },
+    });
+    register("tags", { required: "Add at least one tag to continue" });
+    register("category", { required: "Don't forget to select a category" });
+  },[methods])
 
     
   return (

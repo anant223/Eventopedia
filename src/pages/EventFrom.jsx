@@ -1,11 +1,11 @@
 import React from 'react'
-import EventCreationForm from '@/components/event-creation/EventCreationForm.jsx';
-
+import EventFormPage from '@/create-events/EventFormPage';
+import { PageShell } from '@/components/layout/PageShell';
 const EventFrom = () => {
   return (
-    <div>
-      <EventCreationForm/>
-    </div>
+    <PageShell>
+      <EventFormPage/>
+    </PageShell>
   );
 }
 

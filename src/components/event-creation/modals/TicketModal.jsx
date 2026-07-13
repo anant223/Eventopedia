@@ -1,6 +1,8 @@
 import React, { useRef } from "react";
 import { AppInput, Modal } from "../../common/index";
 import { useFormContext } from "react-hook-form";
+import { IndianRupee } from "lucide-react";
+
 
 const TicketModal = ({ closeModal }) => {
   const {
@@ -39,39 +41,46 @@ const TicketModal = ({ closeModal }) => {
             </p>
           </div>
 
-          {/* Input Field */}
           <div>
             <label
               htmlFor="ticketPrice"
               className="block text-sm font-medium text-gray-300 mb-2"
             >
-              Ticket Price (₹)
+              Ticket Price
             </label>
-            <AppInput
-              id="ticketPrice"
-              type="number"
-              placeholder="Enter price in ₹ (0 for free)"
-              className="w-full"
-              {...register("ticket", {
-                required: false,
-                min: { value: 0, message: "Price cannot be negative" },
-                max: {
-                  value: 100000,
-                  message: "Price cannot exceed ₹1,00,000",
-                },
-                validate: (value) => {
-                  if (value === "" || value === null || value === undefined)
-                    return true;
-                  if (parseFloat(value) < 0) return "Price cannot be negative";
-                  return true;
-                },
-              })}
-            />
+
+            <div className="flex items-stretch rounded-xl overflow-hidden border border-border bg-background focus-within:ring-2 focus-within:ring-indigo-500 transition">
+              <div className="flex items-center gap-2 px-3 bg-muted border-r border-border">
+                <IndianRupee className="w-4 h-4 text-gray-400" />
+                <select
+                  className="bg-transparent text-sm text-text focus:outline-none cursor-pointer"
+                  {...register("currency")}
+                  defaultValue="INR"
+                >
+                  <option value="INR">INR</option>
+                  <option value="USD">USD</option>
+                </select>
+              </div>
+              <AppInput
+                id="ticketPrice"
+                type="number"
+                placeholder="0 for free"
+                {...register("ticket", {
+                  min: { value: 0, message: "Price cannot be negative" },
+                  max: {
+                    value: 1000000,
+                    message: "Price cannot exceed ₹1,00,0000",
+                  },
+                })}
+              />
+            </div>
+
             {errors.ticket && (
-              <p className="text-red-500 text-sm mt-1">
+              <p className="text-red-500 text-xs mt-1">
                 {errors.ticket.message}
               </p>
             )}
+
             <p className="text-xs text-gray-500 mt-1">
               Leave empty or enter 0 for free events
             </p>

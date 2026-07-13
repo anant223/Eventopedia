@@ -3,10 +3,13 @@ import {Modal} from "../../common/index"
 import { useFormContext } from 'react-hook-form';
 
 const CategoryModal = ({closeModal}) => {
-  const {register, trigger, setValue, watch, formState: {errors}} = useFormContext()
+  const {trigger, setValue, watch, formState: {errors}} = useFormContext()
+  
+  const category = watch("category")
+  const tags = watch ("tags")
   const originalValues = useRef({
-    category: watch("category"),
-    tags: watch("tags"),
+    category: category,
+    tags: tags,
   });
 
   const handleSave = async () => {
@@ -24,7 +27,6 @@ const CategoryModal = ({closeModal}) => {
     <Modal setClose={closeModal}>
       <div className="w-full max-w-md mx-auto p-4 sm:p-6 bg-muted rounded-2xl shadow-2xl font-roboto">
         <div className="space-y-4 sm:space-y-5">
-          {/* Header */}
           <div className="text-center">
             <h1 className="text-lg sm:text-xl font-semibold text-text">
               Category & Tags
@@ -34,7 +36,6 @@ const CategoryModal = ({closeModal}) => {
             </p>
           </div>
 
-          {/* Form Fields */}
           <div className="space-y-4">
             <div>
               <label
@@ -44,9 +45,8 @@ const CategoryModal = ({closeModal}) => {
                 Category
               </label>
               <select
-                {...register("category", {
-                  required: "Please select a category",
-                })}
+                value={category}
+                onChange={(e) => setValue("category", e.target.value, {shouldValidate: true})}
                 id="category"
                 className="w-full p-3 bg-background border border-gray-600 rounded-xl focus:outline-none focus:ring-2 focus:ring-gray-500 text-white"
               >
@@ -72,9 +72,8 @@ const CategoryModal = ({closeModal}) => {
                 id="tags"
                 className="w-full p-3 bg-background border border-gray-600 rounded-xl focus:outline-none focus:ring-2 focus:ring-gray-500 text-white placeholder-gray-400"
                 placeholder="Add tags separated by commas"
-                {...register("tags", {
-                  required: "Please add at least one tag",
-                })}
+                onChange={(e) => setValue("tags", e.target.value, {shouldValidate: true})}
+                value={tags}
               />
               {errors.tags && (
                 <p className="text-red-500 text-sm mt-1">
@@ -83,8 +82,6 @@ const CategoryModal = ({closeModal}) => {
               )}
             </div>
           </div>
-
-          {/* Action Buttons */}
           <div className="flex flex-col sm:flex-row justify-end gap-2 sm:gap-3 pt-4">
             <button
               type="button"

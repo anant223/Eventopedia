@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Outlet, useNavigate, useLocation } from "react-router-dom";
-import { AuthenticatedHeader } from "@/components/headers";
-import { Footer } from "@/components";
+import { AuthenticatedHeader } from "@/components/headers/AuthenticatedHeader";
 
 
 

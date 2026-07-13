@@ -1,193 +1,617 @@
-import React, { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Logo } from "../index";
-import { useDispatch, useSelector } from "react-redux";
-import { selectUser } from "../../app/selector/authSelector";
-import userService from "@/api/userService";
-import { motion } from "framer-motion";
-import { quickActions } from "../../utils/constant";
-import { AppButton, HamburgerButton, LoadingSpinner } from "../common/index";
-import { ChevronDown, LogOut, Plus, Settings, User } from "lucide-react";
-import { useForm } from "react-hook-form";
-import { logout } from "@/app/features/authSlice";
+import { motion, AnimatePresence } from "framer-motion";
+import { LogOut, Settings, User, Bookmark, Bell, ChevronDown, Plus, Menu, X } from "lucide-react";
+import { useAuth } from "@/hooks/useAuth";
+import useNotifications from "@/hooks/useNotifications";
+import { transformNotification } from "@/utils/constant";
+import { useMemo } from "react";
+import { Button } from "../ui/button";
+import Logo from "@/components/Logo"
 
-const AuthenticatedHeader = () => {
-  const [isOpend, setIsOpened] = useState(false);
-  const [isExpanded, setIsExpanded] = useState(false);
-  const [isLoginingout, setIsLoggingOut] = useState(false)
-  
-  const user = useSelector(selectUser);
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  
-  const userData = user?.data?.data;
-  const username = userData?.name;
-  const useremail = userData?.email;
-  const useravtar = userData?.avatar;
+// ─── Bell ────────────────────────────────────────────────────────────────────
+const NotificationBell = () => {
+    const navigate = useNavigate();
+    const [open, setOpen] = useState(false);
+    const ref = useRef(null);
+    const { notifications, unReadCount, markAsRead, markAllAsRead, fetchLoading } = useNotifications();
 
-  const handleEndSession = async () => {
-    try {
-      setIsLoggingOut(true);
-      await userService.logoutUser();
-      dispatch(logout())
-      setTimeout(() => navigate("/"), 900)
-    } catch (error) {
-      setIsLoggingOut(false);
-      throw new Error("Something went wrong while ending session", error);
-    }
-  };
+    const latest = useMemo(
+        () => notifications.slice(0, 5).map((n) => transformNotification(n)),
+        [notifications]
+    );
 
-  const handleHamburgerButton = () => {
-    setIsOpened(!isOpend)
-  }
-  const handleCreate = async() => {
-    await navigate("/main/create-event")
-  }
+    useEffect(() => {
+        const handler = (e) => { if (ref.current && !ref.current.contains(e.target)) setOpen(false); };
+        document.addEventListener("mousedown", handler);
+        return () => document.removeEventListener("mousedown", handler);
+    }, []);
 
-  const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
+    const handleClick = (notif) => {
+        markAsRead(notif.id);
+        if (notif.link) navigate(notif.link);
+        setOpen(false);
+    };
 
-  const toggleProfileDropdown = () => {
-    setIsProfileDropdownOpen(!isProfileDropdownOpen);
-    setIsNotificationDropdownOpen(false);
-  };
-
-  <motion.button
-    className="bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center shadow-lg overflow-hidden space-x-3 p-1  hover:bg-gray-100 transition-colors duration-200"
-    
-  >
-    <img src={useravtar} alt="my-avtar" className="w-12 h-12" />
-  </motion.button>;
-
-  return (
-    <>
-      {isLoginingout && <LoadingSpinner />}
-      <header className="fixed top-0 left-0 right-0 z-50 backdrop-blur-xl w-full shadow-xl h-16">
-        <div className="max-w-7xl container col- mx-auto px-4 sm:px-6 lg:px-8 h-full">
-          <div className="flex justify-between items-center h-full">
-            <Link
-              to="/main/all-events"
-              className="flex items-center transition-opacity hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-white/20 focus:ring-offset-2 focus:ring-offset-transparent rounded-md"
-              aria-label="Go to all events"
+    return (
+        <div ref={ref} style={{ position: "relative" }}>
+            {/* trigger */}
+            <button
+                onClick={() => setOpen(!open)}
+                style={{
+                    width: 36, height: 36,
+                    borderRadius: "50%",
+                    background: "rgba(255,255,255,0.65)",
+                    border: "0.5px solid rgba(0,0,0,0.07)",
+                    display: "flex", alignItems: "center", justifyContent: "center",
+                    cursor: "pointer", position: "relative",
+                    transition: "background 0.15s",
+                }}
+                onMouseEnter={e => e.currentTarget.style.background = "rgba(255,255,255,0.9)"}
+                onMouseLeave={e => e.currentTarget.style.background = "rgba(255,255,255,0.65)"}
             >
-              <Logo />
-            </Link>
-            <div className="flex items-center gap-4 justify-center">
-              <AppButton
-                onClick={handleCreate}
-                size="sm"
-                buttonStyle="manual"
-                className="rounded-2xl font-roboto hidden sm:flex"
-              >
-                <Plus className="w-5 h-5" />
-                <span>Create</span>
-              </AppButton>
-              <div className="relative">
-                <motion.button
-                  animate={{
-                    boxShadow: isExpanded
-                      ? "0 0 30px rgba(59,130,246,0.6), 0 0 60px rgba(147,51,234,0.4)"
-                      : "0 0 15px rgba(59,130,246,0.4)",
-                  }}
-                  whileTap={{ scale: 0.95 }}
-                  onClick={() => setIsExpanded(!isExpanded)}
-                  className="flex items-center space-x-3 p-1 rounded-full"
-                >
-                  <div className="relative w-10 h-10 rounded-full overflow-hidden transition-all duration-300">
-                    <img
-                      src={useravtar}
-                      alt="user-img"
-                      className="w-full h-full object-cover"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-br from-blue-400/20 to-purple-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                  </div>
-                  <motion.div
-                    animate={{ rotate: isExpanded ? 180 : 0 }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    <ChevronDown className="w-6 h-6 text-gray-500 dark:text-gray-300 group-hover:text-blue-500 transition-colors duration-200" />
-                  </motion.div>
-                </motion.button>
-                {isExpanded && (
-                  <motion.div
-                    className="absolute top-16 right-0 w-64 backdrop-blur-xl bg-gray-900/95 border border-gray-700/50 rounded-2xl p-4 shadow-2xl z-50"
-                    initial={{ opacity: 0, y: -10, scale: 0.95 }}
-                    animate={{ opacity: 1, y: 0, scale: 1 }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    <div className="text-center mb-4">
-                      <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-2">
-                        <img src={useravtar} alt="my-avtar" />
-                      </div>
-                      <h3 className="text-white font-semibold capitalize">
-                        {username}
-                      </h3>
-                      <p className="text-gray-400 text-sm">Product Manager</p>
-                    </div>
-
-                    <div className="grid grid-cols-3 gap-2 mb-4">
-                      {quickActions.map((action, i) => (
-                        <motion.button
-                          key={action.label}
-                          onClick={() => navigate("/main/user-profile")}
-                          className={`p-3 bg-gradient-to-br ${action.color} rounded-xl flex flex-col items-center space-y-1`}
-                          initial={{ scale: 0, rotate: -90 }}
-                          animate={{ scale: 1, rotate: 0 }}
-                          transition={{
-                            delay: i * 0.1,
-                            type: "spring",
-                            stiffness: 400,
-                            damping: 25,
-                          }}
-                          whileHover={{ scale: 1.05 }}
-                          whileTap={{ scale: 0.95 }}
-                        >
-                          <action.icon className="w-4 h-4 text-white" />
-                          <span className="text-white text-xs">
-                            {action.label}
-                          </span>
-                        </motion.button>
-                      ))}
-                    </div>
-
-                    <div className="border-t border-gray-700/50 pt-3">
-                      <AppButton
-                        size="sm"
-                        className="w-full border-gray-600 text-text bg-transparent"
-                        onClick={handleEndSession}
-                      >
-                        Sign Out
-                      </AppButton>
-                    </div>
-                  </motion.div>
+                <Bell size={15} color="#3d3a34" />
+                {unReadCount > 0 && (
+                    <span style={{
+                        position: "absolute", top: -1, right: -1,
+                        width: 9, height: 9,
+                        background: "#E24B4A",
+                        borderRadius: "50%",
+                        border: "1.5px solid rgba(242,238,231,0.95)",
+                    }} />
                 )}
-              </div>
-              <div className=" relative block md:hidden">
-                <HamburgerButton
-                  status={isOpend}
-                  handleClick={handleHamburgerButton}
-                />
-                <div
-                  className={`fixed top-0 right-0 h-screen w-1/2 z-40 bg-[#0a1628]/95 p-8 shadow-xl transition-transform duration-300 transform ${isOpend ? "translate-x-0" : "translate-x-full"}`}
-                >
-                  <div className="flex flex-col items-center h-full justify-center">
-                    <button
-                      onClick={handleCreate}
-                      className="text-gray-900 font-medium flex gap-2 capitalize font-roboto p-4 justify-center w-32 h-10 items-center rounded-full bg-white hover:bg-gray-500 hover:text-white"
+            </button>
+
+            {/* dropdown */}
+            <AnimatePresence>
+                {open && (
+                    <motion.div
+                        initial={{ opacity: 0, y: 6, scale: 0.97 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        exit={{ opacity: 0, y: 6, scale: 0.97 }}
+                        transition={{ duration: 0.16, ease: [0.22, 1, 0.36, 1] }}
+                        className="w-96 top-14"
+                        style={{
+                            position: "absolute", right: 0,
+                            background: "rgba(242,238,231,0.97)",
+                            border: "0.5px solid rgba(0,0,0,0.08)",
+                            borderRadius: 16,
+                            boxShadow: "0 8px 32px rgba(0,0,0,0.10)",
+                            overflow: "hidden",
+                            zIndex: 100,
+                        }}
                     >
-                      <span>
-                        <Plus />
-                      </span>
-                      create
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+                        {/* header */}
+                        <div style={{ padding: "10px 14px", borderBottom: "0.5px solid rgba(0,0,0,0.06)", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                            <span style={{ fontSize: 13, fontWeight: 600, color: "#1a1814" }}>Notifications</span>
+                            {unReadCount > 0 && (
+                                <button
+                                    onClick={markAllAsRead}
+                                    style={{ fontSize: 11, color: "#888", background: "none", border: "none", cursor: "pointer", fontWeight: 500 }}
+                                >
+                                    Mark all read
+                                </button>
+                            )}
+                        </div>
+
+                        {/* list */}
+                        <div style={{ maxHeight: 280, overflowY: "auto" }}>
+                            {fetchLoading ? (
+                                <div style={{ padding: "24px 0", textAlign: "center", fontSize: 12, color: "#999" }}>Loading...</div>
+                            ) : latest.length === 0 ? (
+                                <div style={{ padding: "28px 0", textAlign: "center" }}>
+                                    <div style={{ fontSize: 24, marginBottom: 6 }}>🔔</div>
+                                    <p style={{ fontSize: 12, color: "#999", margin: 0 }}>No notifications</p>
+                                </div>
+                            ) : latest.map((notif) => (
+                                <div
+                                    key={notif.id}
+                                    onClick={() => handleClick(notif)}
+                                    style={{
+                                        padding: "10px 14px",
+                                        borderBottom: "0.5px solid rgba(0,0,0,0.05)",
+                                        cursor: "pointer",
+                                        background: notif.read ? "transparent" : "rgba(226,75,74,0.04)",
+                                        display: "flex", gap: 10, alignItems: "flex-start",
+                                        transition: "background 0.12s",
+                                    }}
+                                    onMouseEnter={e => e.currentTarget.style.background = "rgba(0,0,0,0.03)"}
+                                    onMouseLeave={e => e.currentTarget.style.background = notif.read ? "transparent" : "rgba(226,75,74,0.04)"}
+                                >
+                                    {/* avatar */}
+                                    <div style={{
+                                        width: 32, height: 32, borderRadius: "50%", flexShrink: 0,
+                                        background: `${notif.color}18`,
+                                        display: "flex", alignItems: "center", justifyContent: "center",
+                                        fontSize: 14, overflow: "hidden",
+                                    }}>
+                                        {notif.avatar?.startsWith("http")
+                                            ? <img src={notif.avatar} alt="" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                                            : notif.avatar
+                                        }
+                                    </div>
+                                    <div style={{ flex: 1, minWidth: 0 }}>
+                                        <p style={{ fontSize: 12, fontWeight: 600, color: "#1a1814", margin: "0 0 2px", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{notif.title}</p>
+                                        <p style={{ fontSize: 11, color: "#888", margin: "0 0 3px", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{notif.message}</p>
+                                        <p style={{ fontSize: 10, color: "#bbb", margin: 0 }}>{notif.time}</p>
+                                    </div>
+                                    {!notif.read && (
+                                        <span style={{ width: 6, height: 6, borderRadius: "50%", background: notif.color, flexShrink: 0, marginTop: 4 }} />
+                                    )}
+                                </div>
+                            ))}
+                        </div>
+
+                        {/* footer */}
+                        <div style={{ padding: "8px 10px", borderTop: "0.5px solid rgba(0,0,0,0.06)" }}>
+                            <button
+                                onClick={() => { navigate("/main/notifications"); setOpen(false); }}
+                                style={{
+                                    width: "100%", padding: "7px 0",
+                                    background: "rgba(255,255,255,0.5)", border: "0.5px solid rgba(0,0,0,0.07)",
+                                    borderRadius: 10, cursor: "pointer",
+                                    fontSize: 12, fontWeight: 500, color: "#555",
+                                    transition: "background 0.12s",
+                                }}
+                                onMouseEnter={e => e.currentTarget.style.background = "rgba(255,255,255,0.9)"}
+                                onMouseLeave={e => e.currentTarget.style.background = "rgba(255,255,255,0.5)"}
+                            >
+                                View all notifications
+                            </button>
+                        </div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
         </div>
-      </header>
-    </>
-  );
+    );
 };
 
-export default AuthenticatedHeader;
+// ─── User Menu ────────────────────────────────────────────────────────────────
+const UserMenu = ({ user }) => {
+    const [open, setOpen] = useState(false);
+    const ref = useRef(null);
+    const navigate = useNavigate();
+    const { logout } = useAuth();
+
+    useEffect(() => {
+        const handler = (e) => { if (ref.current && !ref.current.contains(e.target)) setOpen(false); };
+        document.addEventListener("mousedown", handler);
+        return () => document.removeEventListener("mousedown", handler);
+    }, []);
+
+    const handleNavigate = (path) => { navigate(path); setOpen(false); };
+    const handleLogout = () => { logout(); setTimeout(() => navigate("/"), 900); };
+
+    const initials = user?.name?.charAt(0).toUpperCase() || "U";
+
+    const quickActions = [
+        { label: "Profile", color: "#378ADD", bg: "rgba(55,138,221,0.1)", icon: <User size={13} color="#378ADD" />, path: `/main/user-profile/${user?._id}` },
+        { label: "Saved", color: "#BA7517", bg: "rgba(186,117,23,0.1)", icon: <Bookmark size={13} color="#BA7517" />, path: "/main/bookmarks" },
+        { label: "Settings", color: "#5F5E5A", bg: "rgba(95,94,90,0.1)", icon: <Settings size={13} color="#5F5E5A" />, path: "/main/settings" },
+    ];
+
+    return (
+        <div ref={ref} style={{ position: "relative" }}>
+            {/* trigger */}
+            <button
+                onClick={() => setOpen(!open)}
+                style={{
+                    display: "flex", alignItems: "center", gap: 8,
+                    background: open ? "rgba(255,255,255,0.85)" : "rgba(255,255,255,0.65)",
+                    border: "0.5px solid rgba(0,0,0,0.07)",
+                    borderRadius: 100,
+                    padding: "4px 10px 4px 4px",
+                    cursor: "pointer",
+                    transition: "background 0.15s",
+                }}
+                onMouseEnter={e => e.currentTarget.style.background = "rgba(255,255,255,0.9)"}
+                onMouseLeave={e => e.currentTarget.style.background = open ? "rgba(255,255,255,0.85)" : "rgba(255,255,255,0.65)"}
+            >
+                {/* avatar */}
+                <div style={{
+                    width: 28, height: 28, borderRadius: "50%",
+                    background: "linear-gradient(135deg, #378ADD 0%, #534AB7 100%)",
+                    display: "flex", alignItems: "center", justifyContent: "center",
+                    fontSize: 11, fontWeight: 600, color: "white", overflow: "hidden", flexShrink: 0,
+                }}>
+                    {user?.avatar
+                        ? <img src={user.avatar} alt="" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                        : initials
+                    }
+                </div>
+                <span style={{ fontSize: 13, fontWeight: 500, color: "#3d3a34", maxWidth: 80, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                    {user?.name?.split(" ")[0] || "User"}
+                </span>
+                <motion.div animate={{ rotate: open ? 180 : 0 }} transition={{ duration: 0.2 }}>
+                    <ChevronDown size={12} color="#888" />
+                </motion.div>
+            </button>
+
+            {/* dropdown */}
+            <AnimatePresence>
+                {open && (
+                    <motion.div
+                        initial={{ opacity: 0, y: 6, scale: 0.97 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        exit={{ opacity: 0, y: 6, scale: 0.97 }}
+                        transition={{ duration: 0.16, ease: [0.22, 1, 0.36, 1] }}
+                        style={{
+                            position: "absolute", top: 44, right: 0,
+                            width: 220,
+                            background: "rgba(242,238,231,0.97)",
+                            border: "0.5px solid rgba(0,0,0,0.08)",
+                            borderRadius: 16,
+                            boxShadow: "0 8px 32px rgba(0,0,0,0.10)",
+                            overflow: "hidden",
+                            zIndex: 100,
+                        }}
+                    >
+                        {/* user info */}
+                        <div  style={{ padding: "12px 14px", borderBottom: "0.5px solid rgba(0,0,0,0.06)", display: "flex", alignItems: "center", gap: 10 }}>
+                            <div style={{
+                                width: 36, height: 36, borderRadius: 10, flexShrink: 0,
+                                background: "linear-gradient(135deg, #378ADD, #534AB7)",
+                                display: "flex", alignItems: "center", justifyContent: "center",
+                                fontSize: 13, fontWeight: 600, color: "white", overflow: "hidden",
+                            }}>
+                                {user?.avatar
+                                    ? <img src={user.avatar} alt="" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                                    : initials
+                                }
+                            </div>
+                            <div style={{ minWidth: 0 }}>
+                                <p style={{ fontSize: 13, fontWeight: 600, color: "#1a1814", margin: 0, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", textTransform: "capitalize" }}>{user?.name}</p>
+                                <p style={{ fontSize: 11, color: "#999", margin: 0, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{user?.email}</p>
+                            </div>
+                        </div>
+
+                        {/* quick actions */}
+                        <div style={{ padding: 10, display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 6, borderBottom: "0.5px solid rgba(0,0,0,0.06)" }}>
+                            {quickActions.map((a, i) => (
+                                <motion.button
+                                    disabled={true}
+                                    key={a.label}
+                                    onClick={() => handleNavigate(a.path)}
+                                    initial={{ opacity: 0, y: 4 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ delay: i * 0.04 }}
+                                    whileHover={{ scale: 1.04 }}
+                                    whileTap={{ scale: 0.96 }}
+                                    style={{
+                                        background: a.bg, borderRadius: 10,
+                                        padding: "8px 4px",
+                                        display: "flex", flexDirection: "column", alignItems: "center", gap: 4,
+                                        border: "none", cursor: "pointer",
+                                    }}
+                                >
+                                    {a.icon}
+                                    <span style={{ fontSize: 10, fontWeight: 500, color: a.color }}>{a.label}</span>
+                                </motion.button>
+                            ))}
+                        </div>
+
+                        {/* sign out */}
+                        <div style={{ padding: 6 }}>
+                            <button
+                                onClick={handleLogout}
+                                style={{
+                                    width: "100%", display: "flex", alignItems: "center", gap: 8,
+                                    padding: "8px 10px", borderRadius: 10,
+                                    background: "transparent", border: "none",
+                                    color: "#A32D2D", fontSize: 12, fontWeight: 500, cursor: "pointer",
+                                    transition: "background 0.12s",
+                                }}
+                                onMouseEnter={e => e.currentTarget.style.background = "rgba(163,45,45,0.07)"}
+                                onMouseLeave={e => e.currentTarget.style.background = "transparent"}
+                            >
+                                <LogOut size={13} color="#A32D2D" />
+                                Sign out
+                            </button>
+                        </div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
+        </div>
+    );
+};
+
+// ─── Mobile Menu ──────────────────────────────────────────────────────────────
+const MobileMenu = ({ open, onClose, user }) => {
+    const navigate = useNavigate();
+    const { logout } = useAuth();
+
+    const handleNavigate = (path) => { navigate(path); onClose(); };
+    const handleLogout = () => { logout(); setTimeout(() => navigate("/"), 900); onClose(); };
+
+    const items = [
+        { label: "Create Event", icon: <Plus size={16} />, path: "/main/create-event", accent: true },
+        { label: "Notifications", icon: <Bell size={16} />, path: "/main/notifications" },
+        { label: "Bookmarks", icon: <Bookmark size={16} />, path: "/main/bookmarks" },
+        { label: "Profile", icon: <User size={16} />, path: `/main/user-profile/${user?._id}` },
+        { label: "Settings", icon: <Settings size={16} />, path: "/main/settings" },
+    ];
+
+    return (
+        <AnimatePresence>
+            {open && (
+                <>
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.3)", backdropFilter: "blur(3px)", zIndex: 60 }}
+                        onClick={onClose}
+                    />
+                    <motion.div
+                        initial={{ x: "100%" }}
+                        animate={{ x: 0 }}
+                        exit={{ x: "100%" }}
+                        transition={{ type: "spring", damping: 28, stiffness: 280 }}
+                        style={{
+                            position: "fixed", top: 0, right: 0, bottom: 0, width: 280,
+                            background: "rgba(242,238,231,0.98)",
+                            borderLeft: "0.5px solid rgba(0,0,0,0.08)",
+                            backdropFilter: "blur(20px)",
+                            zIndex: 70, overflowY: "auto",
+                        }}
+                    >
+                        <div style={{ padding: 20 }}>
+                            {/* close + user */}
+                            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 24, paddingBottom: 20, borderBottom: "0.5px solid rgba(0,0,0,0.07)" }}>
+                                <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                                    <div style={{
+                                        width: 40, height: 40, borderRadius: 12, flexShrink: 0,
+                                        background: "linear-gradient(135deg, #378ADD, #534AB7)",
+                                        display: "flex", alignItems: "center", justifyContent: "center",
+                                        fontSize: 14, fontWeight: 600, color: "white", overflow: "hidden",
+                                    }}>
+                                        {user?.avatar
+                                            ? <img src={user.avatar} alt="" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                                            : user?.name?.charAt(0).toUpperCase()
+                                        }
+                                    </div>
+                                    <div>
+                                        <p style={{ fontSize: 13, fontWeight: 600, color: "#1a1814", margin: 0, textTransform: "capitalize" }}>{user?.name}</p>
+                                        <p style={{ fontSize: 11, color: "#999", margin: 0 }}>{user?.email}</p>
+                                    </div>
+                                </div>
+                                <button
+                                    onClick={onClose}
+                                    style={{ width: 32, height: 32, borderRadius: "50%", background: "rgba(0,0,0,0.05)", border: "none", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center" }}
+                                >
+                                    <X size={14} color="#666" />
+                                </button>
+                            </div>
+
+                            {/* menu items */}
+                            <div style={{ display: "flex", flexDirection: "column", gap: 4, marginBottom: 20 }}>
+                                {items.map((item, i) => (
+                                    <motion.button
+                                        key={item.label}
+                                        initial={{ opacity: 0, x: 12 }}
+                                        animate={{ opacity: 1, x: 0 }}
+                                        transition={{ delay: i * 0.04 }}
+                                        onClick={() => handleNavigate(item.path)}
+                                        style={{
+                                            display: "flex", alignItems: "center", gap: 12,
+                                            padding: "11px 14px", borderRadius: 12,
+                                            background: item.accent ? "linear-gradient(135deg, #E24B4A, #c73b3a)" : "rgba(255,255,255,0.5)",
+                                            border: item.accent ? "none" : "0.5px solid rgba(0,0,0,0.06)",
+                                            color: item.accent ? "white" : "#3d3a34",
+                                            fontSize: 13, fontWeight: 500, cursor: "pointer",
+                                            width: "100%", textAlign: "left",
+                                        }}
+                                    >
+                                        {item.icon}
+                                        {item.label}
+                                    </motion.button>
+                                ))}
+                            </div>
+
+                            {/* sign out */}
+                            <button
+                                onClick={handleLogout}
+                                style={{
+                                    width: "100%", display: "flex", alignItems: "center", justifyContent: "center", gap: 8,
+                                    padding: "11px 14px", borderRadius: 12,
+                                    background: "transparent", border: "0.5px solid rgba(163,45,45,0.25)",
+                                    color: "#A32D2D", fontSize: 13, fontWeight: 500, cursor: "pointer",
+                                }}
+                            >
+                                <LogOut size={14} />
+                                Sign out
+                            </button>
+                        </div>
+                    </motion.div>
+                </>
+            )}
+        </AnimatePresence>
+    );
+};
+
+
+
+export default function AuthenticatedHeader({isSplitView = false }) {
+  const navigate = useNavigate();
+  const [scrolled, setScrolled] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const { user } = useAuth();
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 8);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+ 
+
+  const Controls = () => (
+    <div className="flex items-center gap-2">
+      <div className="hidden md:block">
+        <NotificationBell />
+      </div>
+      <div className="hidden md:block">
+        <UserMenu user={user} />
+      </div>
+      <button
+        className="md:hidden flex items-center justify-center w-9 h-9 rounded-full bg-white/65 border border-black/10 cursor-pointer"
+        onClick={() => setMobileOpen(true)}
+      >
+        <Menu size={15} className="text-[#3d3a34]" />
+      </button>
+    </div>
+  );
+
+  const CreateButton = ({ className = "" }) => (
+    <motion.button
+      whileHover={{ scale: 1.04 }}
+      whileTap={{ scale: 0.96 }}
+      onClick={() => navigate("/main/create-event")}
+      className={`hidden md:flex pointer-events-auto items-center justify-center w-[42px] h-[42px] rounded-full cursor-pointer flex-shrink-0 bg-[#E24B4A] hover:bg-[#d03f3e] transition-colors duration-200 ${className}`}
+    >
+      <Plus size={16} className="text-white" strokeWidth={2.5} />
+    </motion.button>
+  );
+
+  if (!isSplitView) {
+    return (
+      <>
+        <motion.header
+          key="split"
+          initial={{ opacity: 0, y: -8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+          className="relative top-0 w-full bg-white border-b border-gray-200 z-50 flex-shrink-0"
+        >
+          <div className="flex items-center justify-between px-5 h-[60px]">
+            {/* Logo */}
+            <Link
+              to="/main/all-events"
+              className="flex items-center gap-2 no-underline"
+            >
+              <Logo/>
+            </Link>
+
+            {/* Controls */}
+            <div className="flex items-center gap-3">
+              {/* <div aria-disabled className="hidden md:block">
+                <NotificationBell />
+              </div> */}
+              <div className="hidden md:block">
+                <UserMenu user={user} />
+              </div>
+              {/* <motion.button
+                whileHover={{ scale: 1.04 }}
+                whileTap={{ scale: 0.96 }}
+                onClick={() => navigate("/main/create-event")}
+                className="hidden md:flex items-center justify-center w-[38px] h-[38px] rounded-full bg-[#E24B4A] hover:bg-[#d03f3e] transition-colors cursor-pointer flex-shrink-0"
+              >
+                <Plus size={15} className="text-white" strokeWidth={2.5} />
+              </motion.button> */}
+              {/* <button
+                
+                className="md:hidden flex items-center justify-center w-9 h-9 rounded-full bg-gray-100 border border-black/10 cursor-pointer"
+                onClick={() => setMobileOpen(true)}
+              >
+                <Menu size={15} className="text-[#3d3a34]" />
+              </button> */}
+            </div>
+          </div>
+        </motion.header>
+
+        <MobileMenu
+          open={mobileOpen}
+          onClose={() => setMobileOpen(false)}
+          user={user}
+        />
+      </>
+    );
+  }
+
+   return (
+     <>
+      <header className="fixed pointer-events-none z-50 top-0 left-0 right-0 pt-3 px-4">
+        {/* max-w-3xl removed — now truly full width */}
+        <motion.div
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+          className="flex items-center gap-2 w-full"
+        >
+          {/* Main pill — full width */}
+          <div
+            className={`pointer-events-auto flex items-center justify-between px-3 pl-4 py-2 flex-1 rounded-[18px] border border-white/75 backdrop-blur-xl transition-all duration-300 ${
+              scrolled
+                ? "bg-[#f2eee7]/95 shadow-[0_4px_24px_rgba(0,0,0,0.09),inset_0_1px_0_rgba(255,255,255,0.8)]"
+                : "bg-[#f2eee7]/85 shadow-[0_2px_12px_rgba(0,0,0,0.06),inset_0_1px_0_rgba(255,255,255,0.8)]"
+            }`}
+          >
+            {/* Logo */}
+            <Link
+              to="/main/all-events"
+              className="flex items-center gap-2 no-underline"
+            >
+              <motion.div
+                whileHover={{ scale: 1.1, rotate: -8 }}
+                transition={{ type: "spring", stiffness: 400, damping: 20 }}
+              >
+                <svg width="22" height="26" viewBox="0 0 22 26" fill="none">
+                  <path
+                    d="M11 0C5.477 0 1 4.477 1 10c0 7.5 10 16 10 16S21 17.5 21 10c0-5.523-4.477-10-10-10z"
+                    fill="#E24B4A"
+                  />
+                  <circle cx="11" cy="10" r="3.5" fill="white" />
+                </svg>
+              </motion.div>
+              <span className="text-[15px] font-semibold text-[#1a1814] tracking-[-0.03em]">
+                Grupio
+              </span>
+            </Link>
+ 
+            {/* Controls */}
+            <div className="flex items-center gap-2">
+              <div className="hidden md:block">
+                <NotificationBell />
+              </div>
+              <div className="hidden md:block">
+                <UserMenu user={user} />
+              </div>
+              <button
+                className="md:hidden flex items-center justify-center w-9 h-9 rounded-full bg-white/65 border border-black/10 cursor-pointer"
+                onClick={() => setMobileOpen(true)}
+              >
+                <Menu size={15} className="text-[#3d3a34]" />
+              </button>
+            </div>
+          </div>
+ 
+          {/* Create button — separate pill, desktop only */}
+          <motion.button
+            whileHover={{ scale: 1.04 }}
+            whileTap={{ scale: 0.96 }}
+            onClick={() => navigate("/main/create-event")}
+            className="hidden md:flex pointer-events-auto items-center justify-center w-[49.9px] h-[49.9px] rounded-[18px] cursor-pointer flex-shrink-0 border border-white/75 backdrop-blur-xl transition-all duration-300"
+            style={{
+              background: scrolled
+                ? "rgba(242,238,231,0.95)"
+                : "rgba(242,238,231,0.85)",
+              boxShadow: scrolled
+                ? "0 4px 24px rgba(0,0,0,0.09), inset 0 1px 0 rgba(255,255,255,0.8)"
+                : "0 2px 12px rgba(0,0,0,0.06), inset 0 1px 0 rgba(255,255,255,0.8)",
+            }}
+          >
+            <div className="w-6 h-6 rounded-full bg-[#E24B4A] flex items-center justify-center flex-shrink-0">
+              <Plus size={12} className="text-white" strokeWidth={2.5} />
+            </div>
+          </motion.button>
+        </motion.div>
+      </header>
+ 
+      <MobileMenu
+        open={mobileOpen}
+        onClose={() => setMobileOpen(false)}
+        user={user}
+      />
+    </>
+   )
+}

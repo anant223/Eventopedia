@@ -154,7 +154,6 @@ const MapFilters = ({ events, user, onFilterChange }) => {
                   gap: 4,
                   padding: "5px 11px",
                   borderRadius: 100,
-                  border: "none",
                   cursor: "pointer",
                   fontSize: 11,
                   fontWeight: isActive ? 600 : 500,

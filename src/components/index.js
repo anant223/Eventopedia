@@ -9,15 +9,12 @@ import RecentEvent from "./Dashboard/RecentEvent";
 import Card from "./Card/Card";
 import UserProfile from "./user-profile/UserProfile";
 import Tag from "./Tags/Tag";
-import UploadAvatar from "./Avatar/UploadAvatar";
 import Share from "./event-button/ButtonShare";
 import Like from "./event-button/ButtonLike";
 import Bolb from "./Card/Blob";
-import PublicHeader from "./headers/PublicHeader";
-import AuthenticatedHeader from "./headers/AuthenticatedHeader";
 import EventInfo from "./event-detail/EventInfo";
 import UserProfileFrom from "./user-profile/UserProfileFrom";
-
+import Profile from "./user-profile/UserProfile";
 export {
   Logo,
   HeroSection,
@@ -30,12 +27,10 @@ export {
   Card,
   UserProfile,
   Tag,
-  UploadAvatar,
   Share,
   Like,
   Bolb,
-  PublicHeader,
-  AuthenticatedHeader,
   EventInfo,
-  UserProfileFrom
+  UserProfileFrom,
+  Profile
 };

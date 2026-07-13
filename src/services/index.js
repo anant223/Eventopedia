@@ -1,24 +1,24 @@
-// import LikeService from "./like.service";
-// import RegisterService from "./register.service";
+import LikeService from "./like.service";
+import RegisterService from "./register.service";
 import UserService from "./user.service";
-// import PaymentService from "./payment.service";
+import PaymentService from "./payment.service";
 import EventService from "./event.service"
 import ApiService from "./api.service";
 import  OtherService  from "./other.service";
 import LocationService from "./location.service";
-// import BookingService from "./booking.service";
-// import CategoryService from "./category.service";
+import BookingService from "./booking.service";
+import CategoryService from "./category.service";
 
 
 export {
-    // LikeService,
-    // RegisterService,
+    LikeService,
+    RegisterService,
     UserService,
-    // PaymentService,
+    PaymentService,
     EventService,
     ApiService,
     OtherService,
     LocationService,
-    // BookingService,
-    // CategoryService
+    BookingService,
+    CategoryService
 }
