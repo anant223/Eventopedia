@@ -1,18 +1,31 @@
-import React from "react";
-import { Outlet } from "react-router-dom";
-import { AuthenticatedHeader } from "../components/index.js";
-import ProtectedRoute from "@/Routes/ProtectedRoute.jsx";
+import React, { useState } from "react";
+import { Outlet, useNavigate, useLocation } from "react-router-dom";
+import { AuthenticatedHeader } from "@/components/headers";
+import { Footer } from "@/components";
+
+
+
 
 const MainLayout = () => {
+  const [activeNav, setActiveNav] = useState("home");
+  const navigate = useNavigate()
+  const location = useLocation()
+
+  const handleNavClick = ({route, nav}) => {
+    setActiveNav(nav)
+    navigate(route)
+  }
+
+   const hideOn = ["/main/create-event", "/onboarding", "/login"];
+   const shouldShow = !hideOn.some((path) => location.pathname.includes(path));
+
   return (
-    <ProtectedRoute>
-      <div className="min-h-screen flex flex-col bg-background w-full">
-        <AuthenticatedHeader />
-        <main className="flex-1">
-          <Outlet />
-        </main>
-      </div>
-    </ProtectedRoute>
+    <div className="h-screen flex flex-col font-roboto bg-[#f0ede6]">
+      <AuthenticatedHeader />
+      <main className="flex-1 overflow-hidden relative">
+        <Outlet />
+      </main>
+    </div>
   );
 };
 
