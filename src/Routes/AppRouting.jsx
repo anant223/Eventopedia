@@ -4,7 +4,7 @@ import MainLayout from "../Layouts/MainLayout";
 import AuthLayout from "../Layouts/AuthLayout";
 import ProtectedRoute from "./ProtectedRoute";
 import PublicRoute  from "./PublicRoute";
-import OnBoardingRoute from "./onBoardingRoute";
+import OnBoardingRoute from "./OnBoardingRoute";
 
 
 
@@ -20,7 +20,7 @@ const OnBoarding = lazy(() => import("@/pages/Welcome"));
 const Notification = lazy(() => import("@/pages/Notification"));
 const Settings = lazy(() => import("../pages/Settings"));
 const Verify = lazy(() => import("../pages/Verifying"));
-const ForgetPassword = lazy(() => import("../pages/forgetPassword"))
+const ForgetPassword = lazy(() => import("../pages/ForgetPassword"))
 const ResetPassword = lazy(() => import("../pages/ResetPassword"))
 const AppRouting = createBrowserRouter([
   {
@@ -79,34 +79,34 @@ const AppRouting = createBrowserRouter([
         path: "all-events",
         element: <Events />,
       },
-      {
-        path: "notifications",
-        element: <Notification />,
-      },
-      {
-        path: "user-profile/:id",
-        element: <Profile />,
-      },
-      {
-        path: "create-event",
-        element: <EventFrom />,
-      },
-      {
-        path: "event-detail/:id",
-        element: <EventDetail />,
-      },
-      {
-        path: "checkout",
-        element: <Checkout />,
-      },
-      {
-        path: "payment-success",
-        element: <PaymentSuccess />,
-      },
-      {
-        path: "settings",
-        element: <Settings />,
-      },
+      // {
+      //   path: "notifications",
+      //   element: <Notification />,
+      // },
+      // {
+      //   path: "user-profile/:id",
+      //   element: <Profile />,
+      // },
+      // {
+      //   path: "create-event",
+      //   element: <EventFrom />,
+      // },
+      // {
+      //   path: "event-detail/:id",
+      //   element: <EventDetail />,
+      // },
+      // {
+      //   path: "checkout",
+      //   element: <Checkout />,
+      // },
+      // {
+      //   path: "payment-success",
+      //   element: <PaymentSuccess />,
+      // },
+      // {
+      //   path: "settings",
+      //   element: <Settings />,
+      // },
     ],
   },
   {
