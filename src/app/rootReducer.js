@@ -13,11 +13,11 @@ import otherReducer from "@/app/slices/otherSlice";
 const rootReducer = combineReducers({
   auth: authReducer,
   event: eventsReducer,
-  likes: likesReducer,
-  registration: registrationReducer,
-  notifications: notificationReducer,
-  category: categoryReducer,
-  payment: paymentReducer,
+  // likes: likesReducer,
+  // registration: registrationReducer,
+  // notifications: notificationReducer,
+  // category: categoryReducer,
+  // payment: paymentReducer,
   waitlist: waitlistReducer,
   others: otherReducer
 });
