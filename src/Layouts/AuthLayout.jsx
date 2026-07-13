@@ -1,20 +1,18 @@
 import React from "react";
 import {Outlet } from "react-router-dom";
-import { Footer, PublicHeader } from "../components";
-import { PublicRoute } from "@/Routes/PublicRoute";
+import { Footer} from "../components";
+import { PublicHeader } from "@/components/headers";
 
-const AuthLayout = () => {
+const PublicLayout = () => {
   return (
-    <PublicRoute>
-      <div className="min-h-screen flex flex-col w-full">
-        <PublicHeader />
-        <main className="flex-1">
-          <Outlet />
-        </main>
-        <Footer />
-      </div>
-    </PublicRoute>
+    <div className="min-h-screen bg-[#f0ede6] flex flex-col overflow-hidden">
+      <PublicHeader />
+      <main className="flex-1">
+        <Outlet />
+      </main>
+      <Footer />
+    </div>
   );
 };
 
-export default AuthLayout;
+export default PublicLayout;
