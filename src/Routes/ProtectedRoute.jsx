@@ -1,18 +1,23 @@
-import { selectIsAuthenticated } from '@/app/selector/authSelector'
 import { LoadingSpinner } from '@/components/common'
 import useAuth from '@/hooks/useAuth'
 import React from 'react'
-import { useSelector } from 'react-redux'
-import { Navigate } from 'react-router-dom'
+import { Navigate, useLocation } from 'react-router-dom'
 
 const ProtectedRoute = ({children}) => {
-    const {loading} = useAuth()
-    const isAuthenticated = useSelector(selectIsAuthenticated)
+    const {loading, isAuthenticated, user} = useAuth();
+    const location = useLocation();
+
+
+    if (loading) return <LoadingSpinner/>
+
     if(!isAuthenticated){
         return <Navigate to={"/auth?type=login"} replace/>
     }
-
-    return loading ? <LoadingSpinner/> : children
+ 
+     if (!user.onboardingCompleted && location.pathname !== "/onboarding") {
+       return <Navigate to="/onboarding" replace />;
+     }
+    return children
 }
 
 export default ProtectedRoute

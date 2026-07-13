@@ -2,23 +2,34 @@ import React, {lazy} from "react";
 import { createBrowserRouter, Navigate } from "react-router-dom"
 import MainLayout from "../Layouts/MainLayout";
 import AuthLayout from "../Layouts/AuthLayout";
-import { PublicRoute } from "./PublicRoute";
 import ProtectedRoute from "./ProtectedRoute";
+import PublicRoute  from "./PublicRoute";
+import OnBoardingRoute from "./onBoardingRoute";
+
+
 
 const Home = lazy(() => import( "../pages/Home"));
 const Auth = lazy(() => import("../pages/Auth"));
-const Profile = lazy(() => import("../pages/Dashboard"));
-const Hosters = lazy(() => import("../pages/Hosters"));
+const Profile = lazy(() => import("../pages/Profile"));
 const EventFrom = lazy(() => import("../pages/EventFrom"));
 const Events = lazy(() => import("../pages/Events"));
-const EditProfile = lazy(() => import("../pages/EditProfile"));
-const VideoCall = lazy(() => import("../pages/VideoCall"));
 const EventDetail = lazy(() => import("../pages/EventDetail"));
-
+const Checkout = lazy(() => import("../pages/Checkout"))
+const PaymentSuccess = lazy(() => import("../pages/paymentSuccess"))
+const OnBoarding = lazy(() => import("@/pages/Welcome"));
+const Notification = lazy(() => import("@/pages/Notification"));
+const Settings = lazy(() => import("../pages/Settings"));
+const Verify = lazy(() => import("../pages/Verifying"));
+const ForgetPassword = lazy(() => import("../pages/forgetPassword"))
+const ResetPassword = lazy(() => import("../pages/ResetPassword"))
 const AppRouting = createBrowserRouter([
   {
     path: "/",
-    element: <AuthLayout />,
+    element: (
+      <PublicRoute>
+        <AuthLayout />
+      </PublicRoute>
+    ),
     children: [
       {
         path: "",
@@ -28,13 +39,35 @@ const AppRouting = createBrowserRouter([
         path: "auth",
         element: <Auth />,
       },
+      {
+        path: "forgetPassword",
+        element: <ForgetPassword />,
+      },
+      {
+        path: "reset-password",
+        element: <ResetPassword/>,
+      },
     ],
+  },
+  {
+    path: "verifying-request",
+    element: <Verify />,
+  },
+  {
+    path: "/onboarding",
+    element: (
+      <ProtectedRoute>
+        <OnBoarding />
+      </ProtectedRoute>
+    ),
   },
   {
     path: "/main",
     element: (
       <ProtectedRoute>
-        <MainLayout />
+        <OnBoardingRoute>
+          <MainLayout />
+        </OnBoardingRoute>
       </ProtectedRoute>
     ),
     children: [
@@ -47,26 +80,38 @@ const AppRouting = createBrowserRouter([
         element: <Events />,
       },
       {
-        path: "one-o-one",
-        element: <VideoCall />,
+        path: "notifications",
+        element: <Notification />,
       },
       {
-        path: "user-profile",
+        path: "user-profile/:id",
         element: <Profile />,
-      },
-      {
-        path: "all-orgnizers",
-        element: <Hosters />,
       },
       {
         path: "create-event",
         element: <EventFrom />,
       },
       {
-        path: `event-detail/:id`,
+        path: "event-detail/:id",
         element: <EventDetail />,
       },
+      {
+        path: "checkout",
+        element: <Checkout />,
+      },
+      {
+        path: "payment-success",
+        element: <PaymentSuccess />,
+      },
+      {
+        path: "settings",
+        element: <Settings />,
+      },
     ],
+  },
+  {
+    path: "*",
+    element: <Navigate to="/" replace />,
   },
 ]);
 export default AppRouting;
