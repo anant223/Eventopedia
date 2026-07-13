@@ -1,4 +1,4 @@
-import { EventService } from "@/services";
+import { EventService } from "@/services/index";
 import { createAsyncThunk} from "@reduxjs/toolkit";
 
 const eventService = new EventService();
