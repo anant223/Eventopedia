@@ -7,11 +7,9 @@ import React from 'react';
 const Welcome = () => {
     const {onBoardingCompletion} = useAuth()
     return (
-      <div className="w-full min-h-screen">
-        <BodyContainer>
-          <Onboarding createOnboarding={onBoardingCompletion} />
-        </BodyContainer>
-      </div>
+      <BodyContainer>
+        <Onboarding createOnboarding={onBoardingCompletion} />
+      </BodyContainer>
     );
 }
 
