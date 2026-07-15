@@ -21,7 +21,7 @@ import {
   signup,
   updateProfile,
   updatingPreferences,
-  onBoardingComplete,
+  onboardingComplete,
   notificationPreferences,
   fetchHistory,
   resetPassword,
@@ -99,9 +99,9 @@ export const useAuth = () => {
     [dispatch]
   );
 
-  const onBoardingCompletion = useCallback(
+  const onboardingCompletion = useCallback(
     (data) => {
-      return dispatch(onBoardingComplete(data)).unwrap();
+      return dispatch(onboardingComplete(data)).unwrap();
     },
     [dispatch]
   );
@@ -154,7 +154,7 @@ export const useAuth = () => {
 
   return {
     changePassword,
-    onBoardingCompletion,
+    onboardingCompletion,
     updateUserCategory,
     loading,
     initialized,

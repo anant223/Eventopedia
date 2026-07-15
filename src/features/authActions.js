@@ -115,7 +115,7 @@ export const fetchHistory = createAsyncThunk(
   }
 );
 
-export const onBoardingComplete = createAsyncThunk(
+export const onboardingComplete = createAsyncThunk(
   "user/onboarding",
   async (data, { rejectWithValue }) => {
     try {

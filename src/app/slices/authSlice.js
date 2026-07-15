@@ -5,7 +5,7 @@ import {
   logout,
   updateProfile,
   fetchHistory,
-  onBoardingComplete,
+  onboardingComplete,
   updatingPreferences,
   notificationPreferences,
   changeEmail,
@@ -157,10 +157,10 @@ const authSlice = createSlice({
         state.isUserEventsLoading = false;
         state.errors.fetchHistory = action.payload;
       })
-      .addCase(onBoardingComplete.pending, (state) => {
+      .addCase(onboardingComplete.pending, (state) => {
         state.errors.onboarding = null;
       })
-      .addCase(onBoardingComplete.fulfilled, (state, action) => {
+      .addCase(onboardingComplete.fulfilled, (state, action) => {
         if (!state.user) return;
 
         const {
@@ -184,7 +184,7 @@ const authSlice = createSlice({
 
         state.errors.onboarding = null;
       })
-      .addCase(onBoardingComplete.rejected, (state, action) => {
+      .addCase(onboardingComplete.rejected, (state, action) => {
         state.errors.onboarding = action.payload;
       })
       .addCase(notificationPreferences.pending, (state) => {
@@ -244,8 +244,8 @@ const authSlice = createSlice({
         state.errors.location = null;
       })
       .addCase(updateLocation.fulfilled, (state, action) => {
-        const {location} = action.payload;
-        if(location){
+        const { location } = action.payload;
+        if (location) {
           state.user.location = {
             city: location.city,
             country: location.country,
