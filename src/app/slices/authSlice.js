@@ -176,9 +176,9 @@ const authSlice = createSlice({
 
         if (location) {
           state.user.location = {
-            ...state.user.location,
             city: location.city,
             country: location.country,
+            coordinates: location.coordinates,
           };
         }
 

@@ -39,9 +39,8 @@ export const useMapInstance = ({ coordinates, onBoundsChange }) => {
       mapRef.current.addControl(new mapboxgl.NavigationControl(), "top-right");
       
       mapRef.current.on("load", () => {
-        setIsMapReady(true)
-        
-         mapRef.current.on("moveend", () => {
+        setIsMapReady(true);
+        mapRef.current.on("moveend", () => {
            if (isFirstMoveRef.current) {
              isFirstMoveRef.current = false;
              return;

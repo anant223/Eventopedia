@@ -1,24 +1,35 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import LocationService from '@/services/location.service';
 
 const locationService = new LocationService();
 
-const useLocationSearch = ({location}) => {
+const useLocationSearch = ({locationQuery}) => {
   const [recommendations,setRecommendations] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [err, setErr] = useState(null);
+
+  const lastQueryRef = useRef();
+
+
   
   useEffect(() => {
-    if (!location || location.length < 2) {
+    if (!locationQuery || locationQuery.length < 2) {
       setRecommendations([]);
+      setIsLoading(false);
       return;
     }
+
+    if(lastQueryRef.current === locationQuery.trim()) return;
+    
+    lastQueryRef.current = locationQuery.trim();
+    
+
     let isActive = true;
     const timer =  setTimeout(async () => {
       setIsLoading(true);
       setErr(null);
       try {
-        const res = await locationService.fetchPlaces(location);
+        const res = await locationService.fetchPlaces(locationQuery);
         if(!isActive) return;
         setRecommendations(res);
       } catch (error) {
@@ -35,10 +46,10 @@ const useLocationSearch = ({location}) => {
       isActive = false;
       clearTimeout(timer);
     };
-  }, [location]);
+  }, [locationQuery]);
 
 
-  return {recommendations, isLoading, err}
+  return {recommendations, isLoading, err, lastQueryRef}
 };
 
 export default useLocationSearch;

@@ -4,7 +4,7 @@ import eventsReducer from "@/app/slices/eventsSlice.js";
 // import likesReducer from "@/app/slices/likeSlice.js";
 // import registrationReducer from "@/app/slices/registerSlice";
 // import notificationReducer from "@/app/slices/notificationSlice";
-// import categoryReducer from "@/app/slices/categorySlice";
+import categoryReducer from "@/app/slices/categorySlice";
 // import paymentReducer from "@/app/slices/paymentSlice";
 import waitlistReducer from "@/app/slices/waitlistSlice";
 import otherReducer from "@/app/slices/otherSlice";
@@ -16,7 +16,7 @@ const rootReducer = combineReducers({
   // likes: likesReducer,
   // registration: registrationReducer,
   // notifications: notificationReducer,
-  // category: categoryReducer,
+  category: categoryReducer,
   // payment: paymentReducer,
   waitlist: waitlistReducer,
   others: otherReducer

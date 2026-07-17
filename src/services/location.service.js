@@ -10,7 +10,12 @@ const mapboxClient = axios.create({
 export default class LocationService extends ApiService {
     fetchPlaces = async (query) => {
       try {
-          if (!query || query.trim().length < 2) {
+          if (!MAPBOX_TOKEN) {
+            throw new Error("Mapbox token is not configured");
+          }
+
+          const trimmedQuery = query?.trim();
+          if (!trimmedQuery || trimmedQuery.length < 2) {
             return [];
           }
 

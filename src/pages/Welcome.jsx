@@ -1,16 +1,6 @@
-import { BodyContainer } from '@/components/containers/Container';
-import Onboarding from '@/components/onBoarding/OnBoarding';
-import useAuth from '@/hooks/useAuth';
-import React from 'react';
-
+import OnboardingSuccess from '@/onboard/OnboardingSuccess';
 
 const Welcome = () => {
-    const {onBoardingCompletion} = useAuth()
-    return (
-      <BodyContainer>
-        <Onboarding createOnboarding={onBoardingCompletion} />
-      </BodyContainer>
-    );
+  return <OnboardingSuccess/>
 }
-
 export default Welcome;
