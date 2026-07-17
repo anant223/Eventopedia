@@ -2,9 +2,8 @@ import React, {lazy} from "react";
 import { createBrowserRouter, Navigate } from "react-router-dom"
 import MainLayout from "../Layouts/MainLayout";
 import AuthLayout from "../Layouts/AuthLayout";
-import ProtectedRoute from "./ProtectedRoute";
 import PublicRoute  from "./PublicRoute";
-import OnBoardingRoute from "./OnBoardingRoute";
+import MainRoute from "./MainRoute";
 
 
 
@@ -16,12 +15,13 @@ const Events = lazy(() => import("../pages/Events"));
 // const EventDetail = lazy(() => import("../pages/EventDetail"));
 // const Checkout = lazy(() => import("../pages/Checkout"))
 // const PaymentSuccess = lazy(() => import("../pages/paymentSuccess"))
-const OnBoarding = lazy(() => import("@/pages/Welcome"));
+const OnBoarding = lazy(() => import("@/pages/OnBoarding"));
 // const Notification = lazy(() => import("@/pages/Notification"));
 // const Settings = lazy(() => import("../pages/Settings"));
 // const Verify = lazy(() => import("../pages/Verifying"));
 const ForgetPassword = lazy(() => import("../pages/ForgetPassword"))
 const ResetPassword = lazy(() => import("../pages/ResetPassword"))
+const Welcome = lazy(() => import("../pages/Welcome"))
 const AppRouting = createBrowserRouter([
   {
     path: "/",
@@ -45,7 +45,7 @@ const AppRouting = createBrowserRouter([
       },
       {
         path: "reset-password",
-        element: <ResetPassword/>,
+        element: <ResetPassword />,
       },
     ],
   },
@@ -55,20 +55,18 @@ const AppRouting = createBrowserRouter([
   // },
   {
     path: "/onboarding",
-    element: (
-      <ProtectedRoute>
-        <OnBoarding />
-      </ProtectedRoute>
-    ),
+    element: <OnBoarding />,
+  },
+  {
+    path: "/🎉",
+    element: <Welcome/>,
   },
   {
     path: "/main",
     element: (
-      <ProtectedRoute>
-        <OnBoardingRoute>
-          <MainLayout />
-        </OnBoardingRoute>
-      </ProtectedRoute>
+      <MainRoute>
+        <MainLayout />
+      </MainRoute>
     ),
     children: [
       {
