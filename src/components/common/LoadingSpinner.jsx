@@ -1,7 +1,7 @@
 export default function CenteredSpinner() {
   return (
     <div
-      className="flex items-center justify-center absolute inset-0 z-40 bg-background"
+      className="flex items-center justify-center absolute inset-0 z-40 bg-[#f0ede6]"
       aria-disabled
     >
       <style>{`
