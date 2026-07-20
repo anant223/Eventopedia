@@ -39,7 +39,7 @@ const SignupForm = ({
             className="flex-1"
           />
           <SocialBtn
-            disabled={isLoading}
+            disabled={true}
             icon={PASS_KEY_ICON}
             label="Passkey"
             onClick={onPasskeyLogin}

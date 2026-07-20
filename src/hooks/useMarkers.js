@@ -1,99 +1,218 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import mapboxgl from "mapbox-gl";
 import { DEFAULT_ZOOM, MAX_BOUNDS_ZOOM } from "@/utils/map";
 import EventMapCard from "@/components/eventMap/MarkerCard";
 import { groupEventsByLocation } from "@/utils/groupEventsByLocation";
 import { fitMapBounds } from "@/utils/fitMapBounds";
+import { categories } from "@/utils/constant";
+import useCategory from "./useCategory";
+
+// How close two markers can be (in px) before we consider them "colliding"
+const COLLISION_THRESHOLD_PX = 34;
+// How far apart to nudge colliding markers (in px)
+const OFFSET_PX = 16;
+const DEFAULT_ICON = "📍";
+const DEFAULT_COLOR = "#D85A30";
+
+const buildCategoryLookups = (categories) => {
+  const iconBySlug = {};
+  const colorBySlug = {};
+  categories?.forEach((category) => {
+    iconBySlug[category.slug] = category.emoji || DEFAULT_ICON;
+    colorBySlug[category.slug] = category.color || DEFAULT_COLOR;
+  });
+  console.log("icon", iconBySlug)
+  console.log("color", colorBySlug)
+  return { iconBySlug, colorBySlug };
+};
+
+const getCategoryColor = (eventCategory, color) => {
+  const category = eventCategory.toLowerCase()
+  return color[category] || DEFAULT_ICON
+}
+const getCategoryIcon = (eventCategory, icon) => {
+  const category = eventCategory.toLowerCase()
+  return icon[category] || DEFAULT_COLOR
+}
 
 export const useEventsMarkers = ({ mapRef, events, isMapReady, onMarkerClick }) => {
-    const markerRef = useRef(new Map());
-    const hasFitBoundRef = useRef(false);    
-   
-    useEffect(() => {
+  const markerRef = useRef(new Map());
+  const groupRef = useRef(new Map());
+  const hasFitBoundRef = useRef(false);
+  const { categories } = useCategory();
+  const categoryLookups = useMemo(
+    () => buildCategoryLookups(categories),
+    [categories]
+  );
 
-      if(!mapRef.current || !isMapReady) return;
+  useEffect(() => {
+    if (!mapRef.current || !isMapReady) return;
 
-      const locationGroups = groupEventsByLocation(events)
-      const incomingIds = new Set();
+    const locationGroups = groupEventsByLocation(events);
+    groupRef.current = locationGroups;
+    const incomingIds = new Set();
 
-      locationGroups?.forEach((group, key) => {
-        incomingIds.add(key);
+    locationGroups?.forEach((group, key) => {
+      incomingIds.add(key);
 
-        const existing = markerRef.current.get(key);
+      const existing = markerRef.current.get(key);
 
-        if (existing) {
-          existing.setLngLat([group.lng, group.lat]);
-          return;
-        }
-
-        const el = document.createElement("div");
-        el.className = "event-marker";
-
-        const marker = new mapboxgl.Marker({ element: el, anchor: "bottom" })
-          .setLngLat([group.lng, group.lat])
-          .addTo(mapRef.current);
-
-        if (group.count === 1) {
-          const popup = new mapboxgl.Popup({ offset: 25 }).setHTML(`
-        <div style="padding: 4px;">
-          <p style="font-weight:600; font-size:13px; margin:0 0 4px;">${group.events[0].title}</p>
-          <p style="font-size:11px; color:#888; margin:0 0 8px;">${new Date(
-            group.events[0].startDateTime
-          ).toLocaleDateString(undefined, {
-            weekday: "short",
-            month: "short",
-            day: "numeric",
-            hour: "numeric",
-            minute: "2-digit",
-          })}</p>
-          <p style="font-size:11px; color:#666; margin:0;">${group.venueName}</p>
-        </div>
-      `);
-
-          marker.setPopup(popup);
-          el.addEventListener("click", () => marker.togglePopup());
-          
-        }else{
-          el.innerHTML = `<span class="marker-count">${group.count > 9 ? "9+" : group.count}</span>`;
-          el.addEventListener("click", (e) => {
-            e.stopPropagation();
-            onMarkerClick?.({
-              events: group.events,
-              coordinates: [group.lng, group.lat],
-            });
-          });
-        }
-
-        markerRef.current.set(key, marker);
-      });
-
-      for(const [key, marker] of markerRef.current.entries()){
-
-          if(!incomingIds.has(key)){
-            marker.remove();
-            markerRef.current.delete(key)
-          }
+      if (existing && typeof existing.marker?.setLngLat === "function") {
+        existing.marker.setLngLat([group.lng, group.lat]);
+        existing.group = group;
+        return;
       }
-       
-    },[events, mapRef, isMapReady])
 
-    useEffect(() => {
-      if(!mapRef.current || !isMapReady || events.length === 0) return;
-      
-      if (hasFitBoundRef.current) return;
+      const el = document.createElement("div");
+      el.className = "event-marker";
 
-      fitMapBounds({map: mapRef.current, events})
-      hasFitBoundRef.current = true
-      
-    },[events, isMapReady])
+      const marker = new mapboxgl.Marker({ element: el, anchor: "bottom" })
+        .setLngLat([group.lng, group.lat])
+        .addTo(mapRef.current);
 
-    useEffect(() => {
-        return () => {
-            markerRef.current.forEach((marker) => marker.remove());
-            markerRef.current.clear();
+      if (group.count === 1) {
+        el.classList.add("event-marker--single");
+
+        const event = group.events[0];
+        const icon = getCategoryIcon(
+          event.category[0],
+          categoryLookups.iconBySlug
+        );
+        const color = getCategoryColor(
+          event.category[0],
+          categoryLookups.colorBySlug
+        );
+        el.style.background = color;
+        el.innerHTML = `<span class="marker-emoji">${icon}</span>`;
+
+        const popup = new mapboxgl.Popup({ offset: 25 }).setHTML(`
+              <div style="padding: 4px;">
+              <p style="font-weight:600; font-size:13px; margin:0 0 4px;">${group.events[0].title}</p>
+              <p style="font-size:11px; color:#888; margin:0 0 8px;">${new Date(
+                group.events[0].startDateTime
+              ).toLocaleDateString(undefined, {
+                weekday: "short",
+                month: "short",
+                day: "numeric",
+                hour: "numeric",
+                minute: "2-digit",
+              })}</p>
+              <p style="font-size:11px; color:#666; margin:0;">${group.venueName}</p>
+            </div>
+          `);
+
+        marker.setPopup(popup);
+        el.addEventListener("click", () => marker.togglePopup());
+      } else {
+        el.innerHTML = `<span class="marker-count">${group.count > 9 ? "9+" : group.count}</span>`;
+        el.addEventListener("click", (e) => {
+          e.stopPropagation();
+          onMarkerClick?.({
+            events: group.events,
+            coordinates: [group.lng, group.lat],
+          });
+        });
+      }
+      el.addEventListener("mouseenter", () => {
+        el.style.zIndex = 999;
+        el.style.transform += " scale(1.06)";
+      });
+      el.addEventListener("mouseleave", () => {
+        el.style.zIndex = "";
+        el.style.transform = el.style.transform.replace(" scale(1.06)", "");
+      });
+      markerRef.current.set(key, { marker, el, group });
+    });
+
+    for (const [key, entry] of markerRef.current.entries()) {
+      if (!incomingIds.has(key)) {
+        entry.marker.remove();
+        markerRef.current.delete(key);
+      }
+    }
+
+    resolveCollisions();
+  }, [events, mapRef, isMapReady]);
+
+  // --- Recompute pixel offsets whenever the view changes ---
+  useEffect(() => {
+    if (!mapRef.current || !isMapReady) return;
+
+    const map = mapRef.current;
+    const handleViewChange = () => resolveCollisions();
+
+    map.on("zoom", handleViewChange);
+    map.on("move", handleViewChange);
+
+    return () => {
+      map.off("zoom", handleViewChange);
+      map.off("move", handleViewChange);
+    };
+  }, [mapRef, isMapReady]);
+
+  // --- Pixel-collision detection + offset ---
+  const resolveCollisions = () => {
+    const map = mapRef.current;
+    if (!map) return;
+
+    const entries = Array.from(markerRef.current.entries());
+
+    // Reset any previous offset before recalculating, so offsets don't compound
+    entries.forEach(([, entry]) => {
+      entry.marker.setLngLat([entry.group.lng, entry.group.lat]);
+    });
+
+    const points = entries.map(([key, entry]) => ({
+      key,
+      entry,
+      px: map.project([entry.group.lng, entry.group.lat]),
+    }));
+
+    const resolved = new Set();
+
+    for (let i = 0; i < points.length; i++) {
+      for (let j = i + 1; j < points.length; j++) {
+        const a = points[i];
+        const b = points[j];
+        if (resolved.has(b.key)) continue;
+
+        const dx = a.px.x - b.px.x;
+        const dy = a.px.y - b.px.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+
+        if (dist < COLLISION_THRESHOLD_PX) {
+          // Nudge b away from a, along the line between them (or a default
+          // diagonal if they're exactly on top of each other)
+          const angle = dist === 0 ? Math.PI / 4 : Math.atan2(dy, dx);
+          const offsetPx = {
+            x: b.px.x - Math.cos(angle) * OFFSET_PX,
+            y: b.px.y - Math.sin(angle) * OFFSET_PX,
+          };
+
+          const offsetLngLat = map.unproject([offsetPx.x, offsetPx.y]);
+          b.entry.marker.setLngLat(offsetLngLat);
+          resolved.add(b.key);
         }
-    },[])
-    return markerRef
+      }
+    }
+  };
+
+  useEffect(() => {
+    if (!mapRef.current || !isMapReady || events.length === 0) return;
+
+    if (hasFitBoundRef.current) return;
+
+    fitMapBounds({ map: mapRef.current, events });
+    hasFitBoundRef.current = true;
+  }, [events, isMapReady]);
+
+  useEffect(() => {
+    return () => {
+      markerRef.current.forEach((marker) => marker.remove());
+      markerRef.current.clear();
+    };
+  }, []);
+  return markerRef;
 };
 
 // const popupRef = useRef(null);
