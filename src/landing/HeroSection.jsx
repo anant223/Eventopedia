@@ -109,6 +109,8 @@ const HeroSection = ({ onJoinWaitlist }) => {
             alt="Map showing local events near you on Grupio"
             draggable={false}
             fetchpriority="high"
+            width="690"
+            height="470"
             className="w-full h-auto block select-none"
           />
         </motion.div>
