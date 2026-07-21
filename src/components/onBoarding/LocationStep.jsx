@@ -6,8 +6,9 @@ import { useFormContext } from 'react-hook-form';
 const LocationStep = () => {
   const [isOpen, setIsOpen] = useState(false)
   const wrapperRef = useRef(null)
-  const { register, watch, setValue } = useFormContext();
+  const {handleSubmit, register, watch, formState:{errors}} = useFormContext()
   const city = watch("city");
+  
 
   const { err, recommendations, isLoading } = useLocationSearch({
     location: isOpen ? city : "",

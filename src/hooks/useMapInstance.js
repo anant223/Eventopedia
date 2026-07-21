@@ -1,6 +1,8 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import mapboxgl from "mapbox-gl";
 import { DEFAULT_ZOOM } from '@/utils/map';
+import "mapbox-gl/dist/mapbox-gl.css";
+
 
 export const useMapInstance = ({ coordinates, onBoundsChange }) => {
   const mapContainerRef = useRef(null);

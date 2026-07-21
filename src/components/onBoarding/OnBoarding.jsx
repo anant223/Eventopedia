@@ -65,6 +65,7 @@ const Onboarding = ({createOnboarding}) => {
               style={{ width: `${(step / 3) * 100}%` }}
             />
           </div>
+          
         </div>
         {/* Card */}
         <FormProvider {...methods}>

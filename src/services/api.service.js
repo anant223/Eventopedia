@@ -1,6 +1,4 @@
-import store from "@/app/store";
 import AppService from "./app.service";
-// import { clearUser } from "@/app/slices/authSlice";
 
 export default class ApiService extends AppService {
   constructor() {

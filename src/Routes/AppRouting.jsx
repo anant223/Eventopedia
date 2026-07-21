@@ -1,14 +1,13 @@
 import React, {lazy} from "react";
 import { createBrowserRouter, Navigate } from "react-router-dom"
-import MainLayout from "../Layouts/MainLayout";
-import AuthLayout from "../Layouts/AuthLayout";
 import PublicRoute  from "./PublicRoute";
 import MainRoute from "./MainRoute";
 
+const MainLayout = lazy(() => import("@/Layouts/MainLayout"));
+const AuthLayout = lazy(() => import("@/Layouts/AuthLayout"));
 
-
-const Home = lazy(() => import( "../pages/Home"));
-const Auth = lazy(() => import("../pages/Auth"));
+const Home = lazy(() => import( "@/pages/Home"));
+const Auth = lazy(() => import("@/pages/Auth"));
 // const Profile = lazy(() => import("../pages/Profile"));
 // const EventFrom = lazy(() => import("../pages/EventFrom"));
 const Events = lazy(() => import("../pages/Events"));

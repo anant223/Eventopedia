@@ -2,7 +2,6 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { BodyContainer } from "@/components/containers/Container";
 import { Badge, EmailInput, stagger, fadeUp } from "./Components";
-import mapSrc from "@/assets/map.svg";
 import useWaitlist from "@/hooks/useWaitlist";
 import { toast } from "sonner";
 
@@ -106,9 +105,10 @@ const HeroSection = ({ onJoinWaitlist }) => {
       "
         >
           <img
-            src={mapSrc}
+            src="/map.svg"
             alt="Map showing local events near you on Grupio"
             draggable={false}
+            fetchpriority="high"
             className="w-full h-auto block select-none"
           />
         </motion.div>

@@ -6,7 +6,6 @@ import { useAuth } from "@/hooks/useAuth";
 import useNotifications from "@/hooks/useNotifications";
 import { transformNotification } from "@/utils/constant";
 import { useMemo } from "react";
-import { Button } from "../ui/button";
 import Logo from "@/components/Logo"
 
 // ─── Bell ────────────────────────────────────────────────────────────────────

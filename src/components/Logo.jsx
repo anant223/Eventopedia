@@ -1,8 +1,4 @@
-import React, { useEffect, useRef } from 'react'
-
-
-
-
+import React from 'react'
 
 const Logo = () => {
   return (

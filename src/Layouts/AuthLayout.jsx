@@ -1,6 +1,6 @@
 import React from "react";
 import {Outlet } from "react-router-dom";
-import { Footer} from "../components";
+import Footer from "@/components/layout/Footer";
 import  PublicHeader  from "@/components/headers/PublicHeader";
 
 const PublicLayout = () => {

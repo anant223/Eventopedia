@@ -1,8 +1,6 @@
-import React, { useRef, useLayoutEffect, useState } from 'react'
-import {Logo} from '../index.js';
+import React from 'react'
+import Logo from '@/components/Logo.jsx';
 import { Link, useNavigate } from 'react-router-dom';
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { WrapperContainer } from '../containers/Container.jsx';
 
 const PublicHeader = () => {
