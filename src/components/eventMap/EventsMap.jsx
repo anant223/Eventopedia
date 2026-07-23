@@ -8,8 +8,6 @@ import React, {
 
 
 import {
-  Clock,
-  MapPin,
   X,
   List,
   Map,
