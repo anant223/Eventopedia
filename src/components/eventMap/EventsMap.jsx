@@ -16,7 +16,7 @@ import {
 } from "lucide-react";
 import { useMapInstance } from "@/hooks/useMapInstance";
 import { useNavigate } from "react-router-dom";
-import { motion, AnimatePresence, useScroll } from "framer-motion";
+import { motion, AnimatePresence} from "framer-motion";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { useEventsMarkers } from "@/hooks/useMarkers";
 import { fitMapBounds } from "@/utils/fitMapBounds";
