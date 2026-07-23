@@ -12,13 +12,17 @@ import {
   MapPin,
   X,
   List,
+  Map,
 } from "lucide-react";
 import { useMapInstance } from "@/hooks/useMapInstance";
 import { useNavigate } from "react-router-dom";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useScroll } from "framer-motion";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { useEventsMarkers } from "@/hooks/useMarkers";
 import { fitMapBounds } from "@/utils/fitMapBounds";
+import { Badge } from "../ui/badge";
+import EventCard from "../Cards/EventCard";
+import { LoadingSpinner } from "../common";
 
 const getCategoryColor = (category) => {
   const colors = {
@@ -187,94 +191,6 @@ const MapFilters = ({ events, user, onFilterChange }) => {
   );
 };
 
-const EventCard = ({ event, index = 0 }) => {
-  const navigate = useNavigate();
-  const color = getCategoryColor(event.category);
-  const emoji = getCategoryEmoji(event.category);
-
-  const timeLabel = event.startDateTime
-    ? new Date(event.startDateTime).toLocaleDateString("en-IN", {
-        weekday: "short",
-        month: "short",
-        day: "numeric",
-        hour: "2-digit",
-        minute: "2-digit",
-      })
-    : "Date TBD";
-
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 12 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: index * 0.05 }}
-      whileTap={{ scale: 0.97 }}
-      onClick={() => navigate(`/main/events/${event._id}`)}
-      className="
-        flex gap-3 p-2
-        bg-white/90 backdrop-blur
-        rounded-2xl
-        shadow-sm active:shadow-md
-        border border-black/5
-        cursor-pointer
-        transition-all
-      "
-    >
-      {/* Thumbnail */}
-      <div
-        className="w-24 h-24 rounded-xl overflow-hidden flex-shrink-0 flex items-center justify-center text-3xl"
-        style={{ background: `${color}20` }}
-      >
-        {event.coverImage ? (
-          <img
-            src={event.coverImage}
-            alt={event.title}
-            className="w-full h-full object-cover"
-          />
-        ) : (
-          <span>{emoji}</span>
-        )}
-      </div>
-
-      {/* Content */}
-      <div className="flex-1 min-w-0 flex flex-col justify-between py-1 pr-1">
-        {/* Top */}
-        <div>
-          {/* Category */}
-          <span
-            className="text-[10px] font-medium px-2 py-[2px] rounded-full capitalize inline-block mb-1"
-            style={{ background: `${color}15`, color }}
-          >
-            {event.category}
-          </span>
-
-          {/* Title */}
-          <p className="text-[14px] font-semibold text-[#1a1814] leading-tight line-clamp-2">
-            {event.title}
-          </p>
-        </div>
-
-        {/* Bottom Info */}
-        <div className="mt-2 space-y-[2px]">
-          {/* Time */}
-          <div className="flex items-center gap-1">
-            <Clock size={12} className="text-gray-400 flex-shrink-0" />
-            <p className="text-[11px] text-gray-500 truncate">{timeLabel}</p>
-          </div>
-
-          {/* Location */}
-          {event.location?.address && (
-            <div className="flex items-center gap-1">
-              <MapPin size={12} className="text-gray-400 flex-shrink-0" />
-              <p className="text-[11px] text-gray-500 truncate">
-                {event.location.address}
-              </p>
-            </div>
-          )}
-        </div>
-      </div>
-    </motion.div>
-  );
-};
 
 const CategoryBar = ({ events, activeCategory, onSelect }) => {
   const categories = [
@@ -551,82 +467,7 @@ const EventMiniPreview = ({ event, onClose, onExpand }) => {
 };
 
 // ─── Single Event Grid Card ───────────────────────────────────────────────────
-const EventGridCard = ({ event, isHighlighted, onHover, onLeave }) => {
-  const navigate = useNavigate();
-  const color = getCategoryColor(event.category);
-  const emoji = getCategoryEmoji(event.category);
 
-  const timeLabel = event.startDateTime
-    ? new Date(event.startDateTime).toLocaleDateString("en-IN", {
-        weekday: "short",
-        month: "short",
-        day: "numeric",
-        hour: "2-digit",
-        minute: "2-digit",
-      })
-    : "Date TBD";
-
-  return (
-    <motion.div
-      whileHover={{ y: -2 }}
-      whileTap={{ scale: 0.98 }}
-      onHoverStart={() => onHover(event._id)}
-      onHoverEnd={onLeave}
-      onClick={() => navigate(`/main/events/${event._id}`)}
-      className="cursor-pointer rounded-2xl overflow-hidden bg-white border border-black/5 transition-shadow"
-      style={{
-        boxShadow: isHighlighted
-          ? `0 4px 20px ${color}30, 0 0 0 2px ${color}`
-          : "0 2px 8px rgba(0,0,0,0.06)",
-      }}
-    >
-      {/* image / emoji thumbnail */}
-      <div
-        className="w-full h-36 flex items-center justify-center overflow-hidden relative"
-        style={{ background: `${color}15` }}
-      >
-        {event.coverImage ? (
-          <img
-            src={event.coverImage}
-            alt={event.title}
-            className="w-full h-full object-cover"
-          />
-        ) : (
-          <span style={{ fontSize: 48 }}>{emoji}</span>
-        )}
-
-        {/* category badge */}
-        <div
-          className="absolute top-2.5 left-2.5 px-2.5 py-1 rounded-full text-[10px] font-semibold capitalize"
-          style={{ background: color, color: "white" }}
-        >
-          {event.category}
-        </div>
-      </div>
-
-      {/* content */}
-      <div className="p-3">
-        <p className="text-[13px] font-semibold text-[#1a1814] truncate mb-1.5">
-          {event.title}
-        </p>
-
-        <div className="flex items-center gap-1 mb-1">
-          <Clock size={10} className="text-gray-300 flex-shrink-0" />
-          <p className="text-[11px] text-gray-400 truncate">{timeLabel}</p>
-        </div>
-
-        {event.location?.address && (
-          <div className="flex items-center gap-1">
-            <MapPin size={10} className="text-gray-300 flex-shrink-0" />
-            <p className="text-[11px] text-gray-400 truncate">
-              {event.location.address}
-            </p>
-          </div>
-        )}
-      </div>
-    </motion.div>
-  );
-};
 
 // ─── Desktop List Panel ───────────────────────────────────────────────────────
 const DesktopSplitPanel = ({
@@ -768,6 +609,7 @@ const GeoMap = memo(
     },[pageInfo, currentPage, currentCenter, isFetchingRef, loading])
 
     useEffect(() => {
+
       if (!mapRef.current) return;
 
       const timer = setTimeout(() => {
@@ -779,152 +621,106 @@ const GeoMap = memo(
     }, [showList]);
     return (
       <div
-        className={`w-full h-screen flex ${showList ? "pb-24 px-8 pt-6 gap-4" : ""}`}
+        className="w-full h-screen flex pb-24 px-4 md:px-8 pt-6 gap-4
+        bg-[#f0ede6] relative overflow-hidden"
       >
-        {!isMobile && showList && (
-          <div className="hidden md:flex flex-col w-full md:w-1/2 lg:w-[720px] flex-shrink-0 bg-white border-r border-gray-100 overflow-hidden rounded-3xl">
-            <div className="sticky top-0 z-20 bg-white border-b px-6 py-5">
-              <div className="flex items-center justify-between">
+        <AnimatePresence>
+          {!isMobile && showList && (
+            <motion.div
+              initial={{ opacity: 0, width: 0 }}
+              animate={{ opacity: 1, width: "50%" }}
+              exit={{ opacity: 0, width: 0 }}
+              transition={{ duration: 0.35, ease: "easeInOut" }}
+              className="hidden md:flex flex-col md:w-full lg:w-[720px] flex-shrink-0 bg-white overflow-hidden rounded-3xl shadow-[4px_0_28px_-6px_rgba(0,0,0,0.08)] relative z-10"
+            >
+              <div className="flex items-center justify-between px-6 py-5 border-b border-black/[0.05]">
                 <div>
-                  <p className="text-gray-500 text-sm">
-                    {markerEvents
-                      ? markerEvents[0]?.location?.address
-                      : `${user?.location?.city} • ${user?.location?.country}`}
+                  <p className="text-[#1a1814] text-sm font-medium">
+                    {user?.location?.city}
+                    {user?.location?.city && user?.location?.country && " • "}
+                    {user?.location?.country}
                   </p>
-                  <span className="text-xs text-gray-400">
-                    {displayedEvents?.length} events
+                  <span className="text-xs text-[#9b9890]">
+                    {displayedEvents?.length ?? 0} event
+                    {displayedEvents?.length === 1 ? "" : "s"}
                   </span>
                 </div>
+
                 {markerEvents && (
-                  <div className="flex items-center gap-2 mt-3">
-                    <div className="flex items-center gap-1.5 bg-[#1a1814] text-white text-xs font-medium px-3 py-1.5 rounded-full">
-                      <span>📍 {markerEvents[0]?.location?.address}</span>
-                      <button
-                        onClick={() => setMarkerEvents(null)}
-                        className="ml-1 hover:opacity-70 transition-opacity"
-                      >
-                        ✕
-                      </button>
-                    </div>
-                  </div>
+                  <Badge className="bg-[#1a1814] hover:bg-[#26231e] text-white text-xs gap-1 pr-1.5">
+                    <span>📍 {markerEvents[0]?.location?.address}</span>
+                    <button
+                      onClick={() => setMarkerEvents(null)}
+                      className="ml-1 hover:opacity-70 transition-opacity"
+                      aria-label="Clear selected location"
+                    >
+                      ✕
+                    </button>
+                  </Badge>
                 )}
               </div>
-            </div>
-            <div className="flex-1 overflow-y-auto p-6 space-y-6">
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                {displayedEvents?.map((event, i) => (
-                  <div
-                    key={event.id || i}
-                    className="bg-white border border-[#e8e4dc] rounded-[14px] overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300"
-                  >
-                    {/* Image Section */}
-                    <div className="relative h-56">
-                      <img
-                        src={event.image}
-                        alt={event.title}
-                        className="w-full h-full object-cover"
-                      />
 
-                      {/* Source Badge */}
-                      {event.source === "ticketmaster" && (
-                        <div className="absolute top-4 left-4 bg-white text-xs font-medium px-3 py-1 rounded-full shadow text-[#1a1814] flex items-center gap-1.5">
-                          <span className="relative flex h-2 w-2">
-                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-500 opacity-75"></span>
-                            <span className="relative inline-flex rounded-full h-2 w-2 bg-red-500"></span>
-                          </span>
-                          Live event
-                        </div>
-                      )}
-
-                      {/* Category Tag */}
-                      {event.category && (
-                        <div className="absolute bottom-4 left-4 bg-[#1a1814]/80 text-white text-xs font-medium px-3 py-1 rounded-full capitalize">
-                          {event.category}
-                        </div>
-                      )}
-                    </div>
-
-                    {/* Card Content */}
-                    <div className="p-5">
-                      <h3 className="font-semibold text-[17px] leading-tight text-[#1a1814] line-clamp-1">
-                        {event.title}
-                      </h3>
-
-                      <p className="text-sm text-gray-500 mt-1">
-                        {event.location?.address}
-                      </p>
-
-                      <p className="text-sm text-gray-600 mt-1">
-                        {new Date(event.startDateTime).toLocaleDateString(
-                          undefined,
-                          {
-                            weekday: "short",
-                            month: "short",
-                            day: "numeric",
-                            hour: "numeric",
-                            minute: "2-digit",
-                          }
-                        )}
-                      </p>
-
-                      <div className="mt-4 flex items-center justify-end">
-                        <span className="text-xs bg-[#D85A30]/10 text-[#D85A30] px-3 py-1 rounded-full font-medium">
-                          {event.source === "ticketmaster"
-                            ? "Get tickets"
-                            : "View event"}
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-              <div ref={loaderRef} className="py-6 flex justify-center">
-                {loading ? (
-                  <div className="flex items-center gap-2 text-sm text-gray-400">
-                    <div className="w-4 h-4 border-2 border-gray-300 border-t-transparent rounded-full animate-spin" />
-                    Loading more...
+              <div className="flex-1 overflow-y-auto p-6">
+                {displayedEvents?.length ? (
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    {displayedEvents.map((event) => (
+                      <EventCard key={event?.id} event={event} />
+                    ))}
                   </div>
                 ) : (
-                  <div className="h-4" />
+                  <div className="flex flex-col items-center justify-center h-full text-center gap-2 py-16">
+                    <p className="text-[#1a1814] font-medium">
+                      No events nearby
+                    </p>
+                    <p className="text-sm text-[#9b9890] max-w-[28ch]">
+                      Try zooming out on the map or checking back later.
+                    </p>
+                  </div>
                 )}
               </div>
-            </div>
-          </div>
-        )}
-        <div className="flex-1 relative rounded-2xl">
-          <div
-            ref={mapContainerRef}
-            className={`absolute inset-0 w-full h-full rounded-2xl`}
-          />
-        </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
         {isMobile && (
-          <EventBottomSheet eventLength={events.length}>
+          <EventBottomSheet eventLength={events?.length}>
             {events?.map((event) => (
               <EventListCardMobile key={event._id} event={event} />
             ))}
           </EventBottomSheet>
         )}
-        <motion.div
-          initial={{ opacity: 0, y: 8 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="absolute z-30 transition-all duration-500 ease-in-out drop-shadow-md bottom-20 hidden sm:hidden md:block"
-          style={{ left: showList ? "calc(40% + 24px)" : "24px" }}
-        >
-          <motion.button
-            whileHover={{ scale: 1.04 }}
-            whileTap={{ scale: 0.96 }}
-            onClick={() => setShowList(!showList)}
-            className="flex items-center gap-2.5 px-5 py-2.5 bg-[rgba(242,238,231,0.95)] border border-white/80 rounded-full cursor-pointer shadow-lg backdrop-blur-xl"
-          >
-            <List size={14} className="text-[#1a1814]" />
-            <span className="text-[12px] font-semibold text-[#1a1814]">
-              {showList ? "Hide" : "List"}
-            </span>
-            <span className="bg-[#1a1814] text-white text-[10px] font-bold px-2 py-0.5 rounded-full">
-              {events?.length} events
-            </span>
-          </motion.button>
-        </motion.div>
+        <div className="flex-1 relative overflow-hidden rounded-3xl">
+          <div
+            ref={mapContainerRef}
+            className="absolute inset-0 w-full h-full"
+          />
+          {!isMobile && (
+            <motion.div
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4 }}
+              className="absolute z-30 bottom-1 left-2 hidden md:block transition-[left] duration-350 ease-in-out"
+            >
+              <motion.button
+                whileHover={{ scale: 1.04 }}
+                whileTap={{ scale: 0.96 }}
+                onClick={() => setShowList(!showList)}
+                className="flex items-center gap-2.5 px-5 py-2.5 bg-[rgba(242,238,231,0.95)] border border-white/80 rounded-full cursor-pointer shadow-lg backdrop-blur-xl"
+              >
+                {showList ? (
+                  <Map size={14} className="text-[#1a1814]" />
+                ) : (
+                  <List size={14} className="text-[#1a1814]" />
+                )}
+                <span className="text-[12px] font-semibold text-[#1a1814]">
+                  {showList ? "Show map" : "Show list"}
+                </span>
+                <span className="bg-[#1a1814] text-white text-[10px] font-bold px-2 py-0.5 rounded-full">
+                  {events?.length ?? 0} events
+                </span>
+              </motion.button>
+            </motion.div>
+          )}
+        </div>
       </div>
     );
   }
@@ -933,5 +729,4 @@ const GeoMap = memo(
 GeoMap.displayName = "GeoMap";
 
 export default GeoMap;
-
 
