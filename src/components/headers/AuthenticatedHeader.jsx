@@ -185,8 +185,8 @@ const UserMenu = ({ user }) => {
 
     const quickActions = [
         { label: "Profile", color: "#378ADD", bg: "rgba(55,138,221,0.1)", icon: <User size={13} color="#378ADD" />, path: `/main/user-profile/${user?._id}` },
-        { label: "Saved", color: "#BA7517", bg: "rgba(186,117,23,0.1)", icon: <Bookmark size={13} color="#BA7517" />, path: "/main/bookmarks" },
-        { label: "Settings", color: "#5F5E5A", bg: "rgba(95,94,90,0.1)", icon: <Settings size={13} color="#5F5E5A" />, path: "/main/settings" },
+        { label: "Saved", color: "#BA7517", bg: "rgba(186,117,23,0.1)", icon: <Bookmark size={13} color="#BA7517" />, path: "/main" },
+        { label: "Settings", color: "#5F5E5A", bg: "rgba(95,94,90,0.1)", icon: <Settings size={13} color="#5F5E5A" />, path: "/main" },
     ];
 
     return (
@@ -268,7 +268,6 @@ const UserMenu = ({ user }) => {
                         <div style={{ padding: 10, display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 6, borderBottom: "0.5px solid rgba(0,0,0,0.06)" }}>
                             {quickActions.map((a, i) => (
                                 <motion.button
-                                    disabled={true}
                                     key={a.label}
                                     onClick={() => handleNavigate(a.path)}
                                     initial={{ opacity: 0, y: 4 }}
@@ -324,10 +323,10 @@ const MobileMenu = ({ open, onClose, user }) => {
 
     const items = [
         { label: "Create Event", icon: <Plus size={16} />, path: "/main/create-event", accent: true },
-        { label: "Notifications", icon: <Bell size={16} />, path: "/main/notifications" },
-        { label: "Bookmarks", icon: <Bookmark size={16} />, path: "/main/bookmarks" },
+        { label: "Notifications", icon: <Bell size={16} />, path: "/main" },
+        { label: "Bookmarks", icon: <Bookmark size={16} />, path: "/main" },
         { label: "Profile", icon: <User size={16} />, path: `/main/user-profile/${user?._id}` },
-        { label: "Settings", icon: <Settings size={16} />, path: "/main/settings" },
+        { label: "Settings", icon: <Settings size={16} />, path: "/main" },
     ];
 
     return (
@@ -430,7 +429,7 @@ const MobileMenu = ({ open, onClose, user }) => {
 
 
 
-export default function AuthenticatedHeader({isSplitView = false }) {
+export default function AuthenticatedHeader() {
   const navigate = useNavigate();
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -442,175 +441,58 @@ export default function AuthenticatedHeader({isSplitView = false }) {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
- 
-
-  const Controls = () => (
-    <div className="flex items-center gap-2">
-      <div className="hidden md:block">
-        <NotificationBell />
-      </div>
-      <div className="hidden md:block">
-        <UserMenu user={user} />
-      </div>
-      <button
-        className="md:hidden flex items-center justify-center w-9 h-9 rounded-full bg-white/65 border border-black/10 cursor-pointer"
-        onClick={() => setMobileOpen(true)}
-      >
-        <Menu size={15} className="text-[#3d3a34]" />
-      </button>
-    </div>
-  );
-
-  const CreateButton = ({ className = "" }) => (
-    <motion.button
-      whileHover={{ scale: 1.04 }}
-      whileTap={{ scale: 0.96 }}
-      onClick={() => navigate("/main/create-event")}
-      className={`hidden md:flex pointer-events-auto items-center justify-center w-[42px] h-[42px] rounded-full cursor-pointer flex-shrink-0 bg-[#E24B4A] hover:bg-[#d03f3e] transition-colors duration-200 ${className}`}
-    >
-      <Plus size={16} className="text-white" strokeWidth={2.5} />
-    </motion.button>
-  );
-
-  if (!isSplitView) {
-    return (
-      <>
-        <motion.header
-          key="split"
-          initial={{ opacity: 0, y: -8 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
-          className="relative top-0 w-full bg-white border-b border-gray-200 z-50 flex-shrink-0"
-        >
-          <div className="flex items-center justify-between px-5 h-[60px]">
-            {/* Logo */}
-            <Link
-              to="/main/all-events"
-              className="flex items-center gap-2 no-underline"
-            >
-              <Logo/>
-            </Link>
-
-            {/* Controls */}
-            <div className="flex items-center gap-3">
-              {/* <div aria-disabled className="hidden md:block">
-                <NotificationBell />
-              </div> */}
-              <div className="hidden md:block">
-                <UserMenu user={user} />
-              </div>
-              {/* <motion.button
-                whileHover={{ scale: 1.04 }}
-                whileTap={{ scale: 0.96 }}
-                onClick={() => navigate("/main/create-event")}
-                className="hidden md:flex items-center justify-center w-[38px] h-[38px] rounded-full bg-[#E24B4A] hover:bg-[#d03f3e] transition-colors cursor-pointer flex-shrink-0"
-              >
-                <Plus size={15} className="text-white" strokeWidth={2.5} />
-              </motion.button> */}
-              {/* <button
-                
-                className="md:hidden flex items-center justify-center w-9 h-9 rounded-full bg-gray-100 border border-black/10 cursor-pointer"
-                onClick={() => setMobileOpen(true)}
-              >
-                <Menu size={15} className="text-[#3d3a34]" />
-              </button> */}
-            </div>
-          </div>
-        </motion.header>
-
-        <MobileMenu
-          open={mobileOpen}
-          onClose={() => setMobileOpen(false)}
-          user={user}
-        />
-      </>
-    );
-  }
 
    return (
-     <>
-      <header className="fixed pointer-events-none z-50 top-0 left-0 right-0 pt-3 px-4">
-        {/* max-w-3xl removed — now truly full width */}
-        <motion.div
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-          className="flex items-center gap-2 w-full"
-        >
-          {/* Main pill — full width */}
-          <div
-            className={`pointer-events-auto flex items-center justify-between px-3 pl-4 py-2 flex-1 rounded-[18px] border border-white/75 backdrop-blur-xl transition-all duration-300 ${
-              scrolled
-                ? "bg-[#f2eee7]/95 shadow-[0_4px_24px_rgba(0,0,0,0.09),inset_0_1px_0_rgba(255,255,255,0.8)]"
-                : "bg-[#f2eee7]/85 shadow-[0_2px_12px_rgba(0,0,0,0.06),inset_0_1px_0_rgba(255,255,255,0.8)]"
-            }`}
-          >
-            {/* Logo */}
-            <Link
-              to="/main/all-events"
-              className="flex items-center gap-2 no-underline"
-            >
-              <motion.div
-                whileHover={{ scale: 1.1, rotate: -8 }}
-                transition={{ type: "spring", stiffness: 400, damping: 20 }}
-              >
-                <svg width="22" height="26" viewBox="0 0 22 26" fill="none">
-                  <path
-                    d="M11 0C5.477 0 1 4.477 1 10c0 7.5 10 16 10 16S21 17.5 21 10c0-5.523-4.477-10-10-10z"
-                    fill="#E24B4A"
-                  />
-                  <circle cx="11" cy="10" r="3.5" fill="white" />
-                </svg>
-              </motion.div>
-              <span className="text-[15px] font-semibold text-[#1a1814] tracking-[-0.03em]">
-                Grupio
-              </span>
-            </Link>
- 
-            {/* Controls */}
-            <div className="flex items-center gap-2">
-              <div className="hidden md:block">
+     <div>
+       <motion.header
+         key="split"
+         initial={{ opacity: 0, y: -8 }}
+         animate={{ opacity: 1, y: 0 }}
+         transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+         className="relative flex-shrink-0  top-0 z-50 bg-[#f0ede6]/90 backdrop-blur-sm border-b border-black/[0.06] h-12"
+       >
+         <div>
+           <div className="flex items-center justify-between px-5 h-[60px]">
+             {/* Logo */}
+             <Link
+               to="/main/all-events"
+               className="flex items-center gap-2 no-underline"
+             >
+               <Logo />
+             </Link>
+
+             {/* Controls */}
+             <div className="flex items-center gap-3">
+               {/* <div aria-disabled className="hidden md:block">
                 <NotificationBell />
-              </div>
-              <div className="hidden md:block">
-                <UserMenu user={user} />
-              </div>
-              <button
-                className="md:hidden flex items-center justify-center w-9 h-9 rounded-full bg-white/65 border border-black/10 cursor-pointer"
-                onClick={() => setMobileOpen(true)}
-              >
-                <Menu size={15} className="text-[#3d3a34]" />
-              </button>
-            </div>
-          </div>
- 
-          {/* Create button — separate pill, desktop only */}
-          <motion.button
-            whileHover={{ scale: 1.04 }}
-            whileTap={{ scale: 0.96 }}
-            onClick={() => navigate("/main/create-event")}
-            className="hidden md:flex pointer-events-auto items-center justify-center w-[49.9px] h-[49.9px] rounded-[18px] cursor-pointer flex-shrink-0 border border-white/75 backdrop-blur-xl transition-all duration-300"
-            style={{
-              background: scrolled
-                ? "rgba(242,238,231,0.95)"
-                : "rgba(242,238,231,0.85)",
-              boxShadow: scrolled
-                ? "0 4px 24px rgba(0,0,0,0.09), inset 0 1px 0 rgba(255,255,255,0.8)"
-                : "0 2px 12px rgba(0,0,0,0.06), inset 0 1px 0 rgba(255,255,255,0.8)",
-            }}
-          >
-            <div className="w-6 h-6 rounded-full bg-[#E24B4A] flex items-center justify-center flex-shrink-0">
-              <Plus size={12} className="text-white" strokeWidth={2.5} />
-            </div>
-          </motion.button>
-        </motion.div>
-      </header>
- 
-      <MobileMenu
-        open={mobileOpen}
-        onClose={() => setMobileOpen(false)}
-        user={user}
-      />
-    </>
-   )
+              </div> */}
+               <div className="hidden md:block">
+                 <UserMenu user={user} />
+               </div>
+               <motion.button
+                 whileHover={{ scale: 1.04 }}
+                 whileTap={{ scale: 0.96 }}
+                 onClick={() => navigate("/main/create-form")}
+                 className="hidden md:flex items-center justify-center w-[38px] h-[38px] rounded-full bg-[#E24B4A] hover:bg-[#d03f3e] transition-colors cursor-pointer flex-shrink-0"
+               >
+                 <Plus size={15} className="text-white" strokeWidth={2.5} />
+               </motion.button>
+               <button
+                 className="md:hidden flex items-center justify-center w-9 h-9 rounded-full bg-gray-100 border border-black/10 cursor-pointer"
+                 onClick={() => setMobileOpen(true)}
+               >
+                 <Menu size={15} className="text-[#3d3a34]" />
+               </button>
+             </div>
+           </div>
+         </div>
+       </motion.header>
+
+       <MobileMenu
+         open={mobileOpen}
+         onClose={() => setMobileOpen(false)}
+         user={user}
+       />
+     </div>
+   );
 }

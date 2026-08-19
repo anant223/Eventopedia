@@ -1,6 +1,6 @@
 import React, { Suspense } from "react"
 import { RouterProvider } from "react-router-dom";
-import AppRouting from "./Routes/AppRouting";
+import AppRouting from "./routes/AppRouting";
 import { Toaster } from "sonner"; 
 import LoadingSpinner from "./components/common/LoadingSpinner";
 
