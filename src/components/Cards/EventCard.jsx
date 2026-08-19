@@ -1,28 +1,37 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom';
 
 const EventCard = ({event}) => {
+  const navigate = useNavigate()
   return (
-    <div className="bg-white border border-[#e8e4dc] rounded-[14px] overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300">
+    <div
+      onClick={() => {
+        if (event.source === "ticketmaster") {
+          window.open(event.externalUrl, "_blank", "noopener,noreferrer");
+        } else {
+          navigate(`/main/event/${event._id}`);
+        }
+      }}
+      className="bg-white border border-[#e8e4dc] rounded-[14px] overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 cursor-pointer"
+    >
       <div className="relative h-56">
         <img
           src={event.image}
           alt={event.title}
           className="w-full h-full object-cover"
         />
-        {event.source === "ticketmaster" && (
-          <div className="absolute top-4 left-4 bg-white text-xs font-medium px-3 py-1 rounded-full shadow text-[#1a1814] flex items-center gap-1.5">
+        
+        <div className="absolute top-4 left-4 bg-white text-xs font-medium px-3 py-1 rounded-full shadow text-[#1a1814] flex items-center gap-1.5">
             <span className="relative flex h-2 w-2">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-500 opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2 w-2 bg-red-500"></span>
             </span>
             Live event
-          </div>
-        )}
-
+        </div>
         {/* Category Tag */}
         {event.category && (
           <div className="absolute bottom-4 left-4 bg-[#1a1814]/80 text-white text-xs font-medium px-3 py-1 rounded-full capitalize">
-            {event.category}
+            {event?.category}
           </div>
         )}
       </div>

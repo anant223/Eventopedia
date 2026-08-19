@@ -6,6 +6,7 @@ const initialState = {
   eventInfo: null,
   loading: false,
   error: null,
+  pageInfo: null,
   createLoading: false,
   updateLoading: false,
   deleteLoading: false,
@@ -32,7 +33,13 @@ const eventSlice = createSlice({
         })
         .addCase(createEvent.fulfilled, (state, action) => {
           state.createLoading = false;
-          state.events.unshift(action.payload);
+          if (action.payload.page.number === 0) {
+            state.events = action.payload.events;
+          } else {
+            state.events = [...action.payload.events];
+          }
+
+          state.pageInfo = action.payload.page;
         })
         .addCase(createEvent.rejected, (state, action) => {
           state.createLoading = false;
@@ -136,6 +143,10 @@ const eventSlice = createSlice({
         })
         .addCase(cancelEvent.fulfilled, (state, action) => {
           state.statusLoading = false;
+          if (state.eventInfo) {
+            console.log(action.payload);
+            state.eventInfo.status = "cancelled";
+          }
           state.eventInfo = action.payload;
         })
         .addCase(cancelEvent.rejected, (state, action) => {
@@ -148,7 +159,10 @@ const eventSlice = createSlice({
         })
         .addCase(activateEvent.fulfilled, (state, action) => {
           state.statusLoading = false;
-          state.eventInfo = action.payload;
+          if(state.eventInfo){
+            console.log(action.payload)
+            state.eventInfo.status = "active"
+          }
         })
         .addCase(activateEvent.rejected, (state, action) => {
           state.statusLoading = false;
