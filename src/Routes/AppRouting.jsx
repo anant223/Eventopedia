@@ -9,14 +9,14 @@ const AuthLayout = lazy(() => import("@/Layouts/AuthLayout"));
 const Home = lazy(() => import( "@/pages/Home"));
 const Auth = lazy(() => import("@/pages/Auth"));
 // const Profile = lazy(() => import("../pages/Profile"));
-// const EventFrom = lazy(() => import("../pages/EventFrom"));
+const EventFrom = lazy(() => import("../pages/EventFrom"));
 const Events = lazy(() => import("../pages/Events"));
-// const EventDetail = lazy(() => import("../pages/EventDetail"));
+const EventDetail = lazy(() => import("../pages/EventDetail"));
 // const Checkout = lazy(() => import("../pages/Checkout"))
 // const PaymentSuccess = lazy(() => import("../pages/paymentSuccess"))
 const OnBoarding = lazy(() => import("@/pages/OnBoarding"));
 // const Notification = lazy(() => import("@/pages/Notification"));
-// const Settings = lazy(() => import("../pages/Settings"));
+const Settings = lazy(() => import("../pages/Settings"));
 // const Verify = lazy(() => import("../pages/Verifying"));
 const ForgetPassword = lazy(() => import("../pages/ForgetPassword"))
 const ResetPassword = lazy(() => import("../pages/ResetPassword"))
@@ -58,7 +58,7 @@ const AppRouting = createBrowserRouter([
   },
   {
     path: "/🎉",
-    element: <Welcome/>,
+    element: <Welcome />,
   },
   {
     path: "/main",
@@ -84,14 +84,14 @@ const AppRouting = createBrowserRouter([
       //   path: "user-profile/:id",
       //   element: <Profile />,
       // },
-      // {
-      //   path: "create-event",
-      //   element: <EventFrom />,
-      // },
-      // {
-      //   path: "event-detail/:id",
-      //   element: <EventDetail />,
-      // },
+      {
+        path: "create-form",
+        element: <EventFrom />,
+      },
+      {
+        path: "event/:id",
+        element: <EventDetail />,
+      },
       // {
       //   path: "checkout",
       //   element: <Checkout />,
@@ -100,10 +100,10 @@ const AppRouting = createBrowserRouter([
       //   path: "payment-success",
       //   element: <PaymentSuccess />,
       // },
-      // {
-      //   path: "settings",
-      //   element: <Settings />,
-      // },
+      {
+        path: "settings",
+        element: <Settings />,
+      },
     ],
   },
   {

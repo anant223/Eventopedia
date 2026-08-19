@@ -4,9 +4,9 @@ import React from 'react'
 import { Navigate} from 'react-router-dom'
 
 const MainRoute = ({ children }) => {
-  const { user, isAuthenticated, isLoading } = useAuth();
+  const { user, isAuthenticated, loading } = useAuth();
 
-  if (isLoading) return <CenteredSpinner />;
+  if (loading) return <CenteredSpinner />;
   if (!isAuthenticated) return <Navigate to="/auth?type=login" replace />;
   if (!user?.onboardingCompleted) return <Navigate to="/onboarding" replace />;
 
