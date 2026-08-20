@@ -28,10 +28,11 @@ import {
   selectEventsByLocation,
   selectPopularEvents
 } from "@/app/selector/eventsSelector";
+import { buildEventFormData } from "@/utils/eventFormData";
 
 const useEvents = () => {
     const dispatch = useDispatch();
-    const events = useSelector(selectAllEvents);
+    const liveEvents = useSelector(selectAllEvents);
     const currentEvent = useSelector(selectCurrentEvent);
     const loading = useSelector(selectEventLoading);
     const createLoading = useSelector(selectCreateLoading);
@@ -45,23 +46,26 @@ const useEvents = () => {
 
     
     
-    useEffect(() => {
-        if(events.length === 0 && !loading){
-            // console.log(events)
-            dispatch(fetchAllEvents())
+    const liveEventsPreview = useCallback(({ lat, lng, page, size, radius }) => {
+        if(liveEvents.length === 0 && !loading){
+            // console.log(liveEvents)
+            dispatch(fetchAllEvents({ lat, lng }))
         }
-    }, [dispatch, events.length, loading]);
+    }, [dispatch, liveEvents.length, loading]);
 
     const refetchEvent = useCallback(() => {
       return dispatch(fetchAllEvents()).unwrap();
     }, [dispatch])
+
     const create = useCallback((data) => {
-        return dispatch(createEvent(data)).unwrap();
+      return dispatch(createEvent(buildEventFormData(data))).unwrap();
     }, [dispatch])
+    
+
      const getEventById = useCallback((id) => {
        return dispatch(fetchEventById(id)).unwrap();
      }, [dispatch]);
-    const update = useCallback((data, id) => {
+    const update = useCallback(({data, id}) => {
         return dispatch(updateEvent({eventId: id, data})).unwrap()
     },[dispatch])
     const delEvent = useCallback((id) => {
@@ -88,7 +92,7 @@ const useEvents = () => {
       [dispatch]
     );
 
-     const activate = useCallback(
+     const publishEvent = useCallback(
       (eventId) => {
         return dispatch(activateEvent(eventId))
       },
@@ -103,7 +107,7 @@ const useEvents = () => {
     );
 
     return {
-      events,
+      liveEvents,
       currentEvent,
       loading,
       createLoading,
@@ -116,14 +120,15 @@ const useEvents = () => {
       delEvent,
       refetchEvent,
       cohost,
-      activate,
+      publishEvent,
       cancel,
       invitations,
       userConfimation,
       cohostLoading,
       statusLoading,
       invitationLoading,
-      pastEvents
+      pastEvents,
+      liveEventsPreview
     };
 
     
