@@ -31,7 +31,7 @@ const Feature = ({ children }) => (
 
 const StripeSheet = ({ open, onClose}) => {
   const [submitting, setSubmitting] = useState(false);
-  const {createAccount} = usePayment()
+  const {createAccount, checkStatus} = usePayment()
 
   const handleContinue = async () => {
     setSubmitting(true);

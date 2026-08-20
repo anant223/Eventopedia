@@ -8,11 +8,8 @@ import useCategory from "@/hooks/useCategory";
 import { clearRegisteredEvents } from "@/app/slices/registerSlice";
 import usePayment from "@/hooks/usePayment";
 import { useForm } from "react-hook-form";
-import { tree } from "d3";
 import { Camera, Eye, EyeOffIcon, Mail } from "lucide-react";
-import SettingsPage from "@/settings/SettingPage";
 import SettingPage from "@/settings/SettingPage";
-import { PageShell } from "@/components/layout/PageShell";
 
 
 // ─── shared primitives for all settings screens ──────────────────────────────
@@ -1992,7 +1989,11 @@ const Settings = ({ user: initialUser = {} }) => {
         return prev.map((l) => (l.platform === platform ? { ...l, url } : l));
       return [...prev, { platform, url }];
   });
-  return <SettingPage/>
+  return (
+    <div className="w-full h-full overflow-y-auto">
+      <SettingPage />
+    </div>
+  );
 };
 
 export default Settings;
