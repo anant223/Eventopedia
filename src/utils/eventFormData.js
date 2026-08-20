@@ -1,45 +1,44 @@
+export const buildEventFormData = (data) => {
+  const fd = new FormData();
+  fd.append("title", data.title);
+  fd.append("desc", data.desc || " ");
+  fd.append("category", data.category);
+  fd.append("startDateTime", data.startDateTime);
+  fd.append("endDateTime", data.endDateTime);
+  fd.append("eventType", data.eventType);
+  fd.append("ticketType", data.ticketType);
+  fd.append("price", data.price || 0);
+  fd.append("currency", data.currency);
+  fd.append("requireApproval", data.requireApproval);
+  fd.append("status", data.status);
+  fd.append("eventMode", data.eventMode);
 
-const DATETIME_FIELDS = {
-  startDateTime: ["start", "start-time"],
-  endDateTime: ["end", "end-time"],
-};
+  if (data.image?.file) fd.append("image", data.image.file);
 
-export const eventFormData = (data) => {
-  const formData = new FormData();
+  if (data.eventMode === "in_person" || data.eventMode === "hybrid") {
+    if (data.location?.address)
+      fd.append("location[address]", data.location.address);
+    if (data.location?.name) fd.append("location[name]", data.location.name);
+    if (data.location?.lat != null)
+      fd.append("location[lat]", data.location.lat);
+    if (data.location?.lng != null)
+      fd.append("location[lng]", data.location.lng);
+    if (data.location?.placeId)
+      fd.append("location[placeId]", data.location.placeId);
+  }
 
-  formData.append("image", data.img?.[0]);
-  formData.append("title", data.title);
-  formData.append("desc", data.desc);
+  if (data.eventMode === "online" || data.eventMode === "hybrid") {
+    if (data.online?.platform)
+      fd.append("online[platform]", data.online.platform);
+    if (data.online?.link) fd.append("online[link]", data.online.link);
+    fd.append(
+      "online[linkVisibility]",
+      data.online?.linkVisibility || "attendees_only"
+    );
+    if (data.totalTickets) fd.append("totalTickets", data.totalTickets);
+  }
 
-  console.log(formData)
-  Object.entries(DATETIME_FIELDS).forEach(
-    ([backendField, [dateField, timeField]]) => {
-      const dateObj = data[dateField];
+  data.tags?.forEach((t) => fd.append("tags[]", t));
 
-      console.log(dateObj.time, dateObj.date); // {date:2025-12-30, time: 2:00:00} {date:2025-12-30, time: 3:00:00}
-
-      if (dateObj && dateObj.date && dateObj.time) {
-        const combined = new Date(dateObj.date);
-        const [hours, minutes] = dateObj.time.split(":");
-        combined.setHours(+hours, +minutes);
-        console.log(combined);
-
-        formData.append(backendField, combined.toISOString());
-      }
-    }
-  );
-
-
-  formData.append("category", data.category || "other");
-  formData.append(
-    "tags",
-    Array.isArray(data.tags) ? data.tags.join(",") : data.tags
-  );
-  formData.append("location", data.location || "Online");
-  formData.append("capacity", data.capacity || "100");
-  formData.append("eventType", data.eventType || "public");
-  formData.append("ticketType", data.ticketType || "free");
-  formData.append("requireApproval", data.requireApproval || "false");
-
-  return formData;
+  return fd;
 };

@@ -2,10 +2,23 @@ export const groupEventsByLocation = (events) => {
   const locationGroups = new Map();
 
   events.forEach((event) => {
-    const lat = parseFloat(event.location?.lat);
-    const lng = parseFloat(event.location?.lng);
+    const coords = event.location?.coordinates;
 
-    if (isNaN(lat) || isNaN(lng)) return;
+    const coordsArray = Array.isArray(coords)
+      ? coords
+      : coords?.coordinates;
+
+    
+    if (!coordsArray || coordsArray.length < 2) return;
+
+
+    const lat = parseFloat(coordsArray[1]);
+    const lng = parseFloat(coordsArray[0]);
+
+    if (isNaN(lat) || isNaN(lng)) {
+      console.log("NaN SKIPPED:", event.title);
+      return;
+    }
 
     const key = `${lat.toFixed(5)},${lng.toFixed(5)}`;
 

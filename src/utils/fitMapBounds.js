@@ -2,7 +2,10 @@ import mapboxgl from "mapbox-gl";
 
 export const fitMapBounds = ({map, events}) => {
   const validCoords = events
-    .map((e) => [parseFloat(e.location?.lng), parseFloat(e.location?.lat)])
+    .map((e) => [
+      parseFloat(e.location?.coordinates?.[0]),
+      parseFloat(e.location?.coordinates?.[1]),
+    ])
     .filter(([lng, lat]) => !isNaN(lng) && !isNaN(lat));
 
   if (validCoords.length === 0) return;
