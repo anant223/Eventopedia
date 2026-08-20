@@ -332,6 +332,7 @@ const EventListCardMobile = ({ event, index = 0 }) => {
       onClick={() => navigate(`/main/events/${event._id}`)}
       className="flex gap-3 py-3 border-b border-black/5 cursor-pointer last:border-b-0 font-roboto"
     >
+    Hell
       {/* image */}
       <div className="w-20 h-16 rounded-xl overflow-hidden flex-shrink-0 bg-gray-100">
         {event.image ? (
@@ -345,7 +346,7 @@ const EventListCardMobile = ({ event, index = 0 }) => {
             className="w-full h-full flex items-center justify-center text-2xl"
             style={{ background: `${getCategoryColor(event.category)}15` }}
           >
-            {getCategoryEmoji(event.category)}
+            {getCategoryEmoji(event?.category)}
           </div>
         )}
       </div>
@@ -365,7 +366,7 @@ const EventListCardMobile = ({ event, index = 0 }) => {
         {/* distance / location */}
         {event.location?.address && (
           <p className="text-[11px] text-gray-400 capitalize">
-            {event.location.address || event.location.city}
+            {event?.location?.address}
           </p>
         )}
       </div>
@@ -554,8 +555,8 @@ const GeoMap = memo(
       coordinates,
       onBoundsChange: ({ lat, lng }) => {
         setCurrentCenter({lng, lat})
-        setCurrentPage(0)
-        eventPreview({ lat, lng, page: 0, size: 50, radius: 50 });
+        setCurrentPage(1)
+        eventPreview({ lat, lng});
       },
     });
 
@@ -619,7 +620,7 @@ const GeoMap = memo(
     }, [showList]);
     return (
       <div
-        className="w-full h-screen flex pb-24 px-4 md:px-8 pt-6 gap-4
+        className="w-full h-screen flex p-1 md:pb-24 md:px-8 md:pt-6 gap-4
         bg-[#f0ede6] relative overflow-hidden"
       >
         <AnimatePresence>
