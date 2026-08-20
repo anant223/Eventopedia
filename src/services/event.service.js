@@ -17,8 +17,14 @@ export default class EventService extends ApiService {
     const res = await this.axiosInstance.get(`/events/${eventId}`);
     return res.data;
   };
-  readEvents = async () => {
-    const res = await this.axiosInstance.get("/events/public");
+  activePublicEventsPreview = async ({
+    lat,
+    lng,
+    page = 1,
+    size = 50,
+    radius = 50,
+  }) => {
+    const res = await this.axiosInstance.get("/events/public",  {params: {lat, lng, radius, page, size}});
     return res.data;
   };
 
@@ -56,7 +62,6 @@ export default class EventService extends ApiService {
     const res = await this.axiosInstance.put(`/events/${eventId}/cancel`);
     return res.data;
   };
-
 }
 
 
