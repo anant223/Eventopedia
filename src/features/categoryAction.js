@@ -8,7 +8,6 @@ export const readCategories = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const response = await categoryService.fetchCategories();
-      console.log(response)
       return response?.data;
     } catch (error) {
       return rejectWithValue(error.response?.data || "Catgory haven't been fetched");

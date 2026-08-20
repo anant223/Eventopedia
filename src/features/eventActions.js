@@ -1,4 +1,4 @@
-import { EventService } from "@/services/index";
+import EventService from "@/services/event.service";
 import { createAsyncThunk} from "@reduxjs/toolkit";
 
 const eventService = new EventService();
@@ -44,6 +44,7 @@ export const fetchEventById = createAsyncThunk(
   async (eventId, { rejectWithValue }) => {
     try {
       const response = await eventService.readEvent(eventId);
+      console.log(response.data)
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response?.data || "Failed to fetch event");
@@ -53,9 +54,9 @@ export const fetchEventById = createAsyncThunk(
 
 export const fetchAllEvents = createAsyncThunk(
   "event/fetchAll",
-  async (_, { rejectWithValue }) => {
+  async ({ lat, lng}, { rejectWithValue }) => {
     try {
-      const response = await eventService.readEvents();
+      const response = await eventService.activePublicEventsPreview({lat, lng});
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response?.data || "Failed to fetch events");

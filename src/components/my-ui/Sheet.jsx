@@ -16,7 +16,7 @@ const ResponsiveModal = ({ open, onOpenChange, children }) => {
     return (
       <Drawer open={open} onOpenChange={onOpenChange}>
         <DrawerContent className="bg-white rounded-t-2xl p-0 overflow-hidden">
-          <div className="relative">
+          <div className="relative p-2">
             <DrawerClose asChild>
               <button className="absolute right-4 top-4 rounded-full bg-[#f0ede6] p-1.5 border border-black/10 cursor-pointer">
                 <X className="h-3.5 w-3.5 text-[#9b9890]" />
@@ -31,9 +31,9 @@ const ResponsiveModal = ({ open, onOpenChange, children }) => {
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-[420px] rounded-2xl p-0 overflow-hidden bg-white">
+      <DialogContent className="max-w-xl rounded-2xl p-0 overflow-hidden bg-white">
         <DialogTitle />
-        <div className="relative">
+        <div className="relative p-2">
           <DialogClose asChild>
             <button className="absolute right-4 top-4 rounded-full bg-[#f0ede6] p-1.5 border border-black/10 cursor-pointer">
               <X className="h-3.5 w-3.5 text-[#9b9890]" />

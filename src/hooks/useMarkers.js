@@ -1,15 +1,10 @@
-import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import React, {useEffect, useMemo, useRef} from "react";
 import mapboxgl from "mapbox-gl";
-import { DEFAULT_ZOOM, MAX_BOUNDS_ZOOM } from "@/utils/map";
-import EventMapCard from "@/components/eventMap/MarkerCard";
 import { groupEventsByLocation } from "@/utils/groupEventsByLocation";
 import { fitMapBounds } from "@/utils/fitMapBounds";
-import { categories } from "@/utils/constant";
 import useCategory from "./useCategory";
 
-// How close two markers can be (in px) before we consider them "colliding"
 const COLLISION_THRESHOLD_PX = 34;
-// How far apart to nudge colliding markers (in px)
 const OFFSET_PX = 16;
 const DEFAULT_ICON = "📍";
 const DEFAULT_COLOR = "#D85A30";
@@ -21,8 +16,6 @@ const buildCategoryLookups = (categories) => {
     iconBySlug[category.slug] = category.emoji || DEFAULT_ICON;
     colorBySlug[category.slug] = category.color || DEFAULT_COLOR;
   });
-  console.log("icon", iconBySlug)
-  console.log("color", colorBySlug)
   return { iconBySlug, colorBySlug };
 };
 
@@ -32,14 +25,16 @@ const getCategoryColor = (eventCategory, color) => {
 }
 const getCategoryIcon = (eventCategory, icon) => {
   const category = eventCategory.toLowerCase()
-  return icon[category] || DEFAULT_COLOR
+  return icon[category] || DEFAULT_ICON
 }
 
 export const useEventsMarkers = ({ mapRef, events, isMapReady, onMarkerClick }) => {
   const markerRef = useRef(new Map());
   const groupRef = useRef(new Map());
   const hasFitBoundRef = useRef(false);
+ 
   const { categories } = useCategory();
+ 
   const categoryLookups = useMemo(
     () => buildCategoryLookups(categories),
     [categories]
@@ -53,6 +48,7 @@ export const useEventsMarkers = ({ mapRef, events, isMapReady, onMarkerClick }) 
     const incomingIds = new Set();
 
     locationGroups?.forEach((group, key) => {
+      console.log(group)
       incomingIds.add(key);
 
       const existing = markerRef.current.get(key);
@@ -62,7 +58,6 @@ export const useEventsMarkers = ({ mapRef, events, isMapReady, onMarkerClick }) 
         existing.group = group;
         return;
       }
-
       const el = document.createElement("div");
       el.className = "event-marker";
 
@@ -100,7 +95,6 @@ export const useEventsMarkers = ({ mapRef, events, isMapReady, onMarkerClick }) 
               <p style="font-size:11px; color:#666; margin:0;">${group.venueName}</p>
             </div>
           `);
-
         marker.setPopup(popup);
         el.addEventListener("click", () => marker.togglePopup());
       } else {
@@ -125,7 +119,9 @@ export const useEventsMarkers = ({ mapRef, events, isMapReady, onMarkerClick }) 
     });
 
     for (const [key, entry] of markerRef.current.entries()) {
-      if (!incomingIds.has(key)) {
+      if (
+        !incomingIds.has(key) 
+      ) {
         entry.marker.remove();
         markerRef.current.delete(key);
       }
@@ -208,7 +204,7 @@ export const useEventsMarkers = ({ mapRef, events, isMapReady, onMarkerClick }) 
 
   useEffect(() => {
     return () => {
-      markerRef.current.forEach((marker) => marker.remove());
+      markerRef.current.forEach((entry) => entry.marker.remove());
       markerRef.current.clear();
     };
   }, []);

@@ -13,28 +13,30 @@ const useLocationSearch = ({locationQuery}) => {
 
   
   useEffect(() => {
-    if (!locationQuery || locationQuery.length < 2) {
+    const query = locationQuery?.trim() ?? "";
+
+    if (query.length < 2) {
       setRecommendations([]);
       setIsLoading(false);
+      lastQueryRef.current = undefined;
       return;
     }
 
-    if(lastQueryRef.current === locationQuery.trim()) return;
+    if(lastQueryRef.current === query) return;
     
-    lastQueryRef.current = locationQuery.trim();
+    lastQueryRef.current = query;
     
+    setIsLoading(true);
 
     let isActive = true;
     const timer =  setTimeout(async () => {
-      setIsLoading(true);
       setErr(null);
       try {
-        const res = await locationService.fetchPlaces(locationQuery);
+        const res = await locationService.fetchPlaces(query);
         if(!isActive) return;
         setRecommendations(res);
       } catch (error) {
         if(!isActive) return;
-        console.log("location fetching err", error.message);
         setErr(error.message)
         setRecommendations([])
       } finally{
