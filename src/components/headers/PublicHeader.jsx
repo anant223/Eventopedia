@@ -5,7 +5,6 @@ import { WrapperContainer } from '../containers/Container.jsx';
 
 const PublicHeader = () => {
     const navigate = useNavigate();
-    
 
   return (
     <header className="sticky top-0 z-50 bg-[#f0ede6]/90 backdrop-blur-sm border-b border-black/[0.06]">
