@@ -1,4 +1,4 @@
-import { LikeService } from "@/services/index";
+import LikeService  from "@/services/like.service";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
 const likeService = new LikeService();

@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { PaymentService } from "@/services";
+import PaymentService from "@/services/payment.service";
 
 const paymentService = new PaymentService();
 

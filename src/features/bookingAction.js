@@ -1,4 +1,4 @@
-import { BookingService } from "@/services";
+import  BookingService  from "@/services/booking.service";
 import {createAsyncThunk } from "@reduxjs/toolkit";
 
 const bookingService = new BookingService()
