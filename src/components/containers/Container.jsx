@@ -12,4 +12,11 @@ const BodyContainer = ({ as: Tag = "div", children, className = "" }) => (
     {children}
   </Tag>
 );
-export { WrapperContainer, BodyContainer };
+const MinContainer  = ({ as: Tag = "div", children, className = "" }) => (
+  <Tag
+    className={`max-w-2xl mx-auto px-4 md:px-8 lg:px-12 xl:px-16 2xl:px-10 ${className}`}
+  >
+    {children}
+  </Tag>
+);
+export { WrapperContainer, BodyContainer, MinContainer};
