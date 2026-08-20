@@ -1,12 +1,13 @@
 import React from 'react'
 import EventFormPage from '@/create-events/EventFormPage';
-import { PageShell } from '@/components/layout/PageShell';
+
 const EventFrom = () => {
   return (
-    <PageShell>
-      <EventFormPage/>
-    </PageShell>
-  );
+    <div className=" w-full h-full overflow-y-auto">
+      <EventFormPage />
+    </div>
+  ); 
+  
 }
 
 export default EventFrom
