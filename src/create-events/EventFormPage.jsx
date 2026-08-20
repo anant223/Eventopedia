@@ -1,17 +1,14 @@
-import { useState, useRef, useCallback } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useRef, useState} from "react";
+import { data, useLocation, useNavigate, useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { useForm, Controller } from "react-hook-form";
+import { useForm, Controller, useWatch } from "react-hook-form";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Separator } from "@/components/ui/separator";
-import { PageShell } from "@/components/layout/PageShell";
-import {BodyContainer} from "@/components/containers/Container";
-import TipTapEditor from "@/components/common/Tiptap";
-import { Eye, ImagePlus, Lock, X } from "lucide-react";
+import {MinContainer} from "@/components/containers/Container";
+import { Eye, Lock, X } from "lucide-react";
 import {
   Select,
   SelectContent,
@@ -21,7 +18,10 @@ import {
 } from "@/components/ui/select";
 import ResponsiveModal from "@/components/my-ui/Sheet";
 import Tiptap from "@/components/common/Tiptap";
-import { Card } from "@/components/ui/card";
+import useEvents from "@/hooks/useEvents";
+import { toast } from "sonner";
+import usePayment from "@/hooks/usePayment";
+import useLocationSearch from "@/hooks/useLocation";
 
 const CATEGORIES = [
   "tech",
@@ -100,7 +100,7 @@ const OptionRow = ({ icon, title, sub, children }) => (
 // ─── image upload ─────────────────────────────────────────────────────────────
 
 const ImageUpload = ({ value, onChange }) => {
-  let inputRef = null;
+  let inputRef = useRef();
 
   const handleFile = (e) => {
     const file = e.target.files[0];
@@ -112,7 +112,7 @@ const ImageUpload = ({ value, onChange }) => {
 
   return (
     <div
-      onClick={() => inputRef?.click()}
+      onClick={() => inputRef?.current.click()}
       className={cn(
         "relative w-full rounded-2xl overflow-hidden cursor-pointer transition-colors",
         "border border-dashed border-black/20 hover:border-black/40",
@@ -140,7 +140,7 @@ const ImageUpload = ({ value, onChange }) => {
             ×
           </button>
           <span className="absolute bottom-2.5 right-2.5 bg-black/50 text-white text-[11px] font-medium px-2.5 py-1 rounded-full pointer-events-none">
-            Change photo
+            Change cover
           </span>
         </>
       ) : (
@@ -169,7 +169,8 @@ const ImageUpload = ({ value, onChange }) => {
       )}
       <input
         ref={(el) => {
-          inputRef = el;
+          inputRef
+          .current = el;
         }}
         type="file"
         accept="image/*"
@@ -184,45 +185,64 @@ const ImageUpload = ({ value, onChange }) => {
 
 const LocationInput = ({ value, onChange }) => {
   const [query, setQuery] = useState(value?.address ?? "");
-  const [results, setResults] = useState([]);
-  const [loading, setLoading] = useState(false);
+  // const [results, setResults] = useState([]);
+  // const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
-  let debounceTimer = null;
+  const {recommendations, isLoading, err} = useLocationSearch({locationQuery: query})
 
-  const search = async (q) => {
-    if (!q || q.length < 2) {
-      setResults([]);
-      return;
-    }
-    setLoading(true);
-    try {
-      const token = import.meta.env.VITE_MAPBOX_TOKEN;
-      const res = await fetch(
-        `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(q.trim())}.json?access_token=${token}&limit=5`
-      );
-      const data = await res.json();
-      setResults(data.features ?? []);
-    } catch {
-      setResults([]);
-    } finally {
-      setLoading(false);
-    }
-  };
+  // let debounceTimer = null;
+
+  // const search = async (q) => {
+  //   if (!q || q.length < 2) {
+  //     setResults([]);
+  //     return;
+  //   }
+  //   setLoading(true);
+
+  //   try {
+  //     const token = import.meta.env.VITE_MAPBOX_TOKEN;
+  //     const res = await fetch(
+  //       `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(q.trim())}.json?access_token=${token}&limit=5`
+  //     );
+  //     const data = await res.json();
+  //     setResults(data.features ?? []);
+  //   } catch {
+  //     setResults([]);
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
+  useEffect(() => {
+    setQuery(value?.address)
+  }, [value?.address])
 
   const handleChange = (e) => {
     setQuery(e.target.value);
     setOpen(true);
-    clearTimeout(debounceTimer);
-    debounceTimer = setTimeout(() => search(e.target.value), 350);
   };
 
-  const select = (f) => {
+ const select = (f) => {
+  // console.log(f)
     const [lng, lat] = f.geometry.coordinates;
-    onChange({ address: f.place_name, lat, lng, locationId: f.id });
+
+    const getContext = (prefix) =>
+        f.context?.find((c) => c.id.startsWith(prefix));
+    console.log(getContext("place").text)
+    onChange({
+      address: f.place_name,
+      lat,
+      lng,
+      placeId: f.id,
+      city: getContext("place")?.text ?? null,
+      state: getContext("region")?.text ?? null,
+      country: getContext("country")?.text ?? null,
+      countryCode: getContext("country")?.short_code?.toUpperCase() ?? null,
+      postalCode: getContext("postcode")?.text ?? null,
+    });
+
     setQuery(f.place_name);
-    setResults([]);
     setOpen(false);
-  };
+};
 
   return (
     <div className="relative">
@@ -249,30 +269,30 @@ const LocationInput = ({ value, onChange }) => {
           placeholder="Search address or 'Online'"
           className="pl-9"
         />
-        {loading && (
+        {isLoading && (
           <div className="absolute right-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 border border-[#9b9890] border-t-transparent rounded-full animate-spin" />
         )}
       </div>
       <AnimatePresence>
-        {open && results.length > 0 && (
+        {open && recommendations?.length > 0 && (
           <motion.div
             initial={{ opacity: 0, y: 4 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 4 }}
             className="absolute top-full left-0 right-0 mt-1.5 bg-white border border-black/[0.09] rounded-xl overflow-hidden z-30 shadow-sm"
           >
-            {results.map((f) => (
+            {recommendations?.map((recommend) => (
               <button
-                key={f.id}
+                key={recommend.id}
                 type="button"
-                onMouseDown={() => select(f)}
+                onMouseDown={() => select(recommend)}
                 className="w-full text-left px-4 py-2.5 hover:bg-[#f8f7f5] transition-colors border-none bg-transparent cursor-pointer"
               >
                 <p className="text-[13px] font-medium text-[#1a1814] truncate">
-                  {f.text}
+                  {recommend.text}
                 </p>
                 <p className="text-[11px] text-[#9b9890] truncate">
-                  {f.place_name}
+                  {recommend.place_name}
                 </p>
               </button>
             ))}
@@ -332,7 +352,7 @@ const TagInput = ({ value = [], onChange }) => {
           variant="outline"
           size="sm"
           onClick={add}
-          className="rounded-xl border-black/15 text-[#1a1814] shrink-0"
+          className="rounded-xl border-black/15 text-[#1a1814] bg-white hover:bg-[#f0ede6] hover:text-[#1a1814] shrink-0"
         >
           Add
         </Button>
@@ -457,7 +477,6 @@ const DescriptionBtn = ({ value, onClick }) => (
     className="w-full text-left py-2 border-none bg-transparent cursor-pointer group"
   >
     {value ? (
-      // show stripped text preview when description is filled
       <p
         className="text-[14px] text-[#6b6966] leading-relaxed line-clamp-3"
         dangerouslySetInnerHTML={{
@@ -472,126 +491,113 @@ const DescriptionBtn = ({ value, onClick }) => (
       </p>
     )}
   </button>
-);
-
-// ─── main page ────────────────────────────────────────────────────────────────
+)
 
 
 const EventFormPage = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-
+  const location = useLocation();
+  const event = location.state?.event;
   const [showMore, setShowMore] = useState(false);
-  const [submitting, setSubmitting] = useState(false);
-  const [savingDraft, setSavingDraft] = useState(false);
   const [showDescModal, setShowDescModal] = useState(false);
-
   const {
     control,
     handleSubmit,
     watch,
     setValue,
+    getValues,
     formState: { errors },
   } = useForm({
     defaultValues: {
-      image: null,
-      title: "",
-      desc: "",
-      category: "other",
-      startDateTime: "",
-      endDateTime: "",
-      location: null,
-      eventType: "public",
-      ticketType: "free",
-      price: "",
-      currency: "INR",
-      totalTickets: "",
-      requireApproval: false,
-      tags: [],
-      hosts: [],
-      invitedUsers: [],
+      eventMode: event?.eventMode || "in_person",
+      image: event?.image ? { file: null, preview: event.image } : null,
+      title: event?.title || "",
+      desc: event?.desc || "",
+      category: event?.category || "other",
+      startDateTime: event?.startDateTime
+        ? new Date(event.startDateTime).toISOString().slice(0, 16)
+        : "",
+      endDateTime: event?.endDateTime
+        ? new Date(event.endDateTime).toISOString().slice(0, 16)
+        : "",
+      location: event?.location || null,
+      online: event?.online || null,
+      eventType: event?.eventType || "public",
+      ticketType: event?.ticketType || "free",
+      price: event?.price || "",
+      currency: event?.currency || "INR",
+      totalTickets: event?.totalTickets || "",
+      requireApproval: event?.requireApproval || false,
+      tags: event?.tags || [],
+      hosts: event?.hosts || [],
+      invitedUsers: event?.invitedUsers || [],
+      status: event?.status || status,
     },
   });
+
+  const eventMode = useWatch({ control, name: "eventMode" });
+  const {create, createLoading, updateLoading, update} = useEvents()
 
   const eventType = watch("eventType");
   const ticketType = watch("ticketType");
   const desc = watch("desc");
-
-  const onSubmit = async (data, status = "active") => {
-    status === "draft" ? setSavingDraft(true) : setSubmitting(true);
-    const fd = new FormData();
-    fd.append("title", data.title);
-    fd.append("desc", data.desc || " ");
-    fd.append("category", data.category);
-    fd.append("startDateTime", data.startDateTime);
-    fd.append("endDateTime", data.endDateTime);
-    fd.append("eventType", data.eventType);
-    fd.append("ticketType", data.ticketType);
-    fd.append("price", data.price || 0);
-    fd.append("currency", data.currency);
-    fd.append("requireApproval", data.requireApproval);
-    fd.append("status", status);
-    if (data.image?.file) fd.append("image", data.image.file);
-    if (data.location) {
-      fd.append("location[address]", data.location.address);
-      if (data.location.lat) fd.append("location[lat]", data.location.lat);
-      if (data.location.lng) fd.append("location[lng]", data.location.lng);
-      if (data.location.locationId)
-        fd.append("locationId", data.location.locationId);
-    }
-    if (data.totalTickets) fd.append("totalTickets", data.totalTickets);
-    data.tags.forEach((t) => fd.append("tags[]", t));
-    data.hosts.forEach((h) => fd.append("hosts[]", h._id));
-    data.invitedUsers.forEach((u) => fd.append("invitedUsers[]", u._id));
-
+  const onSubmit = async (data) => {
     try {
-      // await dispatch(createEvent(fd)).unwrap();
-      navigate("/");
-    } finally {
-      setSubmitting(false);
-      setSavingDraft(false);
+      let res;
+      if(event?._id){
+        res = await update({data, id: event._id})
+      }else {
+        data["status"] = "draft";
+        res = await create(data);
+      }
+      toast.success(event?._id ? "Event updated." : "Draft saved.");
+      navigate(`/main/event/${res._id}`);
+    } catch (err) {
+      toast.error(err?.message || "Failed to save event");
     }
   };
 
   return (
     <div>
-      <form onSubmit={handleSubmit((data) => onSubmit(data, "active"))}>
-        {/* ── sticky header ── */}
+      <form onSubmit={handleSubmit(onSubmit)}>
         <div className="sticky top-0 z-20 bg-[#f0ede6]/90 backdrop-blur-sm border-b border-black/[0.06]">
-          <BodyContainer>
+          <MinContainer>
             <div className="flex items-center justify-between py-4">
               <button
                 type="button"
                 onClick={() => navigate(-1)}
-                className="text-[13px] text-[#9b9890] bg-transparent border-none cursor-pointer p-0"
+                className="text-[13px] text-[#9b9890] bg-transparent border-none cursor-pointer p-0 hover:text-[#1a1814] transition-colors"
               >
                 Cancel
               </button>
+
               <p className="text-[15px] font-medium text-[#1a1814]">
                 New event
               </p>
+
+              {/* Save draft — top right, subtle */}
               <button
-                type="submit"
-                disabled={submitting}
-                className="text-[13px] font-semibold text-[#1a1814] bg-transparent border-none cursor-pointer p-0 disabled:opacity-50"
+                type="button"
+                onClick={handleSubmit((data) => onSubmit(data, "draft"))}
+                disabled={createLoading || updateLoading}
+                className="
+          text-[13px] font-semibold text-[#1a1814]
+          bg-transparent border-none cursor-pointer p-0
+          disabled:opacity-50 hover:text-[#D85A30] transition-colors
+        "
               >
-                {submitting ? "Posting…" : "Post"}
+                {createLoading ? "Saving…" : "Save draft"}
               </button>
             </div>
-          </BodyContainer>
+          </MinContainer>
         </div>
-
-        <BodyContainer className="pt-2 py-10 flex flex-col gap-5">
-          {/* ── visibility + category ── */}
+        <MinContainer className="pt-2 pb-10 flex flex-col gap-5">
           <div className="flex items-center gap-2.5">
             <Controller
               name="eventType"
               control={control}
               render={({ field }) => (
-                <Select
-                  value={field.value}
-                  onValueChange={field.onChange}
-                >
+                <Select value={field.value} onValueChange={field.onChange}>
                   <SelectTrigger className="w-fit gap-2 bg-white border border-white rounded-full px-3.5 h-9 text-[13px] font-medium text-[#1a1814] shadow-none focus:ring-0">
                     <SelectValue />
                   </SelectTrigger>
@@ -623,7 +629,7 @@ const EventFormPage = () => {
                   </SelectTrigger>
                   <SelectContent>
                     {CATEGORIES.map((cat) => (
-                      <SelectItem key={cat} value={cat} >
+                      <SelectItem key={cat} value={cat}>
                         {cat}
                       </SelectItem>
                     ))}
@@ -633,7 +639,6 @@ const EventFormPage = () => {
             />
           </div>
 
-          {/* ── image ── */}
           <Controller
             name="image"
             control={control}
@@ -655,7 +660,7 @@ const EventFormPage = () => {
               render={({ field }) => (
                 <input
                   {...field}
-                  placeholder="What's your event called?"
+                  placeholder="Event title"
                   className="w-full border-none outline-none text-[18px] font-medium text-[#1a1814] bg-transparent placeholder:text-[#c0bdb8] font-[inherit]"
                 />
               )}
@@ -666,6 +671,31 @@ const EventFormPage = () => {
 
           {/* ── description — taps to open TipTap modal ── */}
           <div>
+            <Controller
+              name="desc"
+              control={control}
+              rules={{
+                required: "Description is required",
+              }}
+              render={({ field }) => {
+                <>
+                  <DescriptionBtn
+                    value={field.value}
+                    onClick={() => setShowDescModal(true)}
+                  />
+
+                  {field.value && (
+                    <button
+                      type="button"
+                      onClick={() => setShowDescModal(true)}
+                      className="text-[11px] text-[#9b9890] hover:text-[#1a1814] bg-transparent border-none cursor-pointer p-0 mt-1 transition-colors"
+                    >
+                      Edit description →
+                    </button>
+                  )}
+                </>;
+              }}
+            />
             <DescriptionBtn
               value={desc}
               onClick={() => setShowDescModal(true)}
@@ -680,24 +710,97 @@ const EventFormPage = () => {
                 Edit description →
               </button>
             )}
+            <FieldError message={errors.desc?.message} />
             <Separator className="mt-3 bg-black/20 h-[0.5px]" />
           </div>
 
-          {/* ── location ── */}
           <div>
             <SectionLabel>Location</SectionLabel>
             <Controller
-              name="location"
+              name="eventMode"
               control={control}
-              rules={{ required: "Location is required" }}
+              defaultValue="in_person"
+              rules={{ required: "Please select an event type" }}
               render={({ field }) => (
-                <LocationInput value={field.value} onChange={field.onChange} />
+                <div className="flex gap-2 mb-3">
+                  <ToggleChip
+                    label="In-person"
+                    active={field.value === "in_person"}
+                    onClick={() => {
+                      field.onChange("in_person");
+                      setValue("online", null);
+                    }}
+                  />
+                  <ToggleChip
+                    label="Online"
+                    active={field.value === "online"}
+                    onClick={() => {
+                      field.onChange("online");
+                      setValue("location", null);
+                    }}
+                  />
+                  <ToggleChip
+                    label="Hybrid"
+                    active={field.value === "hybrid"}
+                    onClick={() => field.onChange("hybrid")}
+                  />
+                </div>
               )}
             />
-            <FieldError message={errors.location?.message} />
+            <FieldError message={errors.eventMode?.message} />
+
+            {(eventMode === "in_person" || eventMode === "hybrid") && (
+              <div className="mb-3">
+                <Controller
+                  name="location"
+                  control={control}
+                  rules={{
+                    validate: (value) =>
+                      eventMode === "online" ||
+                      !!value?.address ||
+                      "Venue location is required",
+                  }}
+                  render={({ field }) => (
+                    <LocationInput
+                      value={field.value}
+                      onChange={field.onChange}
+                    />
+                  )}
+                />
+                <FieldError message={errors.location?.message} />
+              </div>
+            )}
+
+            {(eventMode === "online" || eventMode === "hybrid") && (
+              <div>
+                <Controller
+                  name="online.link"
+                  control={control}
+                  rules={{
+                    validate: (value) => {
+                      if (eventMode === "in_person") return true;
+                      if (!value) return "Online link is required";
+                      try {
+                        new URL(value);
+                        return true;
+                      } catch {
+                        return "Enter a valid URL";
+                      }
+                    },
+                  }}
+                  render={({ field }) => (
+                    <TextInput
+                      type="url"
+                      placeholder="https://zoom.us/j/..."
+                      {...field}
+                    />
+                  )}
+                />
+                <FieldError message={errors.online?.link?.message} />
+              </div>
+            )}
           </div>
 
-          {/* ── date & time ── */}
           <div>
             <SectionLabel>Date & time</SectionLabel>
             <div className="grid grid-cols-2 gap-3">
@@ -706,7 +809,22 @@ const EventFormPage = () => {
                 <Controller
                   name="startDateTime"
                   control={control}
-                  rules={{ required: "Start date required" }}
+                  rules={{
+                    required: "Start date required",
+                    validate: (val) => {
+                      const now = new Date();
+                      const start = new Date(val);
+                      if (start < now) {
+                        return "Start date must be in the future";
+                      }
+                      const end = getValues("startDateTime");
+
+                      if (end && val && new Date(val) > new Date(end)) {
+                        return "Start Date must be before end";
+                      }
+                      return true;
+                    },
+                  }}
                   render={({ field }) => (
                     <TextInput type="datetime-local" {...field} />
                   )}
@@ -718,7 +836,20 @@ const EventFormPage = () => {
                 <Controller
                   name="endDateTime"
                   control={control}
-                  rules={{ required: "End date required" }}
+                  rules={{
+                    required: "End date required",
+                    validate: (value) => {
+                      const start = getValues("startDateTime");
+                      if (
+                        start &&
+                        value &&
+                        new Date(value) <= new Date(start)
+                      ) {
+                        return "End must be after start";
+                      }
+                      return true;
+                    },
+                  }}
                   render={({ field }) => (
                     <TextInput type="datetime-local" {...field} />
                   )}
@@ -779,7 +910,9 @@ const EventFormPage = () => {
                         <ToggleChip
                           label="Paid"
                           active={field.value === "paid"}
-                          onClick={() => field.onChange("paid")}
+                          onClick={() =>
+                            toast.info("Paid events are coming soon!")
+                          }
                         />
                       </div>
                     )}
@@ -848,8 +981,7 @@ const EventFormPage = () => {
                   </AnimatePresence>
                 </div>
 
-                {/* require approval */}
-                <div className="bg-white border border-black/[0.08] rounded-2xl px-4">
+                {/* <div className="bg-white border border-black/[0.08] rounded-2xl px-4">
                   <Controller
                     name="requireApproval"
                     control={control}
@@ -879,7 +1011,7 @@ const EventFormPage = () => {
                       </OptionRow>
                     )}
                   />
-                </div>
+                </div> */}
 
                 {/* tags */}
                 <div className="bg-white border border-black/[0.08] rounded-2xl p-4">
@@ -894,7 +1026,7 @@ const EventFormPage = () => {
                 </div>
 
                 {/* co-hosts */}
-                <div className="bg-white border border-black/[0.08] rounded-2xl p-4">
+                {/* <div className="bg-white border border-black/[0.08] rounded-2xl p-4">
                   <SectionLabel>Co-hosts</SectionLabel>
                   <Controller
                     name="hosts"
@@ -907,7 +1039,7 @@ const EventFormPage = () => {
                       />
                     )}
                   />
-                </div>
+                </div> */}
 
                 {/* invite users — private only */}
                 <AnimatePresence>
@@ -940,50 +1072,56 @@ const EventFormPage = () => {
             )}
           </AnimatePresence>
 
-          {/* ── bottom actions ── */}
-          <div className="flex gap-3 pt-2 pb-8">
-            <Button
-              type="button"
-              variant="outline"
-              className="flex-1 rounded-xl border-black/15 text-[#1a1814] h-12"
-              disabled={savingDraft}
-              onClick={handleSubmit((data) => onSubmit(data, "draft"))}
-            >
-              {savingDraft ? "Saving…" : "Save draft"}
-            </Button>
-            <Button
-              type="submit"
-              disabled={submitting}
-              className="flex-[2] rounded-xl bg-[#1a1814] text-[#f2eee7] h-12 hover:bg-[#1a1814]/90"
-            >
-              {submitting ? "Publishing…" : "Publish event"}
-            </Button>
-          </div>
-        </BodyContainer>
-      </form>
-
-      {/* ── TipTap description modal ── */}
-      <ResponsiveModal open={showDescModal} onOpenChange={setShowDescModal}>
-        <Card>
-          <div className="flex items-center justify-between mb-4">
-            <p className="text-[15px] font-medium text-[#1a1814]">
-              Description
-            </p>
+          {/* ── Bottom publish button ── */}
+          <div className="pt-4 pb-10">
             <button
               type="button"
-              onClick={() => setShowDescModal(false)}
-              className="text-[13px] font-semibold text-[#1a1814] bg-transparent border-none cursor-pointer p-0"
+              onClick={handleSubmit((data) => onSubmit(data, "active"))}
+              disabled={updateLoading || createLoading}
+              className="w-full h-12 rounded-xl bg-[#1a1814] text-white text-[14px] font-semibold transition-all hover:bg-[#272420] active:scale-[0.99] disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
             >
-              Done
+              {createLoading || updateLoading ? (
+                <>
+                  <svg
+                    className="animate-spin"
+                    width="14"
+                    height="14"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2.5"
+                    strokeLinecap="round"
+                    aria-hidden="true"
+                  >
+                    <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83" />
+                  </svg>
+                  xyz
+                  {event ? "Updating…" : "Creating…"}
+                </>
+              ) : event ? "Update" : "Create event"}
             </button>
+
+            <p className="text-[11.5px] text-[#9a9590] text-center mt-3">
+              Your event saves as a draft first — review before publishing.
+            </p>
           </div>
-          <Tiptap
-            content={desc}
-            onChange={(html) =>
-              setValue("desc", html, { shouldValidate: true })
-            }
-          />
-        </Card>
+        </MinContainer>
+      </form>
+      <ResponsiveModal open={showDescModal} onOpenChange={setShowDescModal}>
+        <div className="flex items-center justify-between mb-4">
+          <p className="text-[15px] font-medium text-[#1a1814]">Description</p>
+          <button
+            type="button"
+            onClick={() => setShowDescModal(false)}
+            className="text-[13px] font-semibold text-[#1a1814] bg-transparent border-none cursor-pointer p-0"
+          >
+            Done
+          </button>
+        </div>
+        <Tiptap
+          content={desc}
+          onChange={(html) => setValue("desc", html, { shouldValidate: true })}
+        />
       </ResponsiveModal>
     </div>
   );

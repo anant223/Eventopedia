@@ -193,7 +193,6 @@ const LocationInput = ({ value, onChange }) => {
   );
 };
 
-// ─── tag input ────────────────────────────────────────────────────────────────
 
 const TagInput = ({ value = [], onChange }) => {
   const [input, setInput] = useState("");
