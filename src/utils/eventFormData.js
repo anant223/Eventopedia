@@ -18,13 +18,20 @@ export const buildEventFormData = (data) => {
   if (data.eventMode === "in_person" || data.eventMode === "hybrid") {
     if (data.location?.address)
       fd.append("location[address]", data.location.address);
-    if (data.location?.name) fd.append("location[name]", data.location.name);
+    if (data.location?.city) fd.append("location[city]", data.location.city);
+    if (data.location?.state) fd.append("location[state]", data.location.state);
+    if (data.location?.country)
+      fd.append("location[country]", data.location.country);
+    if (data.location?.countryCode)
+      fd.append("location[countryCode]", data.location.countryCode);
+    if (data.location?.postalCode)
+      fd.append("location[postalCode]", data.location.postalCode);
+    if (data.location?.placeId)
+      fd.append("location[placeId]", data.location.placeId);
     if (data.location?.lat != null)
       fd.append("location[lat]", data.location.lat);
     if (data.location?.lng != null)
       fd.append("location[lng]", data.location.lng);
-    if (data.location?.placeId)
-      fd.append("location[placeId]", data.location.placeId);
   }
 
   if (data.eventMode === "online" || data.eventMode === "hybrid") {

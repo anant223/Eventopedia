@@ -27,7 +27,9 @@ export const selectUpcomingEvents = createSelector(
 );
 export const selectPastEvents = createSelector([selectAllEvents], (events) => {
   const now = new Date();
-  return events.filter((event) => new Date(event.startDateTime) <= now);
+  return events.filter(
+    (event) => event?.startDateTime && new Date(event.startDateTime) <= now
+  );
 });
 export const selectEventById = (eventId) =>
   createSelector([selectAllEvents], (events) =>

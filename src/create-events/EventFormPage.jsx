@@ -226,19 +226,18 @@ const LocationInput = ({ value, onChange }) => {
     const [lng, lat] = f.geometry.coordinates;
 
     const getContext = (prefix) =>
-        f.context?.find((c) => c.id.startsWith(prefix));
-    console.log(getContext("place").text)
-    onChange({
-      address: f.place_name,
-      lat,
-      lng,
-      placeId: f.id,
-      city: getContext("place")?.text ?? null,
-      state: getContext("region")?.text ?? null,
-      country: getContext("country")?.text ?? null,
-      countryCode: getContext("country")?.short_code?.toUpperCase() ?? null,
-      postalCode: getContext("postcode")?.text ?? null,
-    });
+      f.context?.find((c) => c.id.startsWith(prefix));
+      onChange({
+        address: f.place_name,
+        lat,
+        lng,
+        placeId: f.id,
+        city: getContext("place")?.text ?? null,
+        state: getContext("region")?.text ?? null,
+        country: getContext("country")?.text ?? null,
+        countryCode: getContext("country")?.short_code?.toUpperCase() ?? null,
+        postalCode: getContext("postcode")?.text ?? null,
+      });
 
     setQuery(f.place_name);
     setOpen(false);
@@ -553,6 +552,7 @@ const EventFormPage = () => {
       toast.success(event?._id ? "Event updated." : "Draft saved.");
       navigate(`/main/event/${res._id}`);
     } catch (err) {
+      console.log("err", err)
       toast.error(err?.message || "Failed to save event");
     }
   };

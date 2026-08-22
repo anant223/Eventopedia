@@ -44,7 +44,6 @@ export const fetchEventById = createAsyncThunk(
   async (eventId, { rejectWithValue }) => {
     try {
       const response = await eventService.readEvent(eventId);
-      console.log(response.data)
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response?.data || "Failed to fetch event");

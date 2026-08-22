@@ -33,13 +33,7 @@ const eventSlice = createSlice({
         })
         .addCase(createEvent.fulfilled, (state, action) => {
           state.createLoading = false;
-          if (action.payload.page.number === 0) {
-            state.events = action.payload.events;
-          } else {
-            state.events = [...action.payload.events];
-          }
-
-          state.pageInfo = action.payload.page;
+          state.events = [action.payload, ...state.events]
         })
         .addCase(createEvent.rejected, (state, action) => {
           state.createLoading = false;
